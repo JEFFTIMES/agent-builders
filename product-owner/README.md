@@ -1,8 +1,6 @@
----
-Purpose: Self-evolution Product Owner Agent
----
 
-# README
+# Self-evolution Product Owner Agent
+
 
 ## Why I need a Product Owner Agent?
 
