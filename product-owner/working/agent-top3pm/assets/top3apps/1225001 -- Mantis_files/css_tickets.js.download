@@ -1,0 +1,32 @@
+// -------------------------------------------------------------------
+// Mantis implement FAC saml login, will remove the function
+
+// -------------------------------------------------------------------
+// handle_page_link( page_url, bug_ids )
+// function for posting bug_ids when click page number link
+// -------------------------------------------------------------------
+function handle_page_link( page_url, request_items ) {
+        var json_obj = $.parseJSON(atob(request_items));
+        var items = '';
+        $.each(json_obj, function(key, value) {
+            items += '<input type="hidden" name="' + key + '" value="' + value + '" />';
+        });
+        var form2 = '<form method="post" action="' + page_url + '">'
+                    + items
+                    + '</form>';
+	$(form2).appendTo('body').submit().remove();
+	return true;
+}
+
+// -------------------------------------------------------------------
+// is_integer( val )
+// function for check if input is integer
+// -------------------------------------------------------------------
+function is_integer( val ) {
+	if (val == parseInt(val, 10)) {
+		return true;
+	} else {
+		alert(val + " is not a valid Bug ID.");
+		return false;
+	}
+}

@@ -1,0 +1,2276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0060)https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>1225001 -- Mantis</title>
+<link rel="stylesheet" type="text/css" href="./1225001 -- Mantis_files/default1.css"><link rel="stylesheet" href="./1225001 -- Mantis_files/jquery-ui-1.13.2.min.css"><link rel="stylesheet" href="./1225001 -- Mantis_files/chosen.min.css"><script language="JavaScript" src="./1225001 -- Mantis_files/jquery-3.7.1.min.js.download"></script><script language="JavaScript" src="./1225001 -- Mantis_files/jquery-ui-1.13.2.min.js.download"></script><script language="JavaScript" src="./1225001 -- Mantis_files/chosen.jquery.min.js.download"></script><script language="JavaScript" src="./1225001 -- Mantis_files/css_tickets.js.download"></script><script language="JavaScript" src="./1225001 -- Mantis_files/jslib.js.download"></script>
+<script>
+	// case insensitive function
+	jQuery.expr[':'].Contains = function(a, i, m) {
+		return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+	};
+
+	$(document).ready(function() {
+		$('.ftnt_chosen').chosen({
+			search_contains: true,
+			max_selected_options: 5,
+			allow_single_deselect: true
+		});
+
+		$('.ftnt_chosen_reporter').chosen({
+			search_contains: true
+		});
+	});
+</script>
+
+<script language="JavaScript">
+	$(function() {
+		var dialog_email = $("#dialog-help-form").dialog({
+			autoOpen: false,
+			height: 800,
+			width: 700,
+			modal: true,
+			open : function() {
+				var t = $(this).parent(), w = $(window);
+				t.offset({
+					top: 0,
+					left: 0
+				});
+			},
+			buttons: {
+				Cancel: function() {
+					dialog_email.dialog( "close" );
+				}
+			},
+			close: function() {
+			}
+		});
+
+		var email_form = dialog_email.find("form").on("submit", function( event ) {
+			event.preventDefault();
+		});
+
+		$("#email_to_mantis_help").on("click", function() {
+			dialog_email.dialog( 'option', 'buttons', {
+				Cancel: function() {
+					dialog_email.dialog( "close" );
+				}
+			});
+
+			$.ajax({
+				url: "mantis_help_page.php",
+				async: true,
+				success: function(response) {
+					if (response === 'not_login') {
+						location.reload(true);
+						return false;
+					}
+					$("#dialog-help-form").html(response);
+					dialog_email.dialog( "open" );
+				},
+				error: function(jqXHR, status, err) {
+					alert("Exception happened.");
+					location.reload(true);
+					return false;
+				}
+			});
+		});
+
+		$(".login_as_user").on("click", function() {
+			var action = $(this).text() === 'Login as this user' ? 'login_as' : 'back_to';
+			var cast_user_id = $(this).attr('id');
+			$.ajax({
+				type: "POST",
+				url: "login_as_user.php",
+				data: {action: action, cast_user_id: cast_user_id},
+				async: true,
+				success: function(response) {
+					response = response.trim();
+					if (response === 'not_login') {
+						location.reload(true);
+						return false;
+					} else if (response !== 'success') {
+						alert(response);
+					}
+					$(location).attr("href", "main_page.php");
+					return false;
+				},
+				error: function(jqXHR, status, err) {
+					alert("Exception happened.");
+					location.reload(true);
+					return false;
+				}
+			});
+		});
+	});
+</script>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Pragma-directive" content="no-cache">
+<meta http-equiv="Cache-Directive" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="google" content="notranslate"><script id="fortidlp-file-access-api" src="chrome-extension://gbojkjpincgojijodbnliimgeggnomai/upload_fileaccessapi.js"></script><script id="fortidlp-input-element-creation" src="chrome-extension://gbojkjpincgojijodbnliimgeggnomai/upload_element_creation.js"></script></head><body data-new-gr-c-s-check-loaded="14.1272.0" data-gr-ext-installed=""><div id="sitebar"><ul><li class=""><a href="https://pmdb.fortinet.com/" style="text-decoration: none;" target="_blank">PMDB</a></li><li class="selected"><a href="https://mantis.fortinet.com/" style="text-decoration: none;" target="_blank">Mantis</a></li><li class=""><a href="https://community.fortinet.com/" style="text-decoration: none;" target="_blank">Community</a></li><li class=""><a href="https://fortivision.fortinet.com/" style="text-decoration: none;" target="_blank">FortiVision</a></li><li class=""><a href="https://info.fortinet.com/" style="text-decoration: none;" target="_blank">InfoSite</a></li><li class=""><a href="https://oa.fortinet.com/" style="text-decoration: none;" target="_blank">FortiOA</a></li><li class=""><a href="https://hcm.myfortinet.com/" style="text-decoration: none;" target="_blank">HCM</a></li><li class=""><a href="https://forticare.fortinet.com/CustomerSupport/SSO/login.ashx" style="text-decoration: none;" target="_blank">FortiCare</a></li><li class=""><a href="https://training.fortinet.com/auth/saml2/login.php?idpalias=employee" style="text-decoration: none;" target="_blank">NSE</a></li><li class=""><a href="https://isms.corp.fortinet.com/" style="text-decoration: none;" target="_blank">ISMS</a></li><li class=""><a href="https://quality.corp.fortinet.com/" style="text-decoration: none;" target="_blank">QMS</a></li><li class=""><a href="https://fortinet.sharepoint.com/sites/fuse" style="text-decoration: none;" target="_blank">Sharepoint</a></li><li class=""><a href="https://dev-signing.corp.fortinet.com/" style="text-decoration: none;" target="_blank">DevSigning</a></li><li class=""><a href="https://jira.servicedesk.myfortinet.com/" style="text-decoration: none;" target="_blank">Jira Service Desk</a></li><li class=""><a href="https://fortidrive.com/" style="text-decoration: none;" target="_blank">FortiDrive</a></li></ul></div><table class="hide"><tbody><tr><td class="login-info-left">Logged in as: <span class="italic">Jeff Song</span> <span class="small">(User) <label id="user_total_cto"><font color="green"><b>(CTO$: 4)</b></font></label></span></td><td class="login-info-middle"><span class="italic">2026-02-14 21:13 PST</span></td><td class="login-info-right"><form method="post" name="form_set_project" action="https://mantis.fortinet.com/set_project.php?"><select name="project_id" class="small" onchange="document.forms.form_set_project.submit();"><option value="0">All Projects</option><option value="52">#1 FortiOS</option><option value="81">#2 FortiSwitch</option><option value="56">#3 FortiAnalyzer</option><option value="90">#4 FortiAP</option><option value="125">#5 FortiOS-6K7K</option><option value="60">#6 FortiManager</option><option value="78">#7 FortiMail</option><option value="39">#8 FortiWeb</option><option value="116">#9 FortiSandbox</option><option value="76">#10 FortiClient</option><option value="117">#11 FortiSIEM</option><option value="133">#12 FortiEDR</option><option value="96">#15 FortiAuthenticator</option><option value="37">#16 FortiGate Cloud</option><option value="123">#17 FortiNAC</option><option value="106">#18 FortiADC</option><option value="104">#19 FortiDDoS</option><option value="100">#20 FortiVoice</option><option value="136">#21 FortiExtender</option><option value="131">#23 FortiSOAR</option><option value="130">#26 FortiPortal</option><option value="122">#28 FNDN</option><option value="109">#31 FortiWAN</option><option value="152">#35 FortiCASB</option><option value="135">#40 FortiPresence</option><option value="129">#42 FortiCloud</option><option value="47" style="color: #aaaaaa">#44 FortiCare</option><option value="153">#49 FortiToken</option><option value="148" style="color: #aaaaaa">0day Vuln Research</option><option value="73" style="color: #aaaaaa">AV Engine &amp; sigs</option><option value="121">DevOps</option><option value="8">Documents</option><option value="124">Fabric Studio</option><option value="158">FIO</option><option value="157">FMG-FAZ Cloud</option><option value="149">Forensics</option><option value="139">FortiAIOps</option><option value="45" style="color: #aaaaaa">FortiASICs</option><option value="138" style="color: #aaaaaa">FortiCare BPS</option><option value="165">FortiCASB-SSPM</option><option value="166">FortiCNAPP</option><option value="128">FortiCNP</option><option value="134">FortiDAST</option><option value="144">FortiDevSec</option><option value="161">FortiDLP</option><option value="127">FortiEdge Cloud</option><option value="120">FortiGate Cloud Sandbox</option><option value="70">FortiGuard Services</option><option value="143">FortiGuest</option><option value="155">FortiIdeas</option><option value="146">FortiIdentity Cloud</option><option value="154">FortiMail Cloud</option><option value="137">FortiMonitor</option><option value="159">FortiNDR</option><option value="160">FortiNDRCloud</option><option value="151" style="color: #aaaaaa">Fortinet Website</option><option value="145">FortiPAM</option><option value="147">FortiRecon</option><option value="141">FortiSASE</option><option value="162">FortiSRA</option><option value="156">FortiSwitch-AX</option><option value="111">FortiSwitchDev</option><option value="118" style="color: #aaaaaa">FSA Engine &amp; Rules</option><option value="25">Hardware</option><option value="38" style="color: #aaaaaa">IPS Engine &amp; sigs</option><option value="91" style="color: #aaaaaa">Marketing</option><option value="112">Meru </option><option value="107">New Product</option><option value="101" selected="selected">NFR</option><option value="72">NPI</option><option value="142">NSE</option><option value="140">Outbreak Alerts</option><option value="163">Perception Point</option><option value="150" style="color: #aaaaaa">PM-Watchlist</option><option value="108">PSIRT</option><option value="65">Quality Control</option><option value="28">Special Branches</option><option value="105">Top-3</option><option value="164">Web Services</option></select><input type="submit" onclick="this.disabled=true;this.form.submit();return true;" value="Switch" class="small"></form></td></tr></tbody></table><table class="width100" cellspacing="0"><tbody><tr><td class="col-2" width="10%"><a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#" id="email_to_mantis_help">Mantis Help</a></td><td class="menu"><a href="https://mantis.fortinet.com/main_page.php">Main</a> | <a href="https://mantis.fortinet.com/view_all_bug_page.php?view_type=0">View Bugs</a> | <a href="https://mantis.fortinet.com/view_all_bug_page.php?view_type=1">View Bug By Group</a> | <a href="https://mantis.fortinet.com/bug_report_page.php" class="link_submit">Report Bug</a> | <a href="https://mantis.fortinet.com/summary_page.php">Summary</a> | <a href="https://mantis.fortinet.com/manage_proj_page.php">Manage</a> | <a href="https://mantis-archive.fortinet.com/main_page.php">Archive</a> | <a href="https://mantis.fortinet.com/account_page.php">My Account</a> | <a href="https://mantis.fortinet.com/logout_page.php">Logout</a></td><td class="right" style="white-space: nowrap;"><form method="post" action="https://mantis.fortinet.com/jump_to_bug.php"><input type="text" id="jump_bug_id" name="bug_id" size="10" class="small">&nbsp;<input type="submit" onclick="if(!is_integer(document.getElementById(&#39;jump_bug_id&#39;).value))return false;this.disabled=true;this.form.submit();return true;" value="Jump" class="small">&nbsp;</form></td></tr></tbody></table><link rel="stylesheet" href="./1225001 -- Mantis_files/jquery.alertable.css">
+<script language="JavaScript" src="./1225001 -- Mantis_files/jquery.alertable.min.js.download"></script>
+
+
+
+<input type="hidden" id="view_bug_id" value="1225001">
+
+<script language="JavaScript">
+	$(function() {
+		var dialog = $("#dialog-form").dialog({
+			autoOpen: false,
+			height: 250,
+			width: 650,
+			modal: true,
+			open : function() {
+				$(this).closest('.ui-dialog').find('.ui-dialog-titlebar-close').hide();
+				var t = $(this).parent(), w = $(window);
+				t.offset({
+					top: 0,
+					left: 0
+				});
+			},
+			buttons: {
+				"Submit": handle_fund,
+				Cancel: function() {
+					dialog.dialog( "close" );
+				}
+			},
+			close: function() {
+			}
+		});
+
+		var form = dialog.find("form").on("submit", function( event ) {
+			event.preventDefault();
+		});
+
+		$("#fund_cto_to_bug").on("click", function() {
+			dialog.dialog( 'option', 'buttons', {
+				"Submit": handle_fund,
+				Cancel: function() {
+					dialog.dialog( "close" );
+				}
+			});
+
+			var bug_id = $('#view_bug_id').val();
+			$.ajax({
+				url: "fund_cto_to_bugs_page.php",
+				data: {bug_ids: bug_id},
+				async: true,
+				success: function(response) {
+					if (response === 'not_login') {
+						location.reload(true);
+						return false;
+					}
+					$("#dialog-form").html(response);
+					dialog.dialog( "open" );
+				},
+				error: function(jqXHR, status, err) {
+					alert("Exception happened.");
+					location.reload(true);
+					return false;
+				}
+			});
+		});
+
+		function handle_fund() {
+			var vals = '';
+			var validate = true;
+			var fund_project_id = $('#fund_project_id').val();	// check permit for call ajax (not safety)
+			$('input[name^="put_fund"]').each(function() {
+				if ($(this).val().match(/^[0-9]+$/) === null) {
+					validate = false;
+				}
+				if ($(this).val() >= 0) {
+					vals = vals + "|" + $(this).attr('id') + ":" + $(this).val();
+				}
+			});
+			if (!validate) {
+				alert('The fund must be a whole number');
+				return false;
+			}
+			if (vals.length > 0) vals = vals.substring(1);
+			$('input[name^="put_fund"]').each(function() {
+				$(this).attr('name', '');
+			});
+			$.ajax({
+				type: "POST",
+				url: "fund_cto_to_bugs.php",
+				data: {project_id: fund_project_id, bug_funds: vals},
+				async: true,
+				success: function(response) {
+					response = response.trim();
+					if (response === 'not_login') {
+						location.reload(true);
+						return false;
+					} else if (response !== 'success') {
+						alert(response);
+					}
+					dialog.dialog( "close" );
+					update_bug_fund_list();
+				},
+				error: function(jqXHR, status, err) {
+					alert("Exception happened.");
+					location.reload(true);
+					return false;
+				}
+			});
+		}
+
+		function update_bug_fund_list() {
+			var bug_id = $('#view_bug_id').val();
+			var response = $.ajax({
+				type: "POST",
+				url: 'reload_bug_fund_list.php',
+				data: {bug_id: bug_id},
+				async: false
+			}).responseText;
+
+			var arr = response.split('|');
+			if (arr.length === 4) {
+				var cto_total_funded = "CTO$ Funds" + " (" + arr[2] + ")";
+				$('#cto_total_funded').html(cto_total_funded);
+				$('#bug_fund_list').html(arr[3]);
+			}
+			if ($('#user_total_cto').length) {
+				$('#user_total_cto').html("<font color=green><B>(CTO$: " + arr[0] + ")</B></font>");
+			}
+		}
+
+		// survey form
+		var dialog_survey = $("#dialog-survey-form").dialog({
+			autoOpen: false,
+			height: 580,
+			width: 610,
+			modal: true,
+			buttons: {
+				"Submit": send_email,
+				Cancel: function() {
+					dialog_survey.dialog( "close" );
+				}
+			},
+			close: function() {
+			}
+		});
+
+		var request_form = dialog_survey.find("form").on("submit", function( event ) {
+			event.preventDefault();
+		});
+
+		$("#Send_Survey").on("click", function() {
+			dialog_survey.dialog( 'option', 'buttons', {
+				"Submit": send_email,
+				Cancel: function() {
+					dialog_survey.dialog( "close" );
+				}
+			});
+
+			var data1 = {bug_id: 1225001};
+			$.ajax({
+				url: "send_survey_page.php",
+				data: data1,
+				async: true,
+				success: function(response) {
+					response = response.trim();
+					if (response === 'not_login') {
+						location.reload(true);
+						return false;
+					}
+					$("#dialog-survey-form").html(response);
+					dialog_survey.dialog("open");
+				},
+				error: function(jqXHR, status, err) {
+					alert("Exception happened.");
+					location.reload(true);
+					return false;
+				}
+			});
+		});
+
+		function send_email() {
+			var from_email = $("#from_email").text();
+			var to_users = $("#to_users").val();
+			var subject = $("#subject").val();
+			var message = $("#message").val();
+			message = message.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
+			if (to_users === null) {
+				alert('no recipient to select');
+				return false;
+			}
+			$.ajax({
+				type: "POST",
+				url: "send_survey_page.php",
+				data: {bug_id: 1225001, from_email: from_email, to_users: to_users, subject: subject, message: message},
+				async: true,
+				success: function(response) {
+					response = response.trim();
+					if (response === 'not_login') {
+						location.reload(true);
+						return false;
+					} else if (response !== 'success') {
+						alert('[' + response + ']');
+						return false;
+					}
+					dialog_survey.dialog("close");
+					$.alertable.alert('<font color="#09d">The surveys have been sent successful!</font>', {html: true}).then(function () {
+						location.reload(true);
+					});
+				},
+				error: function(jqXHR, status, err) {
+					alert("Exception happened.");
+					location.reload(true);
+					return false;
+				}
+			});
+		}
+	});
+</script>
+
+
+<br>
+
+
+<table class="width100" cellspacing="1">
+
+<tbody><tr>
+	<!-- Title -->
+	<td class="form-title" colspan="4">
+		Viewing Bug Simple Details
+		<!-- Jump to Bugnotes -->
+		<span class="small">[&nbsp;<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#bugnotes">Jump to Bugnotes</a>&nbsp;]</span>
+
+		<span class="small" title="The user will be the bug monitor automatically when you send a reminder to user. Monitors have full control for this bug.">[&nbsp;<a href="https://mantis.fortinet.com/bug_reminder_page.php?bug_id=1225001">Send a reminder</a>&nbsp;]</span><span class="small" title="To add or remove bug monitors. Monitors have full control for this bug.">[&nbsp;<a href="https://mantis.fortinet.com/bug_manage_monitor_page.php?bug_id=1225001">Manage monitors and users</a>&nbsp;]</span><span class="small">[ <a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#" id="fund_cto_to_bug">Fund CTO$ to Bug</a> ]&nbsp;</span>	</td>
+
+		<!-- Links -->
+	<td class="right" colspan="2">
+		<!-- History -->
+		<span class="small">[&nbsp;<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001&amp;history=1#history">Bug History</a>&nbsp;]</span>
+	</td>
+	</tr>
+
+
+<!-- Labels -->
+<tr class="row-category">
+	<td>
+		ID	</td>
+	<td>
+		Product	</td>
+	<td>
+		Severity	</td>
+	<td>
+		Date Submitted	</td>
+	<td>
+		Last Update	</td>
+</tr>
+
+<tr class="row-1">
+
+	<!-- Bug ID -->
+	<td>
+		1225001	</td>
+
+	<!-- Category -->
+	<td>
+		[NFR] FortiOS	</td>
+
+	<!-- Severity -->
+	<td>
+		S3-Important	</td>
+
+	<!-- Reproducibility -->
+	
+	<!-- Date Submitted -->
+	<td>
+		2025-11-10 09:26:23	</td>
+
+	<!-- Date Updated -->
+	<td>
+		2026-02-09 22:52:03	</td>
+</tr>
+
+<!-- Show keyword -->
+<tr class="row-2">
+	<td class="category">
+		Solution	</td>
+
+	<td colspan="4">
+		MSSP,NGFW,Telco			</td>
+</tr>
+<!-- Vertical -->
+<tr class="row-1">
+	<td class="category">
+		Vertical
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- spacer -->
+<tr height="5" class="spacer">
+	<td colspan="5"></td>
+</tr>
+
+<tr class="row-2">
+	<!-- Reporter -->
+	<td class="category">
+		Reporter	</td>
+	<td>
+		Tom Walker (twalker)	</td>
+
+	<!-- View State -->
+	<td class="category">
+		View Status	</td>
+	<td>
+		public	</td>
+
+	<td colspan="1">&nbsp;</td>
+</tr>
+
+<!-- Handler -->
+<tr class="row-1">
+
+	<!-- eta_date -->
+	<td class="category">
+		ETA	</td>
+	<td>
+		2026-02-28	</td>
+	<td colspan="3">&nbsp;</td>
+</tr>
+
+<!-- QA Assignee -->
+
+<tr class="row-2">
+
+	<!-- Priority -->
+	<td class="category">
+		Priority	</td>
+	<td>
+		high	</td>
+
+	<!-- Resolution -->
+	<td class="category">
+		Resolution	</td>
+	<td>
+		open	</td>
+
+	<!-- spacer -->
+	<td colspan="1">&nbsp;</td>
+</tr>
+
+<tr class="row-1">
+
+	<!-- Status -->
+	<td class="category">
+		Status	</td>
+	<td bgcolor="#ffffb0">
+		Concept Commit	</td>
+
+	<!-- Duplicate ID -->
+	<td class="category">
+		Duplicate ID	</td>
+	<td>
+			</td>
+	<!-- spacer -->
+	<td colspan="1">&nbsp;</td>
+
+</tr>
+
+<!-- spacer -->
+<tr height="5" class="spacer">
+	<td colspan="5"></td>
+</tr>
+
+
+
+<!-- Summary -->
+<tr class="row-2">
+	<td class="category">
+		Summary	</td>
+	<td colspan="4">
+		RADIUS enriched traffic log with 3GPP-specific attributes for enhanced RSSO solutions	</td>
+</tr>
+
+<!-- Description -->
+<tr class="row-1">
+	<td class="category">
+		Description	</td>
+	<td colspan="4">
+		<tt>[Customer Problem Statement (what are they trying to solve)]<br>
+Service Provider customers (Telcos - MNOs and fixed-line Operators) use RSSO to apply
+subscriber-based security services. This is well documented and understood. However,
+the limited RSSO attributes available as well as the nature of how RSSO identifies
+and “logs” users means that very limited subscriber information is available. In
+order to better apply the services offered, and offer more value, our Telco customers
+would like a greater level of subscriber information in the FortiGate logs to provide
+for richer analytics and reporting.<br>
+<br>
+This NFR seeks to request an extra field in the FortiOS traffic log whereby
+additional RSSO data can be captured and logged, allowing for richer upstream
+analytics and reporting functions. There are a number of 3GPP specific attributes
+which are provided via RADIUS accounting messages, and it is these attributes along
+with the others provided for RSSO purposes which should be logged, namely:<br>
+<br>
+* Calling-Station-ID(31) -&gt; this will be used to supply the MSISDN and is
+generally used for for the “user” match in RSSO<br>
+* 3GPP-IMSI(1) -&gt; will provide the IMSI of the subscriber<br>
+* Called-Station-ID(30) -&gt; This is often used to convey the APN to which the
+subscriber is attached<br>
+* 3GPP-Session-S-NSSAI(125) - &gt; While more specific to 5G networks, this will
+provide the network slice ID that the subscriber has assigned<br>
+* 3GPP-IMEISV(20) -&gt; provides the device identity, most relevant for devices that
+don’t have users e.g. IoT devices<br>
+* 3GPP-RAT-Type(21) -&gt; indicates the Radio Access Technology type that is in use
+e.g. UMTS, LTE, 5GNR, NB-IOT etc<br>
+* 3GPP-User-Location-Info(22) -&gt; provides UE location information such as CAI
+and/or SAI<br>
+* Class(25) -&gt; Used to convey various open attributes for the RSSO Group match,
+though generally this is used to allow for group/profile match in RSSO<br>
+<br>
+The desire here is for RADIUS accounting messages to be recieved by FortiOS and for
+it to extract and apply the defined sso attribute as normal. But FortiOS should also
+capture and insert the attribute values of the attributes listed above, into the
+traffic log. It is expected that a new additional log field is added to the FortiOS
+traffic log, as no existing field seems viable for reuse for this need (though if
+Engineering have alternative options/suggestions for existing traffic log field reuse
+that can deliver the information needed, this can be an option to explore). <br>
+<br>
+Ultimately the goal here is to receive the additional RADIUS attributes in FortiOS,
+which will log the values of all attributes listed above, in the traffic log. The
+traffic log is sent to log destinations such as FAZ, or generic SYSLOG destinations
+such as FSIEM or 3rd party SYSLOG collector/s. The logging/analytics platform (FAZ,
+FSIEM, or 3rd party) can then use this additional information to enrich any analytics
+activity such as dashboards and reporting outputs.<br>
+<br>
+<br>
+[Related Customer NFRs]<br>
+<br>
+FortiAnalyzer - <a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1214409">https://mantis.fortinet.com/bug_view_page.php?bug_id=1214409</a>
+was opened for a similar need though this was somewhat focussed on a different
+FortiOS NFR and its deliverables. <br>
+<br>
+[Implementation Suggestions]<br>
+<br>
+This NFR calls for an additional log field in the traffic log. This new log field
+should have the following characteristics:<br>
+<br>
+* Log Field name = rsso-3gppinfo [this is an example name, engineering is free to
+define a more suitable name as needed]<br>
+* Description = 3GPP subscriber information from RADIUS [this is an example
+description, engineering is free to define a more suitable description as needed]<br>
+* Data Type = String [this seem most appropriate considering the various types of
+attributes this needs to display]<br>
+* Length = 512 [this will contain multiple entries and should capture number of
+fields so a large length is needed]<br>
+<br>
+As this single log field needs to capture lots of information from all of the
+attributes recieved from RADIUS, it is expected that this log field will concatenate
+the different RADIUS attribute values using a delimiter, for example a comma.
+However, it is assumed that engineering will decide the most appropriate method
+here.<br>
+<br>
+Furthermore, this enriched logging function should be configureable. A suggestion for
+configuration is mentioned blow. It should be noted that such a setting should honour
+VDOM configuration, therefore allowing for this “enriched RSSO logging” to be
+applied, or not, per VDOM.<br>
+<br>
+Suggested configuration, default behaviour should be disabled:<br>
+<br>
+config system log setting<br>
+&nbsp;&nbsp;set extended-3gpp-radius-log [enable | *disable*]<br>
+end<br>
+<br>
+[Topology Info]<br>
+Attached simple diagram for logging logic.<br>
+<br>
+[Other Information]<br>
+A key competitor in this space, PAN, is able to support such attributes not only for
+logging but also for their policy match which identifies the user. More information
+can be found at: <a href="https://docs.paloaltonetworks.com/service-providers/11-1/mobile-network-infrastructure-getting-started/intelligent-security-and-user-equipment-correlation-with-ip-addresses/correlate-ip-addresses-with-user-equipment-using-radius">https://docs.paloaltonetworks.com/service-providers/11-1/mobile-network-infrastructure-getting-started/intelligent-security-and-user-equipment-correlation-with-ip-addresses/correlate-ip-addresses-with-user-equipment-using-radius</a>
+<br>
+<br>
+For information, Sub-attributes of the 3GPP Vendor Specific Attribute can be
+referenced from clause 16.4.7 of 3GPP TS 29.061<br>
+</tt>
+	</td>
+</tr>
+
+<!-- Additional Information -->
+<tr class="row-2">
+	<td class="category">
+		Additional Information	</td>
+	<td colspan="4">
+		<tt>Branch: br_8-0_rsso_3gpp_logging</tt>
+	</td>
+</tr>
+
+<!-- QA Release Comment ITS#: 985794 visiable for all -->
+<tr class="row-1">
+	<td class="category">
+		QA Release Comment	</td>
+	<td colspan="4">
+		<tt></tt>
+	</td>
+</tr>
+
+<!-- spacer -->
+<tr height="5" class="spacer">
+	<td colspan="5"></td>
+</tr>
+
+<tr class="row-2">
+	<td id="cto_total_funded" class="category">
+		CTO$ Funds (4)	</td>
+	<td colspan="4">
+		<tt id="bug_fund_list"><table><tbody><tr><td>Efe Telciler&nbsp;:</td><td>1&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Justin Moore&nbsp;:</td><td>1&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Thorsten Jaeger&nbsp;:</td><td>1&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Tom Walker&nbsp;:</td><td>1&nbsp;&nbsp;&nbsp;&nbsp;</td></tr></tbody></table></tt>
+	</td>
+</tr>
+
+
+<!-- Source-->
+<tr class="row-1">
+	<td class="category">
+		Source	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- Custom Fields -->
+<tr class="row-2">
+	<td class="category">
+		Salesforce Opp IDs (comma separated)	</td>
+	<td colspan="4">
+		006Hr00001Vvh8fIAB	</td>
+</tr>
+
+
+<!-- NFR ticket# -->
+<tr class="row-1">
+	<td class="category">
+		NFR
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- spacer -->
+<tr height="5" class="spacer">
+	<td colspan="5"></td>
+</tr>
+
+<!-- Attachments -->
+<tr class="row-2">
+	<td class="category">
+		<a name="attachments" id="attachments">
+		Attached Files	</a></td>
+	<td colspan="4">
+		<a href="https://mantis.fortinet.com/file_download.php?file_id=1944679&amp;type=bug" target="_blank"><img src="./1225001 -- Mantis_files/fileicon.gif" width="16" height="16" border="0"></a>&nbsp;<a href="https://mantis.fortinet.com/file_download.php?file_id=1944679&amp;type=bug" target="_blank">29061-h60.docx</a> (1,428,778 bytes) <span class="italic">2025-11-10 09:56</span><br><a href="https://mantis.fortinet.com/file_download.php?file_id=1945759&amp;type=bug" target="_blank"><img src="./1225001 -- Mantis_files/pngicon.gif" width="16" height="16" border="0"></a>&nbsp;<a href="https://mantis.fortinet.com/file_download.php?file_id=1945759&amp;type=bug" target="_blank">RADIUS-3gpp-logging.png</a> (137,282 bytes) <span class="italic">2025-11-12 01:46</span><br><a href="https://mantis.fortinet.com/file_download.php?file_id=1954168&amp;type=bug" target="_blank"><img src="./1225001 -- Mantis_files/fileicon.gif" width="16" height="16" border="0"></a>&nbsp;<a href="https://mantis.fortinet.com/file_download.php?file_id=1954168&amp;type=bug" target="_blank">packet-capture.pcap</a> (13,724 bytes) <span class="italic">2025-11-25 03:43</span><script>
+			function confirm_delete_file(filename) {
+				return confirm('Are you sure to delete ' + escape(filename) + ' ?!');
+			}
+		</script>	</td>
+</tr>
+
+<tr>
+	<td class="spacer" colspan="6">&nbsp;</td>
+</tr>
+
+<!-- Affected Customer -->
+<tr class="row-1">
+	<td class="category">
+		Affected Customer
+	</td>
+	<td colspan="4">
+		Bharti Airtel	</td>
+</tr>
+
+<!-- custom field "Affected SF Account ID" under "Affected Customer" for NFR -->
+<tr class="row-2">
+	<td class="category">
+		Salesforce Account IDs (comma separated)	</td>
+	<td colspan="4">
+		0018000000NS5DEAA1	</td>
+</tr>
+
+<!-- 2019-12-17 ITS# 1194090 remove CSS Priority, requested by David Edmondes -->
+<!-- CSS Priority ( CSS Priority ) -->
+
+<!-- CSS Tickets added 2014-02-01 -->
+<tr class="row-1">
+	<td class="category">
+		<table><tbody><tr><td style="padding:0"><b>CSS Ticket Numbers</b></td></tr><tr><td style="padding:0"><b>SW Version</b></td></tr></tbody></table>	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- CSS Request -->
+<tr class="row-2">
+	<td class="category">
+		CSS Request
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- 2018-01-16 added CSS Notes, remove CSS Priority, requested by David Edmondes -->
+<!-- CSS Notes -->
+<tr class="row-1">
+	<td class="category">
+		CSS Notes
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- ITS# 899993: 2018-06-04 added vulnerability_priority, requested by David Edmonds -->
+<!-- Vulnerability Priority -->
+<!-- ITS# 917784: 2018-07-06 Hidden vulnerability_priority, requested by David Edmonds
+<tr class='row-2'>
+	<td class="category">
+		Vulnerability Priority	</td>
+	<td colspan="4">
+			</td>
+</tr>
+-->
+
+<!-- Branch Fix Request ( Branch Fix Request ) -->
+<tr class="row-1">
+	<td class="category">
+		Forum ID	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- Root Cause ECO/Mantis -->
+<tr class="row-2">
+	<td class="category">
+		Root Cause ECO/Mantis
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- Dev QA Status( Dev QA Status ) -->
+<tr class="row-1">
+	<td class="category">
+		Dev QA Status
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- Dev Status( Dev Status ) -->
+<tr class="row-2">
+	<td class="category">
+		Dev Status
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- Patch Compatibility( Patch Compatibility ) -->
+<tr class="row-1">
+	<td class="category">
+		Patch Compatibility
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- PMDB ID ( PMDB ID ) -->
+<tr class="row-2">
+	<td class="category">
+		PMDB ID
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+	<!-- Change Order Link for other except top3 -->
+	<tr class="row-1">
+		<td class="category">
+			Change Order Link		</td>
+		<td colspan="4">
+					</td>
+	</tr>
+	<!-- Related Project IDs Link for other except top3 -->
+	<tr class="row-2">
+		<td class="category">
+			Related Project IDs
+		</td>
+		<td colspan="4">
+					</td>
+	</tr>
+
+<!-- Resolved In (Fixed in Build Number) -->
+
+<!-- QA Test_ID( qatestid ) -->
+<tr class="row-1">
+	<td class="category">
+		QA ID
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- Askbot( askbot_link ) -->
+<tr class="row-2">
+	<td class="category">
+		Askbot Link
+	</td>
+	<td colspan="4">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001" target="_blank"></a>
+	</td>
+</tr>
+
+<!-- Reported Version ( Reported Version ) -->
+
+<!-- cf_fixes ( cf_fixes_link ) for Meru only -->
+
+<!-- Action History-->
+
+
+
+<!-- Add To RN -->
+<tr class="row-1">
+	<td class="category">
+		Add to Known Issue in RN	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- Release Notes Description -->
+<tr class="row-2">
+	<td class="category">
+		RN Category Description	</td>
+	<td colspan="4">
+		<tt></tt>
+	</td>
+</tr>
+
+<!-- RN Section Description -->
+<tr class="row-1">
+	<td class="category">
+		RN Section Description	</td>
+	<td colspan="4">
+		<tt></tt>
+	</td>
+</tr>
+
+<!-- Bug Tracker -->
+<tr class="row-2">
+	<td class="category">
+		Bug Tracker :
+	</td>
+	<td colspan="4">
+	</td>
+</tr>
+
+<!-- Publish Status ( Publish Status ) -->
+<tr class="row-1">
+	<td class="category">
+		&nbsp;&nbsp;&nbsp;&nbsp;Publish Status
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- Publish Title -->
+<tr class="row-2">
+	<td class="category">
+		&nbsp;&nbsp;&nbsp;&nbsp;Title
+	</td>
+	<td colspan="4">
+			</td>
+</tr>
+
+<!-- TAM Description -->
+<tr class="row-1">
+	<td class="category" nowrap="">
+		&nbsp;&nbsp;&nbsp;&nbsp;Customer Facing Description	</td>
+	<td colspan="4">
+		<tt></tt>
+	</td>
+</tr>
+
+<!-- Workaround -->
+<tr class="row-2">
+	<td class="category">
+		&nbsp;&nbsp;&nbsp;&nbsp;Workaround
+	</td>
+	<td colspan="4">
+		<tt></tt>
+	</td>
+</tr>
+
+<!-- Trigger Condition -->
+<tr class="row-1">
+	<td class="category">
+		&nbsp;&nbsp;&nbsp;&nbsp;Trigger Condition
+	</td>
+	<td colspan="4">
+		<tt></tt>
+	</td>
+</tr>
+
+<!-- Public Disclosure Summary -->
+
+
+
+<!-- Buttons -->
+<tr align="center"><td align="center" colspan="6"><table><tbody><tr><td><form method="post" action="https://mantis.fortinet.com/bug_update_page.php">
+	<input type="hidden" name="bug_id" value="1225001">
+	<input type="submit" value="Update Bug">
+</form>
+</td><td></td><td></td><td></td><td></td><td><form method="post" action="https://mantis.fortinet.com/bug_monitor.php">
+	<input type="hidden" name="bug_id" value="1225001">
+	<input type="hidden" name="action" value="add">
+	<input type="hidden" name="daily_monitor" value="0">
+	<input type="submit" value="Monitor Bug">
+</form>
+<form method="post" action="https://mantis.fortinet.com/bug_monitor.php">
+	<input type="hidden" name="bug_id" value="1225001">
+	<input type="hidden" name="action" value="add">
+	<input type="hidden" name="daily_monitor" value="1">
+	<input type="submit" value="Monitor Daily">
+</form>
+</td><td></td></tr></tbody></table></td></tr>
+</tbody></table>
+
+<script>
+    $( document ).ready(function() {
+        // Change the update bug button from post to reidrect (GET)
+        $('form[action="bug_update_page.php"]').on('click', function(e){
+            e.preventDefault();
+
+            let bug_id = new Number($('form[action="bug_update_page.php"] input[name="bug_id"]').val());
+
+            if (bug_id > 0) {
+                window.location.href = $(this).attr('action') + '?bug_id=' + bug_id;
+            }
+        });
+		
+		/*$('#Send_Survey').on('click', function(e){
+            e.preventDefault();
+			$.ajax({
+				type: "POST",
+				url: "survey_feedback.php",
+				data: {'action': 'send_survey', 'survey_id': 4, 'bug_id': 1225001},
+				async: false,
+				success: function(response) {
+					$.alertable.alert('<font color="#09d">' + response + '</font>', {html: true}).then(function () {
+						location.reload(true);
+					});
+					return true;
+				},
+				error: function(jqXHR, status, err) {
+					$.alertable.alert('<font color="#09d">Send feedback exception happened</font>', {html: true, okButton: '<button class="alertable-ok" type="submit">Close</button>'});
+					return false;
+				}
+			});
+        });*/
+
+		// debug commands form
+		var dialog_debug_form = $("#dialog-debug-form").dialog({
+			autoOpen: false,
+			height: 580,
+			width: 610,
+			modal: true,
+			buttons: {
+				Cancel: function() {
+					dialog_debug_form.dialog( "close" );
+				}
+			},
+			close: function() {
+			}
+		});
+
+		$("#debug_commands").on("click", function() {
+			dialog_debug_form.dialog('option', 'title', 'Troubleshooting Commands');
+			dialog_debug_form.dialog( 'option', 'buttons', {
+				Cancel: function() {
+					dialog_debug_form.dialog( "close" );
+				}
+			});
+			var str = '<font color="#09d"></font>';
+			dialog_debug_form.dialog( "close" );
+			dialog_debug_form.html(str);
+			dialog_debug_form.dialog( "open" );
+		});
+		
+		$(".reply-note").on("click", function() {
+			var str = 'Reply [' + $(this).attr('data-user') + ']';
+
+			//Decode from Base64 → Latin-1 string → convert to real JS string
+			var replyreferencemessage_stage1 = atob($(this).attr('data-referencemessage'));
+			var replyreferencemessage = decodeURIComponent(
+				Array.prototype.map.call(replyreferencemessage_stage1, c =>
+					'%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+				).join('')
+				);
+
+			if ($('#reply-lable').length) {
+				$('#reply-lable').text(str);
+				$('#reply-title').val(str);
+				$('#reply-reference-message').html(replyreferencemessage);
+			} else {
+				let reply_title = $('<span id="reply-lable" style="color:blue;font-weight:bold;font-size:11px">' + str + '</span><br><br><span id="reply-reference-message" style="color:black;font-size:11px">' + replyreferencemessage + '</span><br><br><input id="reply-title" name="reply-title" type="hidden" value="' + str + '">');
+				reply_title.insertBefore($("#bugnote_text"));
+			}
+		});
+    });
+</script>
+
+<br>
+<div align="center">
+<!-- disabled by Michael Xie July 1, 2015
+<script type="text/javascript">
+  var sEmbedHost = (("https:" == document.location.protocol) ? "https://" : "http://");
+  document.write(unescape("%3Cscript charset='utf-8' id='screenr_recorder' async src='" + sEmbedHost + "forticare.viewscreencasts.com/api/recorder' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+	function clickButton(bug_id,timeLimits)
+	{
+		$('html,body').scrollTop(0);
+  		var recorder = Screenr.Recorder({id:"7685fbef836349f49a4dce2e4d5abeb6"});
+		recorder.addCustomData("ticketId", bug_id);
+		recorder.setUserName('', false);
+		recorder.setUserEmail('', false);
+		recorder.setSubject('', true);
+		recorder.setDescription('', false);
+		recorder.setMaxTimeLimit(timeLimits);
+//		recorder.hideAllFields();
+		recorder.record(); //launch the recorder
+		recorder.setOnComplete(function(screencast) {
+		var submit_cast_form = '<form method="post" action="bug_screencast_add.php">'
+                                + '<input type="hidden" name="bug_id" value="' + bug_id + '" />'
+                                + '<input type="hidden" name="embed" value="' + screencast.embed + '" />'
+                                + '<input type="hidden" name="embedUrl" value="' + screencast.embedUrl + '" />'
+                                + '<input type="hidden" name="title" value="' + screencast.subject + '" />'
+                                + '<input type="hidden" name="mp4file" value="' + screencast.mp4 + '" />'
+                                + '</form>';            
+		$(submit_cast_form).appendTo('body').submit().remove();
+
+		});
+	}
+</script>
+-->
+<script type="text/javascript">
+    function file_size_check_with_limit(max_size_m, choose_file_id, upload_btn_id) {
+        var choose_file = document.getElementById(choose_file_id);
+        var upload_btn = document.getElementById(upload_btn_id);
+
+        var result = false;
+        if (choose_file.files.length > 0) {
+            var total = 0;
+            for (var i=0; i < choose_file.files.length; i++) {
+                total = total + choose_file.files[i].size;
+            }
+            if (total > max_size_m * 1024 * 1024) {
+                alert('The total size of selected file(s) exceeds maximum limit ' + max_size_m + 'M.');
+            } else {
+                result = true;
+            }
+        }
+        if (result) {
+            upload_btn.disabled = false;
+        } else {
+            choose_file.value = '';
+            upload_btn.disabled = true;
+        }
+        return result;
+    }
+</script>
+
+<form method="post" enctype="multipart/form-data" action="https://mantis.fortinet.com/bug_file_add.php">
+<table class="width100" cellspacing="1">
+<tbody><tr>
+	<td class="form-title" colspan="2">
+		Upload File	</td>
+</tr>
+<tr class="row-1">
+	<td class="category" width="18%">
+		Select File<br>
+		(Max size: 16M)	</td>
+	<td width="82%">
+		<input type="hidden" name="bug_id" value="1225001">
+		<input name="file[]" id="choose_file_id" onchange="file_size_check_with_limit(&#39;16&#39;, &#39;choose_file_id&#39;, &#39;upload_btn_id&#39;);" type="file" multiple="" size="60">
+		<input type="submit" disabled="" id="upload_btn_id" onclick="return file_size_check_with_limit(&#39;16&#39;, &#39;choose_file_id&#39;, &#39;upload_btn_id&#39;);" value="Upload File">
+	</td>
+</tr>
+<!-- disabled by Michael Xie July 1, 2015
+<tr class="row-1">
+	<td class="category" width="18%">
+		Add Screencast<br />
+		5(Max record time: min)	</td>
+	<td width="82%">
+		<input type="button" value="Add Screencast" id="screen_cast" 
+		onclick="clickButton(1225001, 300)"/>
+	</td>
+</tr>
+-->
+</tbody></table>
+</form>
+</div>
+<a name="monitors" id="monitors"><br><table class="width100" cellspacing="1"><tbody><tr><td class="form-title" colspan="2">Users monitoring this bug</td></tr><tr class="row-1"><td class="category" width="15%">User List</td><td>(Abde) Abdessamad El Amrani, Ashraf Shaikh, Asraf Ali Talib Ali, Charbel Sarkis, Chee Wan Ee, Chenyong Dong, Dayal Mohan Kumar, Efe Telciler, Himanshu Soni, Hisham AboulMakarem (SE), Jeff Wang, Joel Moxey, Johannah Liu, Jonathan Gu, Justin Moore, Keishi Muneno, Laura Yang, Melih Kirkgoz, Michael Joseph, Murat Kelesoglu, Nobuyuki Tayama, Pablo Molinero, Rahul Dwivedi, Rocco DiStefano, Roshanak Partovi, Sadayuki Kobayashi, Sam Zhi, Simon Bryden, Thorsten Jaeger, Tom Walker, Tomas Stribrny (TAC), Yanna Chen, Yousef Alsayed</td></tr></tbody></table><br>
+</a><a name="addbugnote">
+<form name="bugnote_add_form" method="post" action="https://mantis.fortinet.com/bugnote_add.php">
+<table class="width100" cellspacing="1">
+<tbody><tr>
+	<td class="form-title" colspan="2">
+		<input type="hidden" name="bug_id" value="1225001">
+		Add Bugnote	</td>
+</tr>
+<tr class="row-2">
+	<td class="category" width="25%">
+		Bugnote	</td>
+	<td width="75%">
+		<textarea id="bugnote_text" name="bugnote_text" cols="80" rows="10" wrap="virtual"></textarea>
+	</td>
+</tr>
+<tr>
+	<td class="center" colspan="2">
+		<input id="maddnotesubmit" type="submit" value="Add Bugnote">
+	</td>
+</tr>
+</tbody></table>
+</form>
+
+<div id="loading-spinner-id" class="alertable-overlay" style="display: none; justify-content: center; align-items: center;">
+    <div class="loading-spinner"></div>
+</div>	
+
+        
+        <link rel="stylesheet" href="./1225001 -- Mantis_files/jquery(1).alertable.css">
+        <script language="JavaScript" src="./1225001 -- Mantis_files/jquery.alertable.min.js.download"></script>
+        <script language="JavaScript">
+                $("#loading-spinner-id").hide();
+                function popupWindow(url, title, width, height) {
+                        var top = window.outerHeight / 2 + window.screenY - ( height / 2)
+                        var left = window.outerWidth / 2 + window.screenX - ( width / 2)
+                        return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left);
+                }
+                function showAlertAndLoginWindow(dontPopupWindow=false){
+                        $("#loading-spinner-id").hide();
+                                $.alertable.alert('<font color="#09d"> Unable to connect Mantis! Your login session could be expired or there has been network connectivity problems. To keep your changes please DO NOT CLOSE this window and login again on the popup window. You should be able to submit again once you have login successfully and the popup window is closed.</font>', {html: true, okButton: '<button class="alertable-ok" type="submit">Close</button>'});
+                        if(! dontPopupWindow){
+                                let newWindow = popupWindow('/login_page.php?return=%2Flogin_test.php', 'Mantis', 900, 600);
+                                newWindow.focus();
+                        }
+                }
+                $("#maddnotesubmit").click(function(e) {
+                        e.preventDefault();
+                        $("#loading-spinner-id").show();
+                        if (! navigator.onLine) {// offline
+                                showAlertAndLoginWindow(true);
+                        } else {
+                                var xhr = new XMLHttpRequest();
+                                var main_url = "login_test.php";
+                                $.ajax({
+                                        type: "GET",
+                                        url: main_url,
+                                        async: true,
+                                        timeout: 15000, // sets timeout to 15 seconds
+                                        xhr: function() {
+                                        return xhr;
+                                        },
+                                        success: function(response, textStatus, jqXHR) {
+                                                if (textStatus == "success" && jqXHR.status == 200 && xhr.responseURL) {
+                                                        var url = new URL(xhr.responseURL);
+                                                        if('/'+main_url == url.pathname){ // already login
+								 $('form[name="bugnote_add_form"]').submit();
+								 $("#loading-spinner-id").hide();
+                                                        } else {
+                                                                showAlertAndLoginWindow(); // need to redirect to login
+                                                        }
+                                                } else {
+                                                        showAlertAndLoginWindow(); // error in response
+                                                }
+                                        },
+                                        error: function(jqXHR, textStatus, err) { 
+                                                // HTTP error or network connection error
+                                                if( textStatus == "timeout"){
+                                                        showAlertAndLoginWindow(true);
+                                                } else {
+                                                        showAlertAndLoginWindow();
+                                                }
+                                        }
+                                });
+                        }
+                });
+        </script>
+
+
+</a><a name="bugnotes" id="bugnotes"><br>
+<table class="width100" cellspacing="1">
+<tbody><tr>
+	<td class="form-title" colspan="2">
+		Bug Notes	</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Tom Walker<span style="font-size:10pt; font-weight:normal;"> (twalker)</span>
+				<br>
+		<span class="small">2025-11-10 09:27:06</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Tom Walker - 2025-11-10 09:27:06" data-referencemessage="UmVtaW5kZXIgc2VudCB0byBUaG9yc3RlbiBKYWVnZXI=">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Reminder sent to Thorsten Jaeger</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Tom Walker<span style="font-size:10pt; font-weight:normal;"> (twalker)</span>
+				<br>
+		<span class="small">2025-11-10 09:50:53</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Tom Walker - 2025-11-10 09:50:53" data-referencemessage="UmVtaW5kZXIgc2VudCB0byBFZmUgVGVsY2lsZXIsIEpvZWwgTW94ZXksIEp1c3RpbiBNb29yZSwgU2ltb24gQnJ5ZGVu">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Reminder sent to Efe Telciler, Joel Moxey, Justin Moore, Simon Bryden</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Tom Walker<span style="font-size:10pt; font-weight:normal;"> (twalker)</span>
+				<br>
+		<span class="small">2025-11-10 09:56:37</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Tom Walker - 2025-11-10 09:56:37" data-referencemessage="SSBoYXZlIHVwbG9hZGVkIDNHUFAgVFMgMjkuMDYxIGZvciByZWxlYXNlIDE3IGZvciByZWZlcmVuY2Uu">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>I have uploaded 3GPP TS 29.061 for release 17 for reference.</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Rahul Dwivedi<span style="font-size:10pt; font-weight:normal;"> (rahul)</span>
+				<br>
+		<span class="small">2025-11-12 20:20:37</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Rahul Dwivedi - 2025-11-12 20:20:37" data-referencemessage="UmVtaW5kZXIgc2VudCB0byBBc3JhZiBBbGkgVGFsaWIgQWxpLCBIaW1hbnNodSBTb25pLCBNaWNoYWVsIEpvc2VwaA==">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Reminder sent to Asraf Ali Talib Ali, Himanshu Soni, Michael Joseph</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Sam Zhi<span style="font-size:10pt; font-weight:normal;"> (szhi)</span>
+				<br>
+		<span class="small">2025-11-21 11:41:18</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Sam Zhi - 2025-11-21 11:41:18" data-referencemessage="UmVtaW5kZXIgc2VudCB0byBKb25hdGhhbiBHdSwgWWFubmEgQ2hlbg==">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Reminder sent to Jonathan Gu, Yanna Chen</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Sam Zhi<span style="font-size:10pt; font-weight:normal;"> (szhi)</span>
+				<br>
+		<span class="small">2025-11-24 10:28:05</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Sam Zhi - 2025-11-24 10:28:05" data-referencemessage="dG9wMyA8YSBocmVmPSJidWdfdmlld19wYWdlLnBocD9idWdfaWQ9MTIyOTk3OCIgdGl0bGU9IltdIFJBRElVUyBleHRlbnNpb25zIGZvciBCaGFydGkgQWlydGVsIj4xMjI5OTc4PC9hPg==">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>top3 <a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1229978" title="[] RADIUS extensions for
+Bharti Airtel">1229978</a></tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Joel Moxey<span style="font-size:10pt; font-weight:normal;"> (jmoxey)</span>
+				<br>
+		<span class="small">2025-11-25 03:44:30</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Joel Moxey - 2025-11-25 03:44:30" data-referencemessage="RXhhbXBsZSBQQ0FQIG9mIFJBRElVUyBhY2N0IHN0YXJ0IGF0dGFjaGVkIHdoaWNoIG1pZ2h0IGhlbHAgc2hhcGUgdGhlIHNvbHV0aW9uLg==">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Example PCAP of RADIUS acct start attached which might help shape the solution.</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Chenyong Dong<span style="font-size:10pt; font-weight:normal;"> (cydong)</span>
+				<br>
+		<span class="small">2025-11-25 11:06:36</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Chenyong Dong - 2025-11-25 11:06:36" data-referencemessage="UmVtaW5kZXIgc2VudCB0byBDaGVueW9uZyBEb25n">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Reminder sent to Chenyong Dong</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Yanna Chen<span style="font-size:10pt; font-weight:normal;"> (ychen)</span>
+				<br>
+		<span class="small">2025-11-25 11:33:37</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Yanna Chen - 2025-11-25 11:33:37" data-referencemessage="UmVtaW5kZXIgc2VudCB0byBMYXVyYSBZYW5n">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Reminder sent to Laura Yang</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Yanna Chen<span style="font-size:10pt; font-weight:normal;"> (ychen)</span>
+				<br>
+		<span class="small">2025-11-25 11:36:15</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Yanna Chen - 2025-11-25 11:36:15" data-referencemessage="Rm9yIGEgbW9yZSBncmFudWxhciBjb250cm9sLCBJIHJlY29tbWVuZCB0byBsZWF2ZSB0aGUgbG9nZ2luZyBvcHRpb24gdW5kZXIgcnNzbyBzZXR0aW5nIGluc3RlYWQuPGJyIC8+DQo8YnIgLz4NCmNvbmZpZyB1c2VyIHJhZGl1czxiciAvPg0KZWRpdCBYPGJyIC8+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDtzZXQgcnNzbyBlbmFibGU8YnIgLz4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwO3NldCByc3NvLTNncHAtbG9nZ2luZyBbIGVuYWJsZXxkaXNhYmxlIF08YnIgLz4NCm5leHQ8YnIgLz4NCmVuZA==">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>For a more granular control, I recommend to leave the logging option under rsso
+setting instead.<br>
+<br>
+config user radius<br>
+edit X<br>
+&nbsp;&nbsp;&nbsp;&nbsp;set rsso enable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;set rsso-3gpp-logging [ enable|disable ]<br>
+next<br>
+end</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Yanna Chen<span style="font-size:10pt; font-weight:normal;"> (ychen)</span>
+				<br>
+		<span class="small">2025-11-25 11:38:03</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Yanna Chen - 2025-11-25 11:38:03" data-referencemessage="TmV3IGJyYW5jaCBjcmVhdGVkOiBicl84LTBfcnNzb18zZ3BwX2xvZ2dpbmcu">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>New branch created: br_8-0_rsso_3gpp_logging.</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Chenyong Dong<span style="font-size:10pt; font-weight:normal;"> (cydong)</span>
+				<br>
+		<span class="small">2025-11-25 11:51:34</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Chenyong Dong - 2025-11-25 11:51:34" data-referencemessage="UmVtaW5kZXIgc2VudCB0byBKb2hhbm5haCBMaXU8YnIgLz4KPGJyIC8+CkhpIEppYWhlLDxiciAvPg0KPGJyIC8+DQpQbGVhc2UgaGVscCBvbiB0aGlzIHRvcDMgY2FzZSwgdGhhbmtzLg==">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Reminder sent to Johannah Liu<br>
+<br>
+Hi Jiahe,<br>
+<br>
+Please help on this top3 case, thanks.</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Johannah Liu<span style="font-size:10pt; font-weight:normal;"> (ljohannah)</span>
+				<br>
+		<span class="small">2025-11-25 14:24:17</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Johannah Liu - 2025-11-25 14:24:17" data-referencemessage="UmVwbHkgW0NoZW55b25nIERvbmcgLSAyMDI1LTExLTI1IDExOjUxOjM0XTxiciAvPgo8YnIgLz4KU3VyZS4=">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Reply [Chenyong Dong - 2025-11-25 11:51:34]<br>
+<br>
+Sure.</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Tom Walker<span style="font-size:10pt; font-weight:normal;"> (twalker)</span>
+				<br>
+		<span class="small">2025-12-04 06:29:14</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Tom Walker - 2025-12-04 06:29:14" data-referencemessage="UmVsZXZhbnQgdXBkYXRlcyBmcm9tIFRPUDMgPGEgaHJlZj0iYnVnX3ZpZXdfcGFnZS5waHA/YnVnX2lkPTEyMjk5NzgiIHRpdGxlPSJbXSBSQURJVVMgZXh0ZW5zaW9ucyBmb3IgQmhhcnRpIEFpcnRlbCI+MTIyOTk3ODwvYT46PGJyIC8+DQo8YnIgLz4NClRoZSBjdXN0b21lciB3aWxsIGJlIHVzaW5nIFJTU08gdG8gYmUgYWJsZSB0byBhcHBseSBVc2VyRlcgYW5kIFVUTSBwcm9maWxlcyB0byBzdWJzY3JpYmVyIGdyb3Vwcy4gV2hpbGUgdGhpcyBkb2VzIG5vdCBhZmZlY3QgdGhpcyBsb2dnaW5nIHJlcXVpcmVtZW50IGFzIHN1Y2gsIGl0IGRvZXMgbWVhbiB0aGF0IHRoZSBGcmFtZWQgSVAvRnJhbWVkLUlQdjYgd2lsbCBnZXQgcmVjb3JkZWQgaW4gdGhlIHRyYWZmaWMgbG9nIGFueXdheSBhcyAmcXVvdDtzcmNpcCZxdW90OyBzbyB3ZSBjYW4gcmVtb3ZlIHRoZXNlLiBCdXQgd2UgbmVlZCB0byBzdXBwb3J0IGF0IGxlYXN0IHR3byBwb3RlbnRpYWwgQ2xhc3MoMjUpIGF0dHJpYnV0ZXMgYXMgUlNTTyBjYW4gc3VwcG9ydCB1cCB0byB0d28uIFNvIHRoZSBudW1iZXIgb2YgYXR0cmlidXRlcyB3ZSBhcmUgY2FwdHVyaW5nIGlzIHJlZHVjZWQgdG8gOSBhcyBmb2xsb3dzPGJyIC8+DQo8YnIgLz4NCi0tQ2FsbGluZy1TdGF0aW9uLUlEKDMxKSwgM0dQUC1JTVNJKDEpLCBDYWxsZWQtU3RhdGlvbi1JRCgzMCksIDNHUFAtU2Vzc2lvbi1TLU5TU0FJKDEyNSksIDNHUFAtSU1FSVNWKDIwKSwgM0dQUC1SQVQtVHlwZSgyMSksIDNHUFAtVXNlci1Mb2NhdGlvbi1JbmZvKDIyKSwgQ2xhc3MoMjUpLS0sIENsYXNzKDI1KS0tPGJyIC8+DQo8YnIgLz4NCldoZXJlIGFuIGF0dHJpYnV0ZSBpcyBub3QgcHJvdmlkZWQsIHRoaXMgc2hvdWxkIHNpbXBseSBiZSBza2lwcGVkLiBJdCBtYXkgYmUgdGhlIGNhc2UgdGhhdCBvbmx5IG9uZSBDbGFzcygyNSkgaXMgdXNlZC9wcm92aWRlZCBzbyB0aGUgUkFESVVTIEFjY3QgbWVzc2FnZSBvbmx5IGNvbnRhaW5zIG9uZS4gT3IgaXQgbWF5IGNvbnRhaW4gdHdvLjxiciAvPg0KPGJyIC8+DQpBbHNvLCBhdHRyaWJ1dGVzIHRoYXQgaGF2ZSB2YWx1ZXMgd2hpY2ggYXJlIG5vdCBlYXN5IHRvIHJlYWQvdW5kZXJzdGFuZCAoc3VjaCBhcyBvY3RldHMgdHlwZSAtIGUuZy4gVXNlci1Mb2NhdGlvbi1JbmZvLCBTLU5TU0FJIGFuZCBDbGFzcykgc2hvdWxkIHByb3ZpZGUgaGV4ZHVtcCBvZiB0aGUgdmFsdWUuIFRoaXMgZW5zdXJlcyBiZXR0ZXIgcmVwcmVzZW50YXRpb24gb2YgdGhlIHZhcmlhdGlvbnMgaW4gcG90ZW50aWFsIHZhbHVlcyB0aGF0IHRoZXNlIGRpZmZlcmVudCBhdHRyaWJ1dGVzIG1heSBoYXZlLiBZb3Ugd2lsbCBzZWUgbXkgZXhhbXBsZSBiZWxvdyB3aGljaCBpbmRpY2F0ZXMgdGhpcy48YnIgLz4NCjxiciAvPg0KLS0tLS0tLS08YnIgLz4NCjxiciAvPg0KRm9yIHRoZSBwdXJwb3NlcyBvZiB0aGlzIG92ZXJhbGwgTkZSLCB0aGUgcmVtb3ZhbCBvZiB0aGUgRnJhbWVkLUlQLUFkZHJlc3MgYW5kIEZyYW1lZC1JUHY2LUFkZHJlc3Mgc2hvdWxkIGFwcGx5IHNvIEkgaGF2ZSByZW1vdmVkIGZyb20gZ2VuZXJhbCBORlIgZGVzY3JpcHRpb24gdG8gcmVmbGVjdCB0aGlzLjxiciAvPg0KPGJyIC8+DQplZGl0ZWQgb246IDIwMjUtMTItMDQgMDY6MzA=">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Relevant updates from TOP3 <a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1229978" title="[]
+RADIUS extensions for Bharti Airtel">1229978</a>:<br>
+<br>
+The customer will be using RSSO to be able to apply UserFW and UTM profiles to
+subscriber groups. While this does not affect this logging requirement as such, it
+does mean that the Framed IP/Framed-IPv6 will get recorded in the traffic log anyway
+as "srcip" so we can remove these. But we need to support at least two
+potential Class(25) attributes as RSSO can support up to two. So the number of
+attributes we are capturing is reduced to 9 as follows<br>
+<br>
+--Calling-Station-ID(31), 3GPP-IMSI(1), Called-Station-ID(30),
+3GPP-Session-S-NSSAI(125), 3GPP-IMEISV(20), 3GPP-RAT-Type(21),
+3GPP-User-Location-Info(22), Class(25)--, Class(25)--<br>
+<br>
+Where an attribute is not provided, this should simply be skipped. It may be the case
+that only one Class(25) is used/provided so the RADIUS Acct message only contains
+one. Or it may contain two.<br>
+<br>
+Also, attributes that have values which are not easy to read/understand (such as
+octets type - e.g. User-Location-Info, S-NSSAI and Class) should provide hexdump of
+the value. This ensures better representation of the variations in potential values
+that these different attributes may have. You will see my example below which
+indicates this.<br>
+<br>
+--------<br>
+<br>
+For the purposes of this overall NFR, the removal of the Framed-IP-Address and
+Framed-IPv6-Address should apply so I have removed from general NFR description to
+reflect this.<br>
+<br>
+edited on: 2025-12-04 06:30</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Hisham AboulMakarem (SE)<span style="font-size:10pt; font-weight:normal;"> (haboulmakarem)</span>
+				<br>
+		<span class="small">2026-02-09 22:51:51</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Hisham AboulMakarem (SE) - 2026-02-09 22:51:51" data-referencemessage="UmVtaW5kZXIgc2VudCB0byBDaGFyYmVsIFNhcmtpcywgRGF5YWwgTW9oYW4gS3VtYXIsIFlvdXNlZiBBbHNheWVk">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Reminder sent to Charbel Sarkis, Dayal Mohan Kumar, Yousef Alsayed</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+<tr class="bugnote">
+	<td class="bugnote-public">
+		Hisham AboulMakarem (SE)<span style="font-size:10pt; font-weight:normal;"> (haboulmakarem)</span>
+				<br>
+		<span class="small">2026-02-09 22:52:03</span><br><br>
+		<span class="small">
+		<a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote" class="reply-note" data-user="Hisham AboulMakarem (SE) - 2026-02-09 22:52:03" data-referencemessage="UmVtaW5kZXIgc2VudCB0byBIaXNoYW0gQWJvdWxNYWthcmVtIChTRSk=">[&nbsp;Reply&nbsp;]</a>		</span>
+	</td>
+	<td class="bugnote-note-public">
+		<tt>Reminder sent to Hisham AboulMakarem (SE)</tt>
+	</td>
+</tr>
+<tr>
+	<td class="spacer" colspan="2">&nbsp;</td>
+</tr>
+</tbody></table>
+<br><span class="small">[&nbsp;</span></a><a href="https://mantis.fortinet.com/bug_view_page.php?bug_id=1225001#addbugnote">Add Bugnote</a>&nbsp;]<br>
+<a name="history" id="history"><br>
+<table class="width100" cellspacing="0">
+<tbody><tr>
+	<td class="form-title" colspan="4">
+		Bug History	</td>
+</tr>
+<tr class="row-category">
+	<td class="small-caption">
+		Date Modified	</td>
+	<td class="small-caption">
+		Username	</td>
+	<td class="small-caption">
+		Field	</td>
+	<td class="small-caption">
+		Change	</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-10 09:26:23	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		New Bug	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-10 09:26:23	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Branch Merge List	</td>
+	<td class="small-caption">
+				&nbsp;=&gt; 0018000000NS5DEAA1	</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-10 09:26:23	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Salesforce IDs	</td>
+	<td class="small-caption">
+				&nbsp;=&gt; 006Hr00001Vvh8fIAB	</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-10 09:26:36	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		File Added: RADIUS-3gpp-logging.png	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-10 09:27:06	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Send Reminder: Thorsten Jaeger	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-10 09:27:06	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7442320	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-10 09:50:53	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Send Reminder: Efe Telciler	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-10 09:50:53	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Send Reminder: Joel Moxey	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-10 09:50:53	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Send Reminder: Justin Moore	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-10 09:50:53	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Send Reminder: Simon Bryden	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-10 09:50:53	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7442397	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-10 09:51:00	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Tom Walker	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-10 09:51:21	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Total Funded	</td>
+	<td class="small-caption">
+				0 =&gt; 1	</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-10 09:56:08	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		File Added: 29061-h60.docx	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-10 09:56:37	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7442420	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-10 23:23:45	</td>
+	<td class="small-caption">
+		Thorsten Jaeger (tjaeger) 	</td>
+	<td class="small-caption">
+		Total Funded	</td>
+	<td class="small-caption">
+				1 =&gt; 2	</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-10 23:28:03	</td>
+	<td class="small-caption">
+		Efe Telciler (etelciler) 	</td>
+	<td class="small-caption">
+		Total Funded	</td>
+	<td class="small-caption">
+				2 =&gt; 3	</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-11 01:15:53	</td>
+	<td class="small-caption">
+		Justin Moore (jmoore) 	</td>
+	<td class="small-caption">
+		Total Funded	</td>
+	<td class="small-caption">
+				3 =&gt; 4	</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-12 01:46:06	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		File Deleted: RADIUS-3gpp-logging.png	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-12 01:46:32	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		File Added: RADIUS-3gpp-logging.png	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-12 01:47:52	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Description Updated	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-12 02:05:45	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Description Updated	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-12 20:12:51	</td>
+	<td class="small-caption">
+		Rahul Dwivedi (rahul) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Rahul Dwivedi	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-12 20:20:36	</td>
+	<td class="small-caption">
+		Rahul Dwivedi (rahul) 	</td>
+	<td class="small-caption">
+		Send Reminder: Asraf Ali Talib Ali	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-12 20:20:36	</td>
+	<td class="small-caption">
+		Rahul Dwivedi (rahul) 	</td>
+	<td class="small-caption">
+		Send Reminder: Himanshu Soni	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-12 20:20:36	</td>
+	<td class="small-caption">
+		Rahul Dwivedi (rahul) 	</td>
+	<td class="small-caption">
+		Send Reminder: Michael Joseph	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-12 20:20:37	</td>
+	<td class="small-caption">
+		Rahul Dwivedi (rahul) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7449610	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-13 01:27:07	</td>
+	<td class="small-caption">
+		Joel Moxey (jmoxey) 	</td>
+	<td class="small-caption">
+		Total Funded	</td>
+	<td class="small-caption">
+				4 =&gt; 5	</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-17 00:42:07	</td>
+	<td class="small-caption">
+		(Abde) Abdessamad El Amrani (aelamrani) 	</td>
+	<td class="small-caption">
+		Bug Monitored: (Abde) Abdessamad El Amrani	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-21 11:33:18	</td>
+	<td class="small-caption">
+		Sam Zhi (szhi) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Sam Zhi	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-21 11:41:18	</td>
+	<td class="small-caption">
+		Sam Zhi (szhi) 	</td>
+	<td class="small-caption">
+		Send Reminder: Jonathan Gu	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-21 11:41:18	</td>
+	<td class="small-caption">
+		Sam Zhi (szhi) 	</td>
+	<td class="small-caption">
+		Send Reminder: Yanna Chen	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-21 11:41:18	</td>
+	<td class="small-caption">
+		Sam Zhi (szhi) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7470768	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-24 10:28:05	</td>
+	<td class="small-caption">
+		Sam Zhi (szhi) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7473720	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-24 14:37:03	</td>
+	<td class="small-caption">
+		Jeff Wang (jwang) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Jeff Wang	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-24 15:51:19	</td>
+	<td class="small-caption">
+		Sam Zhi (szhi) 	</td>
+	<td class="small-caption">
+		Status	</td>
+	<td class="small-caption">
+				New =&gt; Concept Commit	</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-24 22:57:56	</td>
+	<td class="small-caption">
+		Tomas Stribrny (TAC) (tstribrny) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Tomas Stribrny (TAC)	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-25 01:07:46	</td>
+	<td class="small-caption">
+		Murat Kelesoglu (mkelesoglu) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Murat Kelesoglu	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-25 03:43:59	</td>
+	<td class="small-caption">
+		Joel Moxey (jmoxey) 	</td>
+	<td class="small-caption">
+		File Added: packet-capture.pcap	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-25 03:44:30	</td>
+	<td class="small-caption">
+		Joel Moxey (jmoxey) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7476432	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-25 11:06:36	</td>
+	<td class="small-caption">
+		Chenyong Dong (cydong) 	</td>
+	<td class="small-caption">
+		Send Reminder: Chenyong Dong	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-25 11:06:36	</td>
+	<td class="small-caption">
+		Chenyong Dong (cydong) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7477512	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-25 11:33:37	</td>
+	<td class="small-caption">
+		Yanna Chen (ychen) 	</td>
+	<td class="small-caption">
+		Send Reminder: Laura Yang	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-25 11:33:37	</td>
+	<td class="small-caption">
+		Yanna Chen (ychen) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7477719	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-25 11:36:15	</td>
+	<td class="small-caption">
+		Yanna Chen (ychen) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7477739	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-25 11:38:03	</td>
+	<td class="small-caption">
+		Yanna Chen (ychen) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7477747	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-25 11:38:14	</td>
+	<td class="small-caption">
+		Yanna Chen (ychen) 	</td>
+	<td class="small-caption">
+		Additional Information Updated	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-25 11:51:34	</td>
+	<td class="small-caption">
+		Chenyong Dong (cydong) 	</td>
+	<td class="small-caption">
+		Send Reminder: Johannah Liu	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-25 11:51:34	</td>
+	<td class="small-caption">
+		Chenyong Dong (cydong) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7477814	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-25 14:24:17	</td>
+	<td class="small-caption">
+		Johannah Liu (ljohannah) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7478393	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-11-25 17:49:21	</td>
+	<td class="small-caption">
+		Keishi Muneno (kmuneno) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Keishi Muneno	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-11-25 18:14:30	</td>
+	<td class="small-caption">
+		Nobuyuki Tayama (ntayama) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Nobuyuki Tayama	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-12-01 06:02:06	</td>
+	<td class="small-caption">
+		Pablo Molinero (pmolinero) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Pablo Molinero	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-12-01 21:36:15	</td>
+	<td class="small-caption">
+		Chee Wan Ee (cwan) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Chee Wan Ee	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-12-02 22:45:32	</td>
+	<td class="small-caption">
+		Ashraf Shaikh (ashaikh) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Ashraf Shaikh	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-12-04 06:29:14	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7498370	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2025-12-04 06:30:52	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Bugnote Edited: 7498370	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2025-12-04 06:31:21	</td>
+	<td class="small-caption">
+		Tom Walker (twalker) 	</td>
+	<td class="small-caption">
+		Description Updated	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2026-01-05 18:07:12	</td>
+	<td class="small-caption">
+		Sadayuki Kobayashi (skobayashi) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Sadayuki Kobayashi	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2026-01-19 06:13:17	</td>
+	<td class="small-caption">
+		Roshanak Partovi (rpartovi) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Roshanak Partovi	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2026-01-29 09:17:39	</td>
+	<td class="small-caption">
+		Joel Moxey (jmoxey) 	</td>
+	<td class="small-caption">
+		Total Funded	</td>
+	<td class="small-caption">
+				5 =&gt; 4	</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2026-02-03 01:18:44	</td>
+	<td class="small-caption">
+		Melih Kirkgoz (mkirkgoz) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Melih Kirkgoz	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2026-02-06 03:30:46	</td>
+	<td class="small-caption">
+		Rocco DiStefano (rdiStefano) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Rocco DiStefano	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2026-02-09 22:50:00	</td>
+	<td class="small-caption">
+		Hisham AboulMakarem (SE) (haboulmakarem) 	</td>
+	<td class="small-caption">
+		Bug Monitored: Hisham AboulMakarem (SE)	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2026-02-09 22:51:50	</td>
+	<td class="small-caption">
+		Hisham AboulMakarem (SE) (haboulmakarem) 	</td>
+	<td class="small-caption">
+		Send Reminder: Charbel Sarkis	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2026-02-09 22:51:50	</td>
+	<td class="small-caption">
+		Hisham AboulMakarem (SE) (haboulmakarem) 	</td>
+	<td class="small-caption">
+		Send Reminder: Dayal Mohan Kumar	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2026-02-09 22:51:50	</td>
+	<td class="small-caption">
+		Hisham AboulMakarem (SE) (haboulmakarem) 	</td>
+	<td class="small-caption">
+		Send Reminder: Yousef Alsayed	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-1">
+	<td class="small-caption">
+		2026-02-09 22:51:51	</td>
+	<td class="small-caption">
+		Hisham AboulMakarem (SE) (haboulmakarem) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7628188	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+<tr class="row-2">
+	<td class="small-caption">
+		2026-02-09 22:52:03	</td>
+	<td class="small-caption">
+		Hisham AboulMakarem (SE) (haboulmakarem) 	</td>
+	<td class="small-caption">
+		Bugnote Added: 7628189	</td>
+	<td class="small-caption">
+					</td>
+</tr>
+</tbody></table>
+
+<script language="JavaScript">
+	$(function() {
+		var dialog_audit = $("#dialog-audit-detail").dialog({
+			autoOpen: false,
+			height: 600,
+			width: 800,
+			modal: true,
+			open : function() {
+				var t = $(this).parent(), w = $(window);
+				t.offset({
+					top: 0
+					//left: 0
+				});
+			},
+			close: function() {
+			}
+		});
+
+		dialog_audit.find("form").on("submit", function( event ) {
+			event.preventDefault();
+		});
+
+		$(".before_updated").on("click", function() {
+			var audit_id = $(this).attr('id');
+			dialog_audit.dialog( 'option', 'buttons', {
+				Cancel: function() {
+					dialog_audit.dialog( "close" );
+				}
+			});
+
+			dialog_audit.load('ajax_load_audit_detail.php?audit_id='+audit_id);
+			dialog_audit.dialog( "open" );
+		});
+
+		$("#bug_access_requests").on("click", function() {
+			var bug_id = $(this).attr('bug_id');
+			dialog_audit.dialog( 'option', 'buttons', {
+				Cancel: function() {
+					dialog_audit.dialog( "close" );
+				}
+			});
+
+			dialog_audit.load('ajax_load_bug_access_requests.php?request_type=bug&main_id='+bug_id);
+			dialog_audit.dialog( 'option', 'title', 'Bug Access Requests' );
+			dialog_audit.dialog( "open" );
+		});
+	});
+</script>
+<br><hr size="1"><address>Copyright © 2000 - 2004</address></a><address><a name="history" id="history"></a><a href="mailto:mantis_admin@fortinet.com">mantis_admin@fortinet.com</a></address><div tabindex="-1" role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-dialog-buttons ui-draggable ui-resizable" aria-describedby="dialog-help-form" aria-labelledby="ui-id-1" style="display: none; position: absolute;"><div class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle"><span id="ui-id-1" class="ui-dialog-title">Mantis Help</span><button type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close" title="Close"><span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span>Close</button></div><div id="dialog-help-form" class="ui-dialog-content ui-widget-content"></div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-corner-all ui-widget">Cancel</button></div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div><div tabindex="-1" role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-dialog-buttons ui-draggable ui-resizable" aria-describedby="dialog-form" aria-labelledby="ui-id-2" style="display: none; position: absolute;"><div class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle"><span id="ui-id-2" class="ui-dialog-title">Update CTO Fund</span><button type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close" title="Close"><span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span>Close</button></div><div id="dialog-form" class="ui-dialog-content ui-widget-content">
+</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-corner-all ui-widget">Submit</button><button type="button" class="ui-button ui-corner-all ui-widget">Cancel</button></div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div><div tabindex="-1" role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-dialog-buttons ui-draggable ui-resizable" aria-describedby="dialog-survey-form" aria-labelledby="ui-id-3" style="display: none; position: absolute;"><div class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle"><span id="ui-id-3" class="ui-dialog-title">Survey for Top3 Satisfaction</span><button type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close" title="Close"><span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span>Close</button></div><div id="dialog-survey-form" class="ui-dialog-content ui-widget-content">
+</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-corner-all ui-widget">Submit</button><button type="button" class="ui-button ui-corner-all ui-widget">Cancel</button></div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div><div tabindex="-1" role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-dialog-buttons ui-draggable ui-resizable" aria-describedby="dialog-debug-form" aria-labelledby="ui-id-4" style="display: none; position: absolute;"><div class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle"><span id="ui-id-4" class="ui-dialog-title">Troubleshooting Commands</span><button type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close" title="Close"><span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span>Close</button></div><div id="dialog-debug-form" class="ui-dialog-content ui-widget-content">
+</div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-corner-all ui-widget">Cancel</button></div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div><div tabindex="-1" role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-draggable ui-resizable" aria-describedby="dialog-audit-detail" aria-labelledby="ui-id-5" style="display: none; position: absolute;"><div class="ui-dialog-titlebar ui-corner-all ui-widget-header ui-helper-clearfix ui-draggable-handle"><span id="ui-id-5" class="ui-dialog-title">Audit Detail</span><button type="button" class="ui-button ui-corner-all ui-widget ui-button-icon-only ui-dialog-titlebar-close" title="Close"><span class="ui-button-icon ui-icon ui-icon-closethick"></span><span class="ui-button-icon-space"> </span>Close</button></div><div id="dialog-audit-detail" class="ui-dialog-content ui-widget-content"></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

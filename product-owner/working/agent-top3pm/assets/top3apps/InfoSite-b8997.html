@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<!-- saved from url=(0115)https://info.fortinet.com/files/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>InfoSite</title>
+    <link href="https://info.fortinet.com/static/images/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <link rel="stylesheet" href="./InfoSite-b8997_files/jquery-ui.min.css">
+    <link href="./InfoSite-b8997_files/infosite.css" media="screen" rel="stylesheet" type="text/css">
+    <style type="text/css"></style>
+    <script src="./InfoSite-b8997_files/jquery-1.12.4.js.download"></script>
+    <script src="./InfoSite-b8997_files/jquery-ui.min.js.download"></script>
+    <script type="text/javascript">
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      var csrftoken = getCookie('csrftoken');
+      function csrfSafeMethod(method) {
+          // these HTTP methods do not require CSRF protection
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+              }
+          }
+      });
+    </script>
+  <script id="fortidlp-file-access-api" src="chrome-extension://gbojkjpincgojijodbnliimgeggnomai/upload_fileaccessapi.js"></script><script id="fortidlp-input-element-creation" src="chrome-extension://gbojkjpincgojijodbnliimgeggnomai/upload_element_creation.js"></script></head>
+  <body data-new-gr-c-s-check-loaded="14.1272.0" data-gr-ext-installed="">
+    <div id="wrapper">
+    
+
+    <div id="sitebar">
+    <div style="background-color: #555; font-size: 15px; font-weight:bold; height: 35px; line-height: 35px">
+    
+        
+          <a href="https://pmdb.fortinet.com/" style="color: #ffffff; margin-left: 5px">PMDB</a> 
+        
+    
+        
+          <a href="https://mantis.fortinet.com/" style="color: #ffffff; margin-left: 5px">Mantis</a> 
+        
+    
+        
+          <a href="https://community.fortinet.com/" style="color: #ffffff; margin-left: 5px">Community</a> 
+        
+    
+        
+          <a href="https://fortivision.fortinet.com/" style="color: #ffffff; margin-left: 5px">FortiVision</a> 
+        
+    
+        
+    
+        
+          <a href="https://oa.fortinet.com/" style="color: #ffffff; margin-left: 5px">FortiOA</a> 
+        
+    
+        
+          <a href="https://hcm.myfortinet.com/" style="color: #ffffff; margin-left: 5px">HCM</a> 
+        
+    
+        
+          <a href="https://forticare.fortinet.com/CustomerSupport/SSO/login.ashx" style="color: #ffffff; margin-left: 5px">FortiCare</a> 
+        
+    
+        
+          <a href="https://training.fortinet.com/auth/saml2/login.php?idpalias=employee" style="color: #ffffff; margin-left: 5px">NSE</a> 
+        
+    
+        
+          <a href="https://isms.corp.fortinet.com/" style="color: #ffffff; margin-left: 5px">ISMS</a> 
+        
+    
+        
+          <a href="https://quality.corp.fortinet.com/" style="color: #ffffff; margin-left: 5px">QMS</a> 
+        
+    
+        
+          <a href="https://fortinet.sharepoint.com/sites/fuse" style="color: #ffffff; margin-left: 5px">Sharepoint</a> 
+        
+    
+        
+          <a href="https://dev-signing.corp.fortinet.com/" style="color: #ffffff; margin-left: 5px">DevSigning</a> 
+        
+    
+        
+          <a href="https://jira.servicedesk.myfortinet.com/" style="color: #ffffff; margin-left: 5px">Jira Service Desk</a> 
+        
+    
+        
+          <a href="https://fortidrive.com/" style="color: #ffffff; margin-left: 5px">FortiDrive</a>
+        
+    
+    </div>
+    </div>
+    <div id="header">
+      <div id="banner">
+        <a href="https://fortinet.com/" style="float: left;"><span class="FTNT_logo"></span></a>
+        <ul id="topnav">
+          <li>» <a href="https://blog.fortinet.com/">FortiGuard Blog</a></li>
+          <li>» <a href="https://www.fortiguard.com/">FortiGuard Center</a></li>
+          <li>» <a href="https://www.fortinet.com/">Fortinet.com</a></li>
+          <li>» <a href="https://info.fortinet.com/">Home</a></li>
+        </ul>
+        <div id="site-title">
+          <h1 class="title">InfoSite</h1>
+          <br>
+          <h3 class="subtitle">Code and Component Changes Information Center</h3>
+        </div>
+      </div>
+      <div id="graybar"></div>
+      <div id="navigation">
+        <ul id="sectnav" class="ui-widget ui-widget-header nav">
+          <li><a href="https://info.fortinet.com/" class="active">Home</a></li>
+          <li class="dropdown">
+            <span class="menu-header">Software<span class="ui-icon ui-icon-triangle-1-s"></span></span>
+            <ul class="dropdown-content">
+              <li><a href="https://info.fortinet.com/builds" id="release_build">Release builds</a></li>
+              <li><a href="https://info.fortinet.com/branches" id="special_build">Special builds</a></li>
+              <li><a href="https://info.fortinet.com/branches/feature" id="feature_build">Feature builds</a></li>
+              <li><a href="https://info.fortinet.com/changes" id="change_orders">Change orders</a></li>
+              <li><a href="https://info.fortinet.com/bios">BIOS</a></li>
+              <li><a href="https://info.fortinet.com/files/BuildEnvironments">Builds Environments</a></li>
+              <li><a href="https://info.fortinet.com/files/Diagnostic_Tools">Diagnostic Tools</a></li>
+              <li><a href="https://info.fortinet.com/files/Tools">Test Checklist Template</a></li>
+              <li><a href="https://info.fortinet.com/files/5000_FRU">5000 FRU</a></li>
+            </ul>
+          </li>
+          
+          <li class="dropdown">
+            <span class="menu-header">Hardware<span class="ui-icon ui-icon-triangle-1-s"></span></span>
+            <ul class="dropdown-content">
+            
+              <li><a href="https://info.fortinet.com/find_serial" id="hardware_info">Hardware information</a></li>
+            
+            
+            </ul>
+          </li>
+          
+          
+          <li><a href="https://info.fortinet.com/dashboard">Dashboard</a></li>
+          
+        </ul>
+        <ul id="usermenu" class="ui-widget ui-widget-header nav">
+          <li class="dropdown">
+            <span>Jeff Song <span class="ui-icon ui-icon-triangle-1-s"></span></span>
+            <ul class="dropdown-content">
+              <li><a href="https://info.fortinet.com/saml/logout/">Sign Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+
+
+<script type="text/javascript">
+
+  $(function () {
+    $("#release_build").click(function() {
+        var valueSelected = getCookie('valueSelected');
+        if(valueSelected != null){
+            $(this).attr("href", "/builds/?project_id="+valueSelected);
+        }
+        else{
+            $(this).attr("href", "/builds/?project_id=123");
+        }
+    });
+    $("#special_build").click(function() {
+        var valueSelected = getCookie('valueSelected');
+        if(valueSelected != null){
+            $(this).attr("href", "/branches/?project_id="+valueSelected);
+        }
+        else{
+            $(this).attr("href", "/branches/?project_id=123");
+        }
+    });
+    $("#feature_build").click(function() {
+        var valueSelected = getCookie('valueSelected');
+
+        if(valueSelected != null){
+            $(this).attr("href", "/branches/feature/?project_id="+valueSelected);
+        }
+        else{
+            $(this).attr("href", "/branches/feature/?project_id=123");
+        }
+
+    });
+    $("#change_orders").click(function() {
+        var valueSelected = getCookie('valueSelected');
+
+        if(valueSelected != null){
+            $(this).attr("href", "/changes/?project_id="+valueSelected);
+        }
+        else{
+            $(this).attr("href", "/changes/?project_id=123");
+
+        }
+    });
+
+  });
+</script>
+
+<!-- Overlay for the XML preview -->
+<div id="overlay">
+    <button class="close-btn" id="closeOverlay">Close</button>
+    <iframe id="filePreview" src="./InfoSite-b8997_files/saved_resource.html"></iframe>
+</div>
+<div id="content">
+    
+        <div>
+            <div id="title" class="float-left">/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997 </div>
+            
+                
+                    <div id="region" class="float-right">Region: BBY2</div>
+                
+            
+        </div>
+
+        <br class="float-clear">
+
+        <div class="wide" id="file-list">
+            <div>
+                <p>Can't download any images? please check <a href="https://info.fortinet.com/files/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/#" onclick="showAlert()">Here</a></p>
+            </div>
+            <table class="magic_grid []" data-default-ajax-handler="true" data-listeners="{}">
+                <thead data-params="{&quot;magic_grid_id&quot;:&quot;ev62n7l9bjms4p9bh8ao7rbb&quot;}">
+                <tr>
+                    <td class="full-width ui-widget-header" colspan="4"><span class="magic_grid_spinner" id="6yhu0gxhxovlelqiwu6povnt_spinner"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="ui-state-default sort-none">Name</th>
+                    <th class="ui-state-default sort-none">Last Modified</th>
+                    <th class="ui-state-default sort-none">Size</th>
+                    <th class="ui-state-default sort-none">Actions</th>
+                </tr>
+                </thead>
+                <tbody class="ui-widget-content" data-role="download">
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-fos_filesystem_hashes.log" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-fos_filesystem_hashes.log" data-type="file" data-filename="FGT_3800G-fos_filesystem_hashes.log">FGT_3800G-fos_filesystem_hashes.log</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:39</td>
+                        <td>301.67 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-fos_filesystem_hashes.log" data-type="download" data-filename="FGT_3800G-fos_filesystem_hashes.log" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-out-schema-package.tar.xz" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-out-schema-package.tar.xz" data-type="file" data-filename="FGT_3800G-out-schema-package.tar.xz">FGT_3800G-out-schema-package.tar.xz</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:39</td>
+                        <td>611.34 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-out-schema-package.tar.xz" data-type="download" data-filename="FGT_3800G-out-schema-package.tar.xz" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-v7.4.9STS-build8997-FORTINET.out" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-v7.4.9STS-build8997-FORTINET.out" data-type="file" data-filename="FGT_3800G-v7.4.9STS-build8997-FORTINET.out">FGT_3800G-v7.4.9STS-build8997-FORTINET.out</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:40</td>
+                        <td>180.27 MB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-v7.4.9STS-build8997-FORTINET.out" data-type="download" data-filename="FGT_3800G-v7.4.9STS-build8997-FORTINET.out" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-v7.4.9STS-build8997-FORTINET.out.extra.tgz" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-v7.4.9STS-build8997-FORTINET.out.extra.tgz" data-type="file" data-filename="FGT_3800G-v7.4.9STS-build8997-FORTINET.out.extra.tgz">FGT_3800G-v7.4.9STS-build8997-FORTINET.out.extra.tgz</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:40</td>
+                        <td>336.32 MB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-v7.4.9STS-build8997-FORTINET.out.extra.tgz" data-type="download" data-filename="FGT_3800G-v7.4.9STS-build8997-FORTINET.out.extra.tgz" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-v7.4.9STS-build8997-FORTINET.out.filesize" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-v7.4.9STS-build8997-FORTINET.out.filesize" data-type="file" data-filename="FGT_3800G-v7.4.9STS-build8997-FORTINET.out.filesize">FGT_3800G-v7.4.9STS-build8997-FORTINET.out.filesize</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:40</td>
+                        <td>9.72 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3800G-v7.4.9STS-build8997-FORTINET.out.filesize" data-type="download" data-filename="FGT_3800G-v7.4.9STS-build8997-FORTINET.out.filesize" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-fos_filesystem_hashes.log" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-fos_filesystem_hashes.log" data-type="file" data-filename="FGT_3801G-fos_filesystem_hashes.log">FGT_3801G-fos_filesystem_hashes.log</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:39</td>
+                        <td>305.78 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-fos_filesystem_hashes.log" data-type="download" data-filename="FGT_3801G-fos_filesystem_hashes.log" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-out-schema-package.tar.xz" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-out-schema-package.tar.xz" data-type="file" data-filename="FGT_3801G-out-schema-package.tar.xz">FGT_3801G-out-schema-package.tar.xz</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:40</td>
+                        <td>625.99 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-out-schema-package.tar.xz" data-type="download" data-filename="FGT_3801G-out-schema-package.tar.xz" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-v7.4.9STS-build8997-FORTINET.out" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-v7.4.9STS-build8997-FORTINET.out" data-type="file" data-filename="FGT_3801G-v7.4.9STS-build8997-FORTINET.out">FGT_3801G-v7.4.9STS-build8997-FORTINET.out</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:41</td>
+                        <td>181.02 MB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-v7.4.9STS-build8997-FORTINET.out" data-type="download" data-filename="FGT_3801G-v7.4.9STS-build8997-FORTINET.out" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-v7.4.9STS-build8997-FORTINET.out.extra.tgz" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-v7.4.9STS-build8997-FORTINET.out.extra.tgz" data-type="file" data-filename="FGT_3801G-v7.4.9STS-build8997-FORTINET.out.extra.tgz">FGT_3801G-v7.4.9STS-build8997-FORTINET.out.extra.tgz</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:40</td>
+                        <td>341.34 MB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-v7.4.9STS-build8997-FORTINET.out.extra.tgz" data-type="download" data-filename="FGT_3801G-v7.4.9STS-build8997-FORTINET.out.extra.tgz" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-v7.4.9STS-build8997-FORTINET.out.filesize" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-v7.4.9STS-build8997-FORTINET.out.filesize" data-type="file" data-filename="FGT_3801G-v7.4.9STS-build8997-FORTINET.out.filesize">FGT_3801G-v7.4.9STS-build8997-FORTINET.out.filesize</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:40</td>
+                        <td>9.8 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_3801G-v7.4.9STS-build8997-FORTINET.out.filesize" data-type="download" data-filename="FGT_3801G-v7.4.9STS-build8997-FORTINET.out.filesize" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-fos_filesystem_hashes.log" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-fos_filesystem_hashes.log" data-type="file" data-filename="FGT_VM64-fos_filesystem_hashes.log">FGT_VM64-fos_filesystem_hashes.log</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:42</td>
+                        <td>306.59 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-fos_filesystem_hashes.log" data-type="download" data-filename="FGT_VM64-fos_filesystem_hashes.log" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-out-schema-package.tar.xz" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-out-schema-package.tar.xz" data-type="file" data-filename="FGT_VM64-out-schema-package.tar.xz">FGT_VM64-out-schema-package.tar.xz</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:42</td>
+                        <td>596.13 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-out-schema-package.tar.xz" data-type="download" data-filename="FGT_VM64-out-schema-package.tar.xz" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out" data-type="file" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out">FGT_VM64-v7.4.9STS-build8997-FORTINET.out</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:42</td>
+                        <td>100.99 MB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out" data-type="download" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.demo.zip" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.demo.zip" data-type="file" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.demo.zip">FGT_VM64-v7.4.9STS-build8997-FORTINET.out.demo.zip</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:42</td>
+                        <td>100.29 MB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.demo.zip" data-type="download" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.demo.zip" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.extra.tgz" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.extra.tgz" data-type="file" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.extra.tgz">FGT_VM64-v7.4.9STS-build8997-FORTINET.out.extra.tgz</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:42</td>
+                        <td>382.02 MB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.extra.tgz" data-type="download" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.extra.tgz" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.filesize" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.filesize" data-type="file" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.filesize">FGT_VM64-v7.4.9STS-build8997-FORTINET.out.filesize</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:42</td>
+                        <td>10.13 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.filesize" data-type="download" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.filesize" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ova.zip" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ova.zip" data-type="file" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ova.zip">FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ova.zip</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:42</td>
+                        <td>100.38 MB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ova.zip" data-type="download" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ova.zip" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ovf.zip" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ovf.zip" data-type="file" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ovf.zip">FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ovf.zip</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:42</td>
+                        <td>100.44 MB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ovf.zip" data-type="download" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.ovf.zip" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.vmware.zip" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.vmware.zip" data-type="file" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.vmware.zip">FGT_VM64-v7.4.9STS-build8997-FORTINET.out.vmware.zip</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>100.29 MB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_VM64-v7.4.9STS-build8997-FORTINET.out.vmware.zip" data-type="download" data-filename="FGT_VM64-v7.4.9STS-build8997-FORTINET.out.vmware.zip" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_log_reference.xml" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_log_reference.xml" data-type="file" data-filename="FGT_log_reference.xml">FGT_log_reference.xml</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:42</td>
+                        <td>1.38 MB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_log_reference.xml" data-type="view" data-filename="FGT_log_reference.xml" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FGT_log_reference.xml" data-type="download" data-filename="FGT_log_reference.xml" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FORTINET-CORE-MIB-build8997.mib" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FORTINET-CORE-MIB-build8997.mib" data-type="file" data-filename="FORTINET-CORE-MIB-build8997.mib">FORTINET-CORE-MIB-build8997.mib</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>15.7 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FORTINET-CORE-MIB-build8997.mib" data-type="download" data-filename="FORTINET-CORE-MIB-build8997.mib" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FORTINET-FORTIGATE-MIB-build8997.mib" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FORTINET-FORTIGATE-MIB-build8997.mib" data-type="file" data-filename="FORTINET-FORTIGATE-MIB-build8997.mib">FORTINET-FORTIGATE-MIB-build8997.mib</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>473.77 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/FORTINET-FORTIGATE-MIB-build8997.mib" data-type="download" data-filename="FORTINET-FORTIGATE-MIB-build8997.mib" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/fos_hash_compare.py" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/fos_hash_compare.py" data-type="file" data-filename="fos_hash_compare.py">fos_hash_compare.py</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>10.73 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/fos_hash_compare.py" data-type="download" data-filename="fos_hash_compare.py" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/help_topics.csv" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/help_topics.csv" data-type="file" data-filename="help_topics.csv">help_topics.csv</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>15.51 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/help_topics.csv" data-type="download" data-filename="help_topics.csv" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/log.dtd" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/log.dtd" data-type="file" data-filename="log.dtd">log.dtd</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>4.83 KB</td>
+                        <td class="center action_column">
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/log.dtd" data-type="download" data-filename="log.dtd" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/log_faz.xml" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/log_faz.xml" data-type="file" data-filename="log_faz.xml">log_faz.xml</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>247.15 KB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/log_faz.xml" data-type="view" data-filename="log_faz.xml" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/log_faz.xml" data-type="download" data-filename="log_faz.xml" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/md5sum.txt" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/md5sum.txt" data-type="file" data-filename="md5sum.txt">md5sum.txt</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:54</td>
+                        <td>2.09 KB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/md5sum.txt" data-type="view" data-filename="md5sum.txt" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/md5sum.txt" data-type="download" data-filename="md5sum.txt" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/oids.html" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/oids.html" data-type="file" data-filename="oids.html">oids.html</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>299.16 KB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/oids.html" data-type="view" data-filename="oids.html" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/oids.html" data-type="download" data-filename="oids.html" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/platform.xml" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/platform.xml" data-type="file" data-filename="platform.xml">platform.xml</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>1.27 MB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/platform.xml" data-type="view" data-filename="platform.xml" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/platform.xml" data-type="download" data-filename="platform.xml" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/platform.xsl" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/platform.xsl" data-type="file" data-filename="platform.xsl">platform.xsl</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>18.52 KB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/platform.xsl" data-type="view" data-filename="platform.xsl" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/platform.xsl" data-type="download" data-filename="platform.xsl" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/sha512sum.txt" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/sha512sum.txt" data-type="file" data-filename="sha512sum.txt">sha512sum.txt</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:54</td>
+                        <td>5.19 KB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/sha512sum.txt" data-type="view" data-filename="sha512sum.txt" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/sha512sum.txt" data-type="download" data-filename="sha512sum.txt" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/static_links.json" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/static_links.json" data-type="file" data-filename="static_links.json">static_links.json</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>6.7 KB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/static_links.json" data-type="view" data-filename="static_links.json" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/static_links.json" data-type="download" data-filename="static_links.json" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize-carrier.html" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize-carrier.html" data-type="file" data-filename="tablesize-carrier.html">tablesize-carrier.html</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>660.23 KB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize-carrier.html" data-type="view" data-filename="tablesize-carrier.html" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize-carrier.html" data-type="download" data-filename="tablesize-carrier.html" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize-carrier.txt" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize-carrier.txt" data-type="file" data-filename="tablesize-carrier.txt">tablesize-carrier.txt</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>602.29 KB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize-carrier.txt" data-type="view" data-filename="tablesize-carrier.txt" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize-carrier.txt" data-type="download" data-filename="tablesize-carrier.txt" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize.html" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize.html" data-type="file" data-filename="tablesize.html">tablesize.html</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>1.56 MB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize.html" data-type="view" data-filename="tablesize.html" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize.html" data-type="download" data-filename="tablesize.html" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize.txt" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize.txt" data-type="file" data-filename="tablesize.txt">tablesize.txt</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>1.45 MB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize.txt" data-type="view" data-filename="tablesize.txt" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/tablesize.txt" data-type="download" data-filename="tablesize.txt" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="odd mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/text_log.html" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/text_log.html" data-type="file" data-filename="text_log.html">text_log.html</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>371.96 KB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/text_log.html" data-type="view" data-filename="text_log.html" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/text_log.html" data-type="download" data-filename="text_log.html" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                    <tr class="even mono">
+                        <td>
+                            
+                                <a href="https://info.fortinet.com/download/FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/vmware_marketplace_oss_list.txt" data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/vmware_marketplace_oss_list.txt" data-type="file" data-filename="vmware_marketplace_oss_list.txt">vmware_marketplace_oss_list.txt</a>
+                            
+
+                        </td>
+                        <td>2026-02-09 10:43</td>
+                        <td>14.47 KB</td>
+                        <td class="center action_column">
+                            
+
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/vmware_marketplace_oss_list.txt" data-type="view" data-filename="vmware_marketplace_oss_list.txt" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">View</div>
+                                </div>
+                            
+                            
+                                <div class="tooltip-container">
+                                    <button data-key="FortiOS/v7.00/images/NoMainBranch/fg_7-4_logging_rsso_acc_msgs_38kg/build_tag_8997/vmware_marketplace_oss_list.txt" data-type="download" data-filename="vmware_marketplace_oss_list.txt" class="view-button
+                                        ui-icon-button ui-widget ui-state-default ui-corner-all
+                                 ui-button-text-only " role="button">
+                       <span class="ui-button-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg></span>
+                                    </button>
+                                    <div class="tooltip-text">Download</div>
+                                </div>
+                            
+                        </td>
+                    </tr>
+
+                
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td class="full-width ui-widget-header" colspan="4">
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+            
+        </div>
+    
+</div>
+<script>
+    const overlay = document.getElementById('overlay');
+    const closeOverlay = document.getElementById('closeOverlay');
+    const iframe = document.getElementById('filePreview');
+    document.addEventListener('DOMContentLoaded', function () {
+        // Find all anchor tags with data-key attribute
+        const downloadZone = document.querySelector('tbody[data-role]');
+
+        closeOverlay.addEventListener('click', () => {
+            // Hide the overlay
+            overlay.style.display = 'none';
+
+            // Revoke the Blob URL to free up memory
+            if (iframe.src) {
+                URL.revokeObjectURL(iframe.src);
+                iframe.src = '';
+            }
+        });
+        // Add event listener to each anchor tag
+        downloadZone.addEventListener('click', function (event) {
+            // Prevent the default behavior of the anchor tag
+            if (event.target.matches('a[data-key]')) {
+                const type = event.target.getAttribute('data-type') || 'file';
+                if (type === 'file') {
+                    event.preventDefault();
+                    // Get the URL from the data-key attribute
+                    const key = event.target.getAttribute('data-key');
+                    // Fetch the file from the specified URL
+                    fetch('/presign/' + key)
+                        .then(response => response.json())
+                        .then(data => {
+                            const a = document.createElement('a');
+                            a.href = data.downloadURL;
+                            if (data.download_source === 'api') {
+                                a.download = data.fileName;
+                            }
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                        })
+                        .catch(error => {
+                            console.error('Error downloading file:', error);
+                        });
+                }
+            }
+            if (event.target.matches('button[data-key]') || event.target.parentNode.matches('button[data-key]') ||
+                event.target.parentNode.parentNode.matches('button[data-key]')) {
+
+                const target = event.target.parentNode.parentNode.matches('button[data-key]')
+                    ? event.target
+                        .parentNode.parentNode
+                    : event.target.parentNode.matches('button[data-key]')
+                        ? event.target
+                            .parentNode
+                        : event.target
+                const type = target.getAttribute('data-type') || 'view';
+                if (type === 'view') {
+                    event.preventDefault();
+                    // Get the URL from the data-key attribute
+                    const key = target.getAttribute('data-key');
+                    const url = '/preview/' + key
+                    iframe.src = url;
+
+                    // Show the overlay
+                    overlay.style.display = 'flex';
+
+                }
+                if (type === 'download') {
+                    event.preventDefault();
+                    // Get the URL from the data-key attribute
+                    const key = target.getAttribute('data-key');
+                    // Fetch the file from the specified URL
+                    fetch('/presign/' + key)
+                        .then(response => response.json())
+                        .then(data => {
+                            const a = document.createElement('a');
+                            a.href = data.downloadURL;
+                            if (data.download_source === 'api') {
+                                a.download = data.fileName;
+                            }
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                        })
+                        .catch(error => {
+                            console.error('Error downloading file:', error);
+                        });
+
+
+                }
+            }
+
+        });
+
+
+    });
+
+    function showAlert() {
+        alert(`Please review following checklist if you get a time out downloading files.
+        -- Make sure your FCT is latest GA release
+        -- Make sure you are joined to EMS or SASE.
+        -- Double check ZTNA Tags contains Fortinet_ZTNA
+        -- Double check ZTNA destinations is ENABLED
+        -- Double check ZTNA Destination list contains ECS end point
+        -- Make sure you have NO VULNERABILITIES reported by FCT.
+        -- Double check you have FortiEDR installed.`);
+    }
+
+
+</script>
+
+
+
+  
+    <div id="footer">
+      <a href="https://www.fortinet.com/legal.html">Legal Notice</a>
+      Copyright © 2026 Fortinet, Inc. All rights reserved.
+      <span id="contact">Got problems? <a href="mailto:conman@fortinet.com">Contact us!</a></span>
+    </div>
+  
+
+</div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;full&quot;,&quot;isActive&quot;:true,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>

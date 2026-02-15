@@ -10,9 +10,6 @@
 | Product Owner | Agent Alex                     |
 | Summary       | <What changes in this version> |
 
-## Goals
-
-*What measurable outcomes define success for the tool we are going to create, and how will we track progress toward them?*
 
 
 
@@ -51,9 +48,17 @@
 1. 
 
 
+
 ## Existing Systems
 
 *What are the existing systems, applications, tools that support the business currently?*
+
+
+
+## Goals
+
+*What measurable outcomes define success for the tool we are going to create, and how will we track progress toward them?*
+
 
 
 ## Scope
