@@ -56,6 +56,8 @@ You will work with the human product owner in this step.
     2. write a note in the **progress.md**, indicating the start of a new job.
     3. start the work.
 
+- Read the progress.md and the sparks.md in the ***working/<product>***, pick up the breakpoint.
+- Jump to the breakpoint accordingly.
 
 ### 1. Review existing documents, frame the problem and preset the goals
 
@@ -95,6 +97,7 @@ You will work with the human product owner in this step.
 - Generate interview questions.
 - Explicitly generate `working/<product>/interview/interview_guide.md` to save the brief and questions. If it does not exist, create it; otherwise, update it.
 - Review `interview_guide.md` with the human counterpart before entering Step 2, literally on each question, and capture corrections immediately.
+- Wrap-up knowledge
 
 
 ### 2. User Interview
@@ -105,6 +108,9 @@ You will work with the end user of the targeting product in this step.
 
 #### How
 
+- Start each interview by asking the interviewee's name and title/role, and confirm who is being interviewed.
+- Introduce the succinct cross-application workflow prepared in Step 1, so both sides anchor on the same baseline process.
+- Ask the interviewee to enrich/correct that workflow with concrete details before moving to deeper interrogation.
 - Use the questions listed in the **interview_guide.md**, and questions emerge during the discussion to interrogate the user.
 - Focus on current workflow and applications, endlessly interrogate the user about them in Planning mode only.
 - Ask and confirm which actions the AI agent can take autonomously versus which actions require human approval, and who approves.
@@ -118,10 +124,10 @@ _ Ask if need to interview another user. Start a new interview if yes. Otherwise
 
 - Use **QA_log.md** template, append record for every question and the user's answer --> ***working/<product>/interview/QA_log.md***
 - Existing backend systems, user applications and their business purpose--> ***working/<product>/interview/exist_apps.md***
-- Existing workflow --> ***working/<product>/interview/exist_workflow.md***
-- Use cases that reflect business purpose and system interaction, used to detail the workflow --> ***working/<product>/interview/usecases.md***
-- Top problem list (ranked by frequency × severity × business impact) --> ***working/<product>/interview/problems.md***
+- Existing workflow --> ***working/<product>/interview/exist_workflow_<interviewee>.md***
+- Problem list with evidences (ranked by frequency × severity × business impact) --> ***working/<product>/interview/problems_<interviewee>.md***
 - Interview Summary --> ***working/<product>/interview/interview_summary_<username>.md***
+- Wrap-up knowledge
 
 
 ### 3. Research
@@ -147,7 +153,7 @@ You will work with the human product owner in this step.
 - Follow the agreement to refine the draft, section by section, save new version for each update.
 - Refine the draft, until the human product owner confirm that it is ready to release.
 - Use the **PRD_review_log.md** template, log every conversations with the human product owner in ***/working/<product>/refine/prd_review_log.md***
-
+- Wrap-up knowledge
 
 
 ### 6. Release the PRD.md
@@ -159,11 +165,12 @@ You will work along.
 - PRD-GA-<version>.md --> ***/working/<product>/release/***
 
 
-### 7. Wrap-up knowledge
+### 7. Refine knowledge
 
 You will work with the human product owner in this step.
 
-- Summarize the domain knowledge to your Knowledge Base --> ***knowledge/***
+- Review the domain knowledge captured during the current product-design project, refine them and save them to your Knowledge Base --> ***knowledge/<product>/domain-knowledge-summary.md***. They represent how much you know about the product's targeting business.
+- Summarize the product design knowledge captured during processing the project, which represent how you can do your job better. Save them to ***knowledge/pd-knowledge-summary.md***
 
 
 ### 8. Update guidances and templates
@@ -201,6 +208,12 @@ You will work with the human product owner in this step.
 ## Templates
 
 - Find the templates in the template/ folder
+
+
+## Wrap-up Knowledge
+
+- Summarize the domain knowledge captured in the current working step, append them to your Knowledge Base --> ***knowledge/<product>/***. They represent how much you know about the product's targeting business.
+- Summarize the product design knowledge captured during processing the current step, which represent how you can do your job better. append them to ***knowledge/***
 
 
 ## Skills

@@ -71,3 +71,76 @@
 - Work Product: Interview execution and evidence capture
 - Completion: 72%
 - Note: Starting interview based on `interview/interview_guide.md`.
+
+## 2026-02-18 08:23:00 PST
+- Step: 2. User Interview (In Progress)
+- Work Product: Captured and documented workflow Step 1 (Enter case)
+- Completion: 76%
+- Note: Appended interview evidence to `interview/QA_log.md` and documented "Enter the TOP3 Case" in `interview/exist_workflow.md`.
+
+## 2026-02-18 08:26:00 PST
+- Step: 2. User Interview (In Progress)
+- Work Product: Use-case scope split confirmation
+- Completion: 78%
+- Note: Interview scope now explicitly split into UC-001 (NFR, in progress) and UC-002 (Bug Fixing, pending) in `interview/usecases.md` and logged in `interview/QA_log.md`.
+
+## 2026-02-18 08:31:00 PST
+- Step: 2. User Interview (In Progress)
+- Work Product: Mantis ticket field-title inventory for UC-001 Step 2
+- Completion: 80%
+- Note: Scrutinized `assets/top3apps/1229978 -- Mantis.html` and created `interview/mantis_1229978_field_inventory.md` to support mandatory-field selection.
+
+## 2026-02-18 08:35:00 PST
+- Step: 2. User Interview (In Progress)
+- Work Product: TOP3 Mantis field dictionary table
+- Completion: 82%
+- Note: Created `interview/top3-mantis-field-dict.md` with `title | type | description` for all extracted field titles from Mantis case page source.
+
+## 2026-02-18 10:02:00 PST
+- Step: 2. User Interview (In Progress)
+- Work Product: Field semantics enrichment and interpretation rules
+- Completion: 85%
+- Note: Updated `interview/top3-mantis-field-dict.md` with new columns (`read class`, `implicitly linked systems`, `cross-system usage`, `interpreting rule`) and logged interview details in `interview/QA_log.md`.
+
+## 2026-02-18 11:12:00 PST
+- Step: 2. User Interview (In Progress)
+- Work Product: Step 2 workflow closure details + rule abstraction updates
+- Completion: 88%
+- Note: Documented UC-001 Step 2 in `interview/exist_workflow.md`, appended Q/A in `interview/QA_log.md`, logged UC-002 deep-dive reminder in `sparks.md`, and enriched `interview/top3-mantis-field-dict.md` (description updates + interpreting rule abstraction).
+
+## 2026-02-18 11:35:00 PST
+- Step: 7. Wrap-up Knowledge (Entering)
+- Work Product: Interim knowledge capture snapshot
+- Completion: 89%
+- Note: Temporarily entered Step 7 to summarize captured domain and product-design knowledge before continuing Step 2.
+
+## 2026-02-18 11:36:00 PST
+- Step: 7. Wrap-up Knowledge (Exiting)
+- Work Product: Interim knowledge summaries v0.1
+- Completion: 91%
+- Note: Created `knowledge/agent-top3pm/domain-knowledge-v0.1.md` and `knowledge/product-design-knowledge-agent-top3pm-v0.1.md`.
+
+## 2026-02-18 11:36:00 PST
+- Step: 2. User Interview (Resuming)
+- Work Product: Continue UC-001 workflow capture
+- Completion: 91%
+- Note: Returning to Step 2 after interim knowledge capture.
+
+## 2026-02-18 11:40:00 PST
+- Breakpoint: Saved for pause
+- Current Step: 2. User Interview (UC-001, NFR)
+- Resume From: Succinct workflow Step 3 (create Core/All MS Teams groups)
+- Completed So Far: Step 1 done; Step 2 ticket review semantics and field interpretation documented; interim Step 7 knowledge snapshot saved.
+- Next Immediate Question On Resume: Core vs All member selection rules, naming convention, and initial message templates.
+
+## 2026-02-18 12:04:00 PST
+- Step: 2. User Interview (In Progress)
+- Work Product: Interview guide v2 (interaction flow) + merge checklist
+- Completion: 93%
+- Note: Created `interview/interview_guide.v2.md` and `interview/interview_guide.merge_checklist.md` for side-by-side merge with existing guide.
+
+## 2026-02-18 12:12:00 PST
+- Step: 2. User Interview (In Progress)
+- Work Product: Interview guide merged revision v3.1
+- Completion: 94%
+- Note: Created `interview/interview_guide.v3.1.md` with fixed version label, cleaned markers, reset per-section numbering, corrected file paths, explicit `usecases.md` variant handling, and warm-up brief moved to appendix.
