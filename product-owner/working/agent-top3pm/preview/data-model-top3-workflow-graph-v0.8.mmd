@@ -1,0 +1,55 @@
+flowchart LR
+  Top3Case[Top3Case]
+  NFR[NFR]
+  Issue[Issue]
+  BugNote[BugNote]
+  ActionHistory[ActionHistory]
+  BranchRequest[BranchRequest]
+  Branch[Branch]
+  BuildRequestPage[BuildRequestPage]
+  BuildRequest[BuildRequest]
+  BuildRun[BuildRun]
+  Artifact[Artifact]
+  ValidationRecord[ValidationRecord]
+  ReleaseNote[ReleaseNote]
+  Person[Person]
+  Team[Team]
+  CommunicationThread[CommunicationThread]
+  PhabricatorTask[PhabricatorTask]
+
+  Top3Case -->|r01 hasNFR 1_to_N| NFR
+  Top3Case -->|r02 hasIssue 0_to_N| Issue
+  Top3Case -->|r03 ownedBy role_PM 1_to_1| Person
+  Top3Case -->|r04 hasParticipant| Person
+  Top3Case -->|r05 hasTeam 2_to_2| Team
+  Top3Case -->|r06 hasQaOwner role_QA 0_to_1| Person
+  Top3Case -->|r07 hasDevOwner role_Dev 0_to_1| Person
+  Top3Case -->|r08 hasSupportOwner role_Support 0_to_N| Person
+  Top3Case -->|r09 hasBugNote 0_to_N| BugNote
+  Top3Case -->|r10 hasActionHistory 0_to_N| ActionHistory
+
+  BugNote -->|r11 references 0_to_N| Top3Case
+  BugNote -->|r12 references 0_to_N| NFR
+  BugNote -->|r13 references 0_to_N| Issue
+
+  Team -->|r14 usesThread| CommunicationThread
+
+  Person -->|r15 submitsBranchRequest role_PM| BranchRequest
+  BranchRequest -->|r16 targets| Top3Case
+  BranchRequest -->|r17 resultsIn 0_to_1| Branch
+
+  Branch -->|r18 hasDevLead role_Dev 1_to_1| Person
+  Branch -->|r19 hasPmLead role_PM 1_to_1| Person
+  Branch -->|r20 exposesBuildEntry 1_to_1| BuildRequestPage
+
+  Person -->|r21 submitsBuildRequest role_PM_or_Dev| BuildRequest
+  BuildRequest -->|r22 openedFrom| BuildRequestPage
+  BuildRequest -->|r23 usesBranch| Branch
+  BuildRequest -->|r24 spawns 0_to_N| BuildRun
+
+  BuildRun -->|r25 publishesArtifact 1_to_N| Artifact
+  ValidationRecord -->|r26 validates| BuildRun
+  ValidationRecord -->|r27 validatesIssue| Issue
+  ValidationRecord -->|r28 trackedIn| PhabricatorTask
+  ReleaseNote -->|r29 summarizes| ValidationRecord
+  Top3Case -->|r30 publishesDeliverable 0_to_N| ReleaseNote

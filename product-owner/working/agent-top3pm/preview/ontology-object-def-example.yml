@@ -1,0 +1,39 @@
+# ontology/objects/Aircraft.yml
+
+object_type:
+  object_name: Aircraft
+  display_name: "Fleet Aircraft"
+  description: "A physical aircraft in our active fleet"
+
+  # THE MAPPING: Connecting Human Properties to Machine Columns
+  properties:
+    tail_number:
+      type: string
+      source_column: "serial_num_ext"  # Maps human 'Tail Number' to raw DB column
+      description: "The unique identifier painted on the tail."
+
+    status:
+      type: string
+      source_column: "status_code_int"
+      value_mapping:                  # Translates 1/0 codes into human words
+        1: "Active"
+        0: "Maintenance Required"
+
+    last_inspected:
+      type: date
+      source_column: "last_svc_dt_utc"
+
+  # THE LOGIC: Defining how objects relate (The Graph)
+  relationships:
+    - name: assigned_pilot
+      target_object: Pilot
+      mapping_type: foreign_key
+      lookup_column: "primary_pilot_id"
+
+  # THE ACTION: The "Verbs" (Write-back logic)
+  actions:
+    - api_name: schedule_maintenance
+      description: "Flags this aircraft for a hangar check"
+      logic:
+        update_column: "status_code_int"
+        new_value: 0

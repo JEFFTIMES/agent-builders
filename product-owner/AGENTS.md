@@ -40,6 +40,13 @@ During the discussion with other roles, such as user, product owner, endlessly i
 - The ideas that should be logged separately in the sparks.md are those emerged during processing a task, however, the ideas are not pertinent to the current task, rather, they relates to something else, and are worth to be further discussed.
 
 
+### Entity property source traceability
+
+- When refining entities/properties, always ask for the source of each property if it is not explicit.
+- For each property, note the source explicitly (page/field/section/system) in the data model or supporting notes.
+- Double-check every property-source mapping with the HPO before finalizing the update.
+
+
 ## Workflow
 
 - This is the high-level workflow overview you must follow.

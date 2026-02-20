@@ -1,0 +1,289 @@
+model:
+  name: top3_case
+  version: v0.8
+  format: graph-friendly
+  source_of_truth: working/agent-top3pm/preview/data-model-top3-workflow-v0.8.md
+
+entities:
+  - name: Top3Case
+    key: caseId
+    properties:
+      - caseId
+      - title
+      - caseCategory
+      - ETA
+      - status
+      - severity
+      - createdAt
+      - updatedAt
+      - mantisUrl
+      - description
+      - caseSummary
+      - customerName
+      - pmOwnerId
+      - qaOwnerId
+      - devOwnerId
+      - supportOwnerIds
+      - branch
+      - hardwareModels
+      - currentPhase
+      - currentPhaseSource
+      - currentPhaseEvidenceNoteId
+      - closedAt
+      - closureReason
+  - name: NFR
+    key: nfrId
+    properties: [nfrId, title, description, status]
+  - name: Issue
+    key: issueId
+    properties: [issueId, title, description, bugNotes, status]
+  - name: BugNote
+    key: bugNoteId
+    properties:
+      - bugNoteId
+      - caseId
+      - authorId
+      - headlineType
+      - headlineRaw
+      - rawNote
+      - mentionedMantisIds
+      - mentionSnapshots
+      - phaseSignal
+      - extractionVersion
+      - extractionConfidence
+      - createdAt
+  - name: ActionHistory
+    key: actionId
+    properties: [actionId, caseId, actorId, actionType, actionAt, note, sourceSystem, rawRef]
+  - name: BranchRequest
+    key: branchRequestId
+    properties:
+      - branchRequestId
+      - GITLAB_TOP_LEVEL_GROUP
+      - GITLAB_PROJECT
+      - MAJOR_VERSION
+      - MINOR_VERSION
+      - NEW_BRANCH_NAME
+      - BRANCH_POINT
+      - BRANCH_TYPE
+      - BRANCH_DESCRIPTION
+      - FOR_CUSTOMER
+      - DEV_LEAD
+      - PM_LEAD
+      - requestStatus
+      - requestedAt
+  - name: Branch
+    key: branchName
+    properties: [branchName, createdAt, sourceBranchRequestId]
+  - name: BuildRequestPage
+    key: buildRequestPageId
+    properties: [buildRequestPageId, pageUrl, jobPath, buttonLabel]
+  - name: BuildRequest
+    key: buildRequestId
+    properties:
+      - buildRequestId
+      - requestedAt
+      - requestStatus
+      - selectedCombinations
+      - RUN_DB_UPDATE
+      - APPEND_MODEL_NAME
+      - TRIAL
+      - MATURITY
+      - SA
+      - SA_PATCH_VERSION
+  - name: BuildRun
+    key: buildId
+    properties: [buildId, buildTag, result, triggeredAt, notifiedAt, notificationRef]
+  - name: Artifact
+    key: artifactId
+    properties: [artifactId, artifactPath, artifactType, publishedAt]
+  - name: ValidationRecord
+    key: validationId
+    properties: [validationId, environment, reproSteps, observedResult, expectedResult, validationStatus, evidenceLink]
+  - name: ReleaseNote
+    key: releaseNoteId
+    properties: [releaseNoteId, content, author, createdAt]
+  - name: Person
+    key: personId
+    properties: [personId, name, roleType]
+  - name: Team
+    key: teamId
+    properties: [teamId, teamType, channelRef]
+  - name: CommunicationThread
+    key: threadId
+    properties: [threadId, platform, topic, createdAt]
+
+relations:
+  - id: r01
+    type: hasNFR
+    from: Top3Case
+    to: NFR
+    cardinality: 1..*
+  - id: r02
+    type: hasIssue
+    from: Top3Case
+    to: Issue
+    cardinality: 0..*
+  - id: r03
+    type: ownedBy
+    from: Top3Case
+    to: Person
+    role: PM
+    cardinality: 1..1
+  - id: r04
+    type: hasParticipant
+    from: Top3Case
+    to: Person
+  - id: r05
+    type: hasTeam
+    from: Top3Case
+    to: Team
+    cardinality: 2..2
+  - id: r06
+    type: hasQaOwner
+    from: Top3Case
+    to: Person
+    role: QA
+    cardinality: 0..1
+  - id: r07
+    type: hasDevOwner
+    from: Top3Case
+    to: Person
+    role: Dev
+    cardinality: 0..1
+  - id: r08
+    type: hasSupportOwner
+    from: Top3Case
+    to: Person
+    role: Support
+    cardinality: 0..*
+  - id: r09
+    type: hasBugNote
+    from: Top3Case
+    to: BugNote
+    cardinality: 0..*
+  - id: r10
+    type: hasActionHistory
+    from: Top3Case
+    to: ActionHistory
+    cardinality: 0..*
+  - id: r11
+    type: references
+    from: BugNote
+    to: Top3Case
+    cardinality: 0..*
+  - id: r12
+    type: references
+    from: BugNote
+    to: NFR
+    cardinality: 0..*
+  - id: r13
+    type: references
+    from: BugNote
+    to: Issue
+    cardinality: 0..*
+  - id: r14
+    type: usesThread
+    from: Team
+    to: CommunicationThread
+  - id: r15
+    type: submitsBranchRequest
+    from: Person
+    role: PM
+    to: BranchRequest
+  - id: r16
+    type: targets
+    from: BranchRequest
+    to: Top3Case
+  - id: r17
+    type: resultsIn
+    from: BranchRequest
+    to: Branch
+    cardinality: 0..1
+  - id: r18
+    type: hasDevLead
+    from: Branch
+    to: Person
+    role: Dev
+    cardinality: 1..1
+  - id: r19
+    type: hasPmLead
+    from: Branch
+    to: Person
+    role: PM
+    cardinality: 1..1
+  - id: r20
+    type: exposesBuildEntry
+    from: Branch
+    to: BuildRequestPage
+    cardinality: 1..1
+  - id: r21
+    type: submitsBuildRequest
+    from: Person
+    role: PM|Dev
+    to: BuildRequest
+  - id: r22
+    type: openedFrom
+    from: BuildRequest
+    to: BuildRequestPage
+  - id: r23
+    type: usesBranch
+    from: BuildRequest
+    to: Branch
+  - id: r24
+    type: spawns
+    from: BuildRequest
+    to: BuildRun
+    cardinality: 0..*
+  - id: r25
+    type: publishesArtifact
+    from: BuildRun
+    to: Artifact
+    cardinality: 1..*
+  - id: r26
+    type: validates
+    from: ValidationRecord
+    to: BuildRun
+  - id: r27
+    type: validatesIssue
+    from: ValidationRecord
+    to: Issue
+  - id: r28
+    type: trackedIn
+    from: ValidationRecord
+    to: PhabricatorTask
+  - id: r29
+    type: summarizes
+    from: ReleaseNote
+    to: ValidationRecord
+  - id: r30
+    type: publishesDeliverable
+    from: Top3Case
+    to: ReleaseNote
+    cardinality: 0..*
+
+link_keys:
+  - Top3Case.caseId = Mantis bug_id
+  - NFR.nfrId = Mantis bug_id (NFR)
+  - Issue.issueId = Mantis bug_id (bug-fix)
+  - BugNote.bugNoteId = Mantis bugnote id
+  - BugNote.mentionedMantisIds = extracted #mantisId list
+  - BranchRequest.NEW_BRANCH_NAME -> Branch.branchName (on success)
+  - Branch.branchName links Mantis/Phab/Jenkins contexts
+  - BuildRun.buildId|buildTag links Jenkins->Outlook->InfoSite
+  - Artifact.artifactPath = InfoSite retrieval key
+  - Team.channelRef + CommunicationThread.threadId = Teams channel identity
+
+derivation_rules:
+  - name: currentPhase_derivation
+    target: Top3Case.currentPhase
+    rule: derive from BugNote.phaseSignal using high-confidence/latest notes
+    provenance_fields:
+      - Top3Case.currentPhaseSource
+      - Top3Case.currentPhaseEvidenceNoteId
+  - name: closedAt_derivation
+    target: Top3Case.closedAt
+    rule: set from BugNote.createdAt where headlineRaw in ["---Release---", "---Close---"] per preview/bugnote-headlines.md
+
+open_confirmations:
+  - Top3Case.closureReason source inference rule

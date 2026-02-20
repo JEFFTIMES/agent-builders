@@ -1,0 +1,67 @@
+function validateform( formname, arry2Check, strErrorMsg ) {
+	//Form contains checked items
+	var theForm = formname;
+   
+	var bolEmptyorNot = false;
+
+	//return false once Null/Empty Values found in any of the items in the array2Check
+	for ( var i=0; i<arry2Check.length; i++ ) {
+		// if there is || then check the availablity on left and right operand
+		if ( arry2Check[i].match(/\|\|/) ) {
+			var arryOREntries = arry2Check[i].split("\|\|");
+			for ( var j=0; j<arryOREntries.length; j++ ) {
+				var checkedelement = arryOREntries[j];
+				if ('' != document.forms[theForm].elements[checkedelement].value &&
+					'-1' != document.forms[theForm].elements[checkedelement].value) {
+					bolEmptyorNot = true;
+					break;
+				}
+			}
+			if ( ! bolEmptyorNot ) {
+				alert( 'error'+strErrorMsg );
+				alert( strErrorMsg );
+				return false;
+			}
+		} else {
+			var checkedelement = arry2Check[i];
+			var bolEmptyorNotMulti = true;
+			if ( '[objHTMLNodeList]' == document.forms[theForm].elements[checkedelement] ) {
+				var RadioorCheckboxObj = document.forms[theForm].elements[checkedelement];
+				for ( var k=0; k<RadioorCheckboxObj.length; k++ ) {
+					if ( RadioorCheckboxObj[k].checked ) {
+						bolEmptyorNotMulti = false;
+						break;
+					}
+				}
+				if ( bolEmptyorNotMulti ) {
+					alert( strErrorMsg );
+					return false;
+				}
+			}
+			else if ('' == document.forms[theForm].elements[checkedelement].value ||
+					'-1' == document.forms[theForm].elements[checkedelement].value) {
+				alert( strErrorMsg );
+				return false;
+			}
+		}
+	}
+
+    return true;
+}
+
+function newwinpopup(popupurl, windowtitle, windowwidth, windowheight) {
+	var newWindow = window.open(popupurl,windowtitle,'scrollbars,resizable,width='+windowwidth+',height='+windowheight);
+	newWindow.focus(); // This will execute, but afterwards the window that executes
+					   // it will reload and come on top of the popup window
+	//return false;
+}
+
+function delete_cookie ( cookie_name ) {
+	var newcookie_value = cookie_name + "=''; path=/; expires=01/01/1900 05:14:28 PM;";
+	document.cookie = newcookie_value;
+}
+
+function empty(x) {
+	if (x.length > 0) return false;
+	else return true;
+}

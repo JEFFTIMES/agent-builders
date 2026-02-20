@@ -1,0 +1,46 @@
+#header {
+  background-color: white;
+  height: 40px;
+}
+
+#jenkins-head-icon {
+  position: relative;
+  bottom: auto;
+  content: url(fortinet.png);
+
+}
+
+#jenkins-name-icon {
+  position: absolute;
+  bottom: 3px;
+  left: 32px;
+  visibility: hidden;
+}
+
+#breadcrumbs {
+    list-style-type: none;
+    padding: 0 0 0 8px;
+    margin: 0;
+    height: 2em;
+    border-bottom: 1px solid #d3d7cf;
+    border-top: 1px solid #d3d7cf;
+}
+
+#header .login {
+  position: relative;
+  top: 6px;
+  color: black;
+  margin-right: 10px;
+}
+
+#header .login a, #header .login a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+div.page-footer__footer-id-placeholder:before {
+  content: "Copyright \00a9 2022-2023 Fortinet, Inc.";
+  margin-right: auto;
+  flex: inherit !important;
+}
+
