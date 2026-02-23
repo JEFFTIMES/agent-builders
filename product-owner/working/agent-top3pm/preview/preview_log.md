@@ -59,3 +59,5 @@
 - [2026-02-23 11:25:05 PST] Peter(PD): Updated `guidance/data-model-discovery.md` Discovery Method to include field placement rules: direct-source fields stay in entity source-check sections; agent-managed fields must be defined in `3. Derivation / Composition Rules`.
 - [2026-02-23 11:42:50 PST] HPO: "let's work on Issue entity"
 - [2026-02-23 11:42:50 PST] Peter(PD): Advanced model to `v1.5` and completed `Issue` entity source-check coverage in `data-model-top3-workflow-v1.5.md` (property + relation source checks); synchronized graph metadata/open confirmations in `data-model-top3-workflow-graph-v1.5.yaml`.
+- [2026-02-23 12:07:16 PST] HPO: "Reopen the review on Issue entity, need to add properties: referenced issues in issue bug notes, duplicate issue, assigned developer, QA assignee, fix schedule, and resolved in."
+- [2026-02-23 12:07:16 PST] Peter(PD): Advanced to `v1.6` and updated Issue discovery with new properties/relations and source checks in `data-model-top3-workflow-v1.6.md`; synchronized `data-model-top3-workflow-graph-v1.6.yaml` and `.mmd`, including derivation rule for `Issue.referredIssueIds`.
