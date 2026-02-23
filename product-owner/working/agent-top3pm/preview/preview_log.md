@@ -67,3 +67,5 @@
 - [2026-02-23 13:17:09 PST] Peter(PD): Advanced model to `v1.7` and updated `Issue` entity with requested Mantis-mirrored fields plus agent-composed `conclusion`; synchronized `data-model-top3-workflow-v1.7.md` and `data-model-top3-workflow-graph-v1.7.yaml`.
 - [2026-02-23 13:24:48 PST] HPO: "You specified `hasBugNote -> BugNote` for Top3Case but `bugNotes` text for Issue; which is better? make them consistent."
 - [2026-02-23 13:24:48 PST] Peter(PD): Advanced model to `v1.8` and normalized to relation-first design: removed `Issue.bugNotes`, added `Issue.hasBugNote -> BugNote`, and updated Issue derivation inputs to linked `BugNote.rawText` for consistency with Top3Case.
+- [2026-02-23 15:17:54 PST] HPO: "yes" (approve running normalization check across other entities for consistency)
+- [2026-02-23 15:17:54 PST] Peter(PD): Completed normalization audit and advanced to `v1.9`; fixed `Top3Case.devOwnerId` declaration gap and clarified that ID snapshot fields (`Top3Case` owners, `Issue` assignees, `PhabricatorTask.assignedToId`) are denormalized while relation edges remain canonical.
