@@ -69,3 +69,11 @@
 - [2026-02-23 13:24:48 PST] Peter(PD): Advanced model to `v1.8` and normalized to relation-first design: removed `Issue.bugNotes`, added `Issue.hasBugNote -> BugNote`, and updated Issue derivation inputs to linked `BugNote.rawText` for consistency with Top3Case.
 - [2026-02-23 15:17:54 PST] HPO: "yes" (approve running normalization check across other entities for consistency)
 - [2026-02-23 15:17:54 PST] Peter(PD): Completed normalization audit and advanced to `v1.9`; fixed `Top3Case.devOwnerId` declaration gap and clarified that ID snapshot fields (`Top3Case` owners, `Issue` assignees, `PhabricatorTask.assignedToId`) are denormalized while relation edges remain canonical.
+- [2026-02-23 15:37:57 PST] HPO: "let's move forward to NFR entity. please scrape the fields from mantis ticket 1225001 and let me comfirm which are needed."
+- [2026-02-23 15:37:57 PST] Peter(PD): Scraped ticket `1225001` and produced structured NFR field candidates with values/source hints in `preview/nfr-1225001-field-candidates-v0.1.md` for HPO selection.
+- [2026-02-23 15:44:00 PST] HPO: "baseline, you missed field `product`,`solution`"
+- [2026-02-23 15:44:00 PST] Peter(PD): Updated NFR candidate inventory and advanced model to `v1.10` with baseline+`product`+`solution`; completed NFR source-check sections in markdown and synchronized graph YAML.
+- [2026-02-23 15:46:15 PST] HPO: "please proceed the version to v2.0 and keep the decimal not exceeding 9."
+- [2026-02-23 15:46:15 PST] Peter(PD): Advanced active data-model artifacts to `v2.0` (`.md/.yaml/.mmd`) and recorded versioning rule to avoid decimal increments beyond `.9`.
+- [2026-02-23 15:49:59 PST] HPO: "please copy the conclusion field from the Issue to the NFR, keep it to be inferred/composed by the agent"
+- [2026-02-23 15:49:59 PST] Peter(PD): Advanced to `v2.1`; added `NFR.conclusion` with AI-agent inference/composition rule and synchronized markdown/YAML artifacts.
