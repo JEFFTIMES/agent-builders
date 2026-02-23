@@ -35,3 +35,27 @@
 - [2026-02-20 16:40:12 PST] Peter(PD): Advanced data model to `v1.1` by adding lean `PhabricatorTask` entity properties/relations and a per-property source note section classifying each property as either `Direct from Phab` or `Composed by PM/Agent`; synchronized markdown/yaml/mermaid artifacts.
 - [2026-02-22 21:34:35 PST] HPO: Confirmed all `PhabricatorTask` properties and relations in v1.1.
 - [2026-02-22 21:34:35 PST] Peter(PD): Updated `data-model-top3-workflow-v1.1.md` to add `PhabricatorTask` property/relation source-check blocks with explicit `CONFIRMED` status per item.
+- [2026-02-23 09:51:27 PST] HPO: "product owner"
+- [2026-02-23 09:51:27 PST] Peter(PD): Re-initialized `WFL-1 Preview` context by reviewing `progress.md`, `WFL_PREVIEW.md`, and all current preview outputs; identified one outstanding source-confirmation item: `Top3Case.closureReason` in `data-model-top3-workflow-v1.1.md`.
+- [2026-02-23 09:52:42 PST] HPO: "1. let's continue agent-top3pm"
+- [2026-02-23 09:52:42 PST] Peter(PD): Confirmed active product context as `agent-top3pm`; requested remaining confirmations for workflow step and `Top3Case.closureReason` property source before proceeding.
+- [2026-02-23 10:00:28 PST] HPO: "continue current step; check the data-model doc v1.1, tell me which entities we have not reviewed."
+- [2026-02-23 10:00:28 PST] Peter(PD): Audited `data-model-top3-workflow-v1.1.md` review coverage by entity; prepared unreviewed-entity list based on missing property/relation source-check blocks.
+- [2026-02-23 10:07:03 PST] HPO: "please note that in the furture, the Agent infers and composes it for `closureReason` and mark it as comfirmed"
+- [2026-02-23 10:07:03 PST] Peter(PD): Applied HPO confirmation by advancing to `data-model-top3-workflow-v1.2.md` and `data-model-top3-workflow-graph-v1.2.yaml/.mmd`; updated `Top3Case.closureReason` to AI-agent inferred/composed and marked as `HPO-CONFIRMED RULE`; cleared related open confirmation in graph YAML.
+- [2026-02-23 10:13:00 PST] HPO: "let's do relation source-check for bugnote entity"
+- [2026-02-23 10:13:00 PST] Peter(PD): Advanced model to `v1.3` and added `BugNote` relation source-check block in `data-model-top3-workflow-v1.3.md`; synchronized graph metadata (`v1.3`) and `link_keys` relation mapping notes in `data-model-top3-workflow-graph-v1.3.yaml`.
+- [2026-02-23 10:22:36 PST] HPO: "please summarize 1. the data model we currently work on is a reflection to the existing systems' data model, or a design used to guide the future agent implementaion, or a hybrid one? 2. what it looks like if we declare a template to document the ongoing data model discovery?"
+- [2026-02-23 10:22:36 PST] Peter(PD): Prepared summary: current model is hybrid (source-reflective + agent-design fields/rules) and drafted a practical template structure for ongoing data-model discovery.
+- [2026-02-23 10:30:52 PST] HPO: "it's not easy to confine the discovery to a specific workflow step, most of the time, the entity's lifespan crosses all steps of the workflow. the first entry in the metadata is useless."
+- [2026-02-23 10:30:52 PST] Peter(PD): Accepted the correction and revised template guidance to remove `Workflow step` metadata, replacing it with cross-step entity lifecycle and scope metadata.
+- [2026-02-23 10:39:26 PST] HPO: "is the graph model file the .yaml one or the .mmd one? please write a data-model discovery instruction and save it in the guidance/; ... please add an simple example in the instruction."
+- [2026-02-23 10:39:26 PST] Peter(PD): Created `guidance/data-model-discovery.md`; declared hybrid output intent, clarified `.yaml` as canonical graph model and `.mmd` as visualization view, and added lifecycle-centric template plus a simple example.
+- [2026-02-23 10:52:52 PST] HPO: "the examples you mentioned in the output intent section are not in the simple example. Please update the instruction."
+- [2026-02-23 10:52:52 PST] Peter(PD): Updated `guidance/data-model-discovery.md` so `Simple Example` now explicitly contains both output-intent examples: (1) as-is reflection with source-check reference pointers and (2) agent-oriented design with derivation/AI-field reference pointers.
+- [2026-02-23 11:13:13 PST] HPO: "okay, from now on, let's follow this instruction when proceeding the data model. first, align the current v1.3 doc with the template and output v1.4"
+- [2026-02-23 11:13:13 PST] Peter(PD): Created `data-model-top3-workflow-v1.4.md` aligned to discovery template (metadata, coverage dashboard, entity cards, derivation/composition rules, open confirmations, decision log) and synchronized `data-model-top3-workflow-graph-v1.4.yaml` metadata to `v1.4`.
+- [2026-02-23 11:25:05 PST] HPO: "add these two rule into the discovery method accordingly"
+- [2026-02-23 11:25:05 PST] Peter(PD): Updated `guidance/data-model-discovery.md` Discovery Method to include field placement rules: direct-source fields stay in entity source-check sections; agent-managed fields must be defined in `3. Derivation / Composition Rules`.
+- [2026-02-23 11:42:50 PST] HPO: "let's work on Issue entity"
+- [2026-02-23 11:42:50 PST] Peter(PD): Advanced model to `v1.5` and completed `Issue` entity source-check coverage in `data-model-top3-workflow-v1.5.md` (property + relation source checks); synchronized graph metadata/open confirmations in `data-model-top3-workflow-graph-v1.5.yaml`.

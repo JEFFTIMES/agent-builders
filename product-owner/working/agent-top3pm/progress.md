@@ -28,3 +28,16 @@
 - [2026-02-20 16:13:43 PST] [WFL-1 Preview] IN-PROGRESS: Advanced data model to v1.0 with HPO-confirmed BugNote source rules (`phabTaskIds`, removed anchor shortcut, scrape-time `extractAt`, authoredBy identity key = company account id).
 - [2026-02-20 16:40:12 PST] [WFL-1 Preview] IN-PROGRESS: Advanced data model to v1.1 with lean PhabricatorTask modeling and explicit per-property source classification (Direct from Phab vs Composed by PM/Agent), synchronized across md/yaml/mermaid.
 - [2026-02-22 21:34:35 PST] [WFL-1 Preview] IN-PROGRESS: Confirmed all PhabricatorTask properties/relations with HPO and updated v1.1 model with explicit `CONFIRMED` source-check annotations.
+- [2026-02-23 09:51:27 PST] [WFL-1 Preview] START: Resumed session and refreshed initialization context by reviewing progress, `WFL_PREVIEW.md`, and current preview artifacts.
+- [2026-02-23 09:51:27 PST] [WFL-1 Preview] BREAKPOINT: Waiting HPO confirmation on active product/workflow context and unresolved `Top3Case.closureReason` property-source mapping.
+- [2026-02-23 09:52:42 PST] [WFL-1 Preview] IN-PROGRESS: HPO confirmed active product as `agent-top3pm`; pending HPO confirmation on workflow step choice and `Top3Case.closureReason` source mapping.
+- [2026-02-23 10:00:28 PST] [WFL-1 Preview] IN-PROGRESS: Reviewed `data-model-top3-workflow-v1.1.md` entity coverage and identified which entities still lack explicit source-review sections.
+- [2026-02-23 10:07:03 PST] [WFL-1 Preview] IN-PROGRESS: HPO confirmed `Top3Case.closureReason` as AI-agent inferred/composed; advanced managed-object model to v1.2 and marked source rule as confirmed.
+- [2026-02-23 10:13:00 PST] [WFL-1 Preview] IN-PROGRESS: Completed `BugNote` relation source-check in new model version v1.3 and synchronized graph metadata/link-key mapping updates.
+- [2026-02-23 10:22:36 PST] [WFL-1 Preview] IN-PROGRESS: Clarified data-model positioning (reflection/design/hybrid) and drafted a template format for ongoing data-model discovery documentation.
+- [2026-02-23 10:30:52 PST] [WFL-1 Preview] IN-PROGRESS: Updated discovery-template guidance to remove `Workflow step` metadata and use cross-step entity lifecycle framing.
+- [2026-02-23 10:39:26 PST] [WFL-1 Preview] IN-PROGRESS: Added `guidance/data-model-discovery.md` with hybrid-intent declaration, canonical graph-file rule (`.yaml`), lifecycle-centric template, and simple example.
+- [2026-02-23 10:52:52 PST] [WFL-1 Preview] IN-PROGRESS: Refined `guidance/data-model-discovery.md` simple example to explicitly mirror hybrid intent examples (as-is source-check pointers + agent-oriented derivation/AI-field pointers).
+- [2026-02-23 11:13:13 PST] [WFL-1 Preview] IN-PROGRESS: Produced `v1.4` by aligning data model docs to the new discovery template (metadata/dashboard/entity cards/derivation/open confirmations/decision log) and synchronized graph YAML version metadata.
+- [2026-02-23 11:25:05 PST] [WFL-1 Preview] IN-PROGRESS: Updated discovery-method rules to explicitly separate direct-source fields (entity source-check sections) vs agent-managed fields (`3. Derivation / Composition Rules`).
+- [2026-02-23 11:42:50 PST] [WFL-1 Preview] IN-PROGRESS: Advanced to `v1.5` and completed `Issue` entity property/relation source-checks; updated coverage/open-confirmation status in markdown and graph YAML.
