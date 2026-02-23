@@ -29,6 +29,9 @@
 - Let the HPO review your capture, you update them accordingly.
 - Jot conversation logs.
 - Draft business objective, constraints, hypothesis under AI agent being involved scenario.
+- Versioning rule for managed-object data model:
+  - When you amend any entity definition (especially when adding a new entity), advance the data-model version (e.g., `v0.9 -> v1.0` or `v0.9 -> v0.10`).
+  - Keep previous version files intact; apply changes only in the new versioned files.
 
 
 ## Outputs

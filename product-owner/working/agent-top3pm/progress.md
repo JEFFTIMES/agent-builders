@@ -22,3 +22,9 @@
 - [2026-02-20 14:54:38 PST] [WFL-1 Preview] IN-PROGRESS: Added Mermaid graph file for Top3Case data model visualization.
 - [2026-02-20 14:59:12 PST] [WFL-1 Preview] IN-PROGRESS: Repaired Mermaid graph label syntax for successful rendering.
 - [2026-02-20 15:10:01 PST] [WFL-1 Preview] IN-PROGRESS: Updated data model naming convention to `<scope>` and renamed v0.8 artifacts to scope-based filenames.
+- [2026-02-20 15:49:08 PST] [WFL-1 Preview] IN-PROGRESS: Updated BugNote properties/relations and synchronized graph artifacts.
+- [2026-02-20 15:52:29 PST] [WFL-1 Preview] IN-PROGRESS: Corrected versioning split by restoring v0.8 BugNote model baseline and retaining new BugNote schema only in v0.9 artifacts.
+- [2026-02-20 15:53:43 PST] [WFL-1 Preview] IN-PROGRESS: Added version-governance rule in `WFL_PREVIEW.md` to require data-model version advancement on entity amendments and preserve prior versions unchanged.
+- [2026-02-20 16:13:43 PST] [WFL-1 Preview] IN-PROGRESS: Advanced data model to v1.0 with HPO-confirmed BugNote source rules (`phabTaskIds`, removed anchor shortcut, scrape-time `extractAt`, authoredBy identity key = company account id).
+- [2026-02-20 16:40:12 PST] [WFL-1 Preview] IN-PROGRESS: Advanced data model to v1.1 with lean PhabricatorTask modeling and explicit per-property source classification (Direct from Phab vs Composed by PM/Agent), synchronized across md/yaml/mermaid.
+- [2026-02-22 21:34:35 PST] [WFL-1 Preview] IN-PROGRESS: Confirmed all PhabricatorTask properties/relations with HPO and updated v1.1 model with explicit `CONFIRMED` source-check annotations.

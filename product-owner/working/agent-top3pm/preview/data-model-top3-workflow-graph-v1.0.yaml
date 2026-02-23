@@ -1,8 +1,8 @@
 model:
   name: top3_case
-  version: v0.8
+  version: v1.0
   format: graph-friendly
-  source_of_truth: working/agent-top3pm/preview/data-model-top3-workflow-v0.8.md
+  source_of_truth: working/agent-top3pm/preview/data-model-top3-workflow-v1.0.md
 
 entities:
   - name: Top3Case
@@ -41,17 +41,21 @@ entities:
     key: bugNoteId
     properties:
       - bugNoteId
-      - caseId
-      - authorId
+      - ticketId
+      - authorDisplay
       - headlineType
       - headlineRaw
       - rawNote
+      - rawHtml
+      - rawText
+      - noteKind
       - mentionedMantisIds
-      - mentionSnapshots
-      - phaseSignal
-      - extractionVersion
-      - extractionConfidence
+      - mentionedTicketIds
+      - phabTaskIds
       - createdAt
+      - extractAt
+      - bugNoteEditUrl
+      - bugNoteDeleteUrl
   - name: ActionHistory
     key: actionId
     properties: [actionId, caseId, actorId, actionType, actionAt, note, sourceSystem, rawRef]
@@ -182,6 +186,16 @@ relations:
     from: BugNote
     to: Issue
     cardinality: 0..*
+  - id: r31
+    type: references
+    from: BugNote
+    to: PhabricatorTask
+    cardinality: 0..*
+  - id: r32
+    type: authoredBy
+    from: BugNote
+    to: Person
+    cardinality: 1..1
   - id: r14
     type: usesThread
     from: Team
@@ -268,7 +282,10 @@ link_keys:
   - Issue.issueId = Mantis bug_id (bug-fix)
   - BugNote.bugNoteId = Mantis bugnote id
   - BugNote.mentionedMantisIds = extracted #mantisId list
-  - BugNote.mentionSnapshots = resolved relation snapshots to Top3Case/NFR/Issue
+  - BugNote.mentionedTicketIds = extracted ticket references from #id/mantis#id/bug_id=id
+  - BugNote.phabTaskIds = resolved from Phabricator search using Top3Case.caseId + QA identity
+  - BugNote shortcut URLs are derived from bugNoteId and ticketId (edit/delete)
+  - Person.personId uses unique company account id (e.g., sjeff)
   - BranchRequest.NEW_BRANCH_NAME -> Branch.branchName (on success)
   - Branch.branchName links Mantis/Phab/Jenkins contexts
   - BuildRun.buildId|buildTag links Jenkins->Outlook->InfoSite
@@ -278,7 +295,7 @@ link_keys:
 derivation_rules:
   - name: currentPhase_derivation
     target: Top3Case.currentPhase
-    rule: derive from latest/high-confidence BugNote.phaseSignal
+    rule: derive from BugNote.headlineType and note content cues using latest/high-confidence notes
     provenance_fields:
       - Top3Case.currentPhaseSource
       - Top3Case.currentPhaseEvidenceNoteId

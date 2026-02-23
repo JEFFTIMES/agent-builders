@@ -111,22 +111,29 @@ Use ontology-style entities with per-entity properties and relations to support 
 ## Entity: `BugNote`
 ### Properties
 - `bugNoteId` (string, primary key)
-- `caseId` (string)
-- `authorId` (personId)
+- `ticketId` (string, parent Mantis ticket id)
+- `authorDisplay` (string)
 - `headlineType` (enum: update/summary/release/close/other)
 - `headlineRaw` (string, nullable)
 - `rawNote` (text)
+- `rawHtml` (text)
+- `rawText` (text)
+- `noteKind` (enum: content_update/reminder/reply/system)
 - `mentionedMantisIds` (list[string], from `#<mantisId>` extraction)
-- `mentionSnapshots` (list[object], extracted links with `{mantisId,resolvedEntityType,relationType}`)
-- `phaseSignal` (enum: investigation/repro/dev/build/qa/release/unknown)
-- `extractionVersion` (string)
-- `extractionConfidence` (float: 0..1)
+- `mentionedTicketIds` (list[string], from `#<mantisId>`/`mantis#<mantisId>`/`bug_id=<mantisId>`)
+- `mentionedTaskIds` (list[string], from `T<taskId>` extraction)
 - `createdAt` (datetime)
+- `extractAt` (date, last capture date from Mantis)
+- `bugNoteEditUrl` (string, derived shortcut URL)
+- `bugNoteDeleteUrl` (string, derived shortcut URL)
+- `bugNoteAnchorUrl` (string, derived shortcut URL)
 
 ### Outgoing Relations
 - `references -> Top3Case` (`0..*`)
 - `references -> NFR` (`0..*`)
 - `references -> Issue` (`0..*`)
+- `references -> PhabricatorTask` (`0..*`)
+- `authoredBy -> Person` (`1..1`, when author mapping is parseable)
 
 ### Incoming Relations
 - `hasBugNote <- Top3Case` (`0..*`)
@@ -319,17 +326,18 @@ Use ontology-style entities with per-entity properties and relations to support 
 5. `Issue.issueId` = bug-fix `Mantis bug_id`.
 6. `BugNote.bugNoteId` maps to Mantis bugnote ID when available.
 7. `BugNote.mentionedMantisIds` stores all `#<mantisId>` mentions.
-8. `BugNote.mentionSnapshots` records resolved relation snapshots to `Top3Case`/`NFR`/`Issue`.
-9. `Top3Case.currentPhase` may be derived from latest/high-confidence `BugNote.phaseSignal`; preserve provenance in `currentPhaseSource` and `currentPhaseEvidenceNoteId`.
-10. Release summary content is captured in `BugNote(headlineType=release)`; no standalone Top3Case release-summary property.
-11. `ActionHistory.rawRef` stores source item ID.
-12. `BranchRequest.NEW_BRANCH_NAME` normalizes to `Branch.branchName` when request succeeds.
-13. `Branch.branchName` links Mantis/Phab/Jenkins contexts.
-14. `BranchRequest.DEV_LEAD` / `BranchRequest.PM_LEAD` map to `Person.personId`.
-15. `BuildRequestPage.pageUrl` is branch-page navigable endpoint.
-16. `BuildRun.buildId/buildTag` links `Jenkins -> Outlook -> InfoSite`.
-17. `Artifact.artifactPath` is InfoSite retrieval key.
-18. `ValidationRecord.evidenceLink` links checklist/log evidence in Phabricator.
+8. `BugNote.mentionedTicketIds` and `BugNote.mentionedTaskIds` are parsed cross-record references.
+9. `BugNote.bugNoteEditUrl`/`bugNoteDeleteUrl`/`bugNoteAnchorUrl` are agent shortcut URLs derived from ticket and bugnote ids.
+10. `Top3Case.currentPhase` may be derived from `BugNote.headlineType` plus note content cues, with provenance in `currentPhaseSource/currentPhaseEvidenceNoteId`.
+11. Release summary content is captured in `BugNote(headlineType=release)`; no standalone Top3Case release-summary property.
+12. `ActionHistory.rawRef` stores source item ID.
+13. `BranchRequest.NEW_BRANCH_NAME` normalizes to `Branch.branchName` when request succeeds.
+14. `Branch.branchName` links Mantis/Phab/Jenkins contexts.
+15. `BranchRequest.DEV_LEAD` / `BranchRequest.PM_LEAD` map to `Person.personId`.
+16. `BuildRequestPage.pageUrl` is branch-page navigable endpoint.
+17. `BuildRun.buildId/buildTag` links `Jenkins -> Outlook -> InfoSite`.
+18. `Artifact.artifactPath` is InfoSite retrieval key.
+19. `ValidationRecord.evidenceLink` links checklist/log evidence in Phabricator.
 20. `Team.channelRef` and `CommunicationThread.threadId` identify Core/All channels.
 
 ## AI Agent Fields

@@ -51,3 +51,49 @@ Relationships:
 5. `Top3Case hasTeam Team`
 6. `Top3Case hasBugNote BugNote`
 7. `Top3Case hasActionHistory ActionHistory` 
+
+
+
+
+Recommended BugNote properties
+
+  - bugNoteId (string, primary key)
+  - ticketId (string, parent Mantis ticket id)
+  - authorDisplay (string)
+  - createdAt (datetime)
+  - rawHtml (text)
+  - rawText (text)
+  - headlineRaw (string, nullable)
+  - headlineType (enum: open|update|close|summary|investigating|reproducing|fixing|validating|release|other)
+    Source: your preview/bugnote-headlines.md + observed --- Update ---
+  - noteKind (enum: content_update|reminder|reply|system)
+    Reason: separates operational noise from signal (HPO confirm)
+  - mentionedTicketIds (list[string])
+    Extraction from #1234567, mantis#1234567, and anchor bug_id=...
+  - mentionedTaskIds (list[string])
+    Extraction from T28209 style mentions
+
+
+  Recommended BugNote relations
+
+  - Top3Case hasBugNote BugNote (already good)
+  - BugNote references Top3Case
+  - BugNote references NFR
+  - BugNote references Issue
+  - BugNote references PhabricatorTask (new)
+  - BugNote authoredBy Person (new, if author identity is parseable), yes, the author's name is with the note
+
+
+  Suggested extraction precedence
+
+  1. Parse anchor bug_id= links first (highest confidence)
+  2. Parse #1234567 / mantis#1234567
+  3. Parse T[0-9]+ task refs
+  4. Infer headlineType from headlineRaw
+  5. Infer phaseSignal from headline + content cues
+
+  Need your confirmation (source-uncertain policy)
+
+  1. Keep noteKind as explicit property?
+  2. Add BugNote authoredBy Person relation now, or keep author as plain text first?
+  3. Add BugNote repliesTo BugNote now, or postpone until parent linkage is reliably extracted?
