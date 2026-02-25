@@ -77,3 +77,27 @@
 - [2026-02-23 15:46:15 PST] Peter(PD): Advanced active data-model artifacts to `v2.0` (`.md/.yaml/.mmd`) and recorded versioning rule to avoid decimal increments beyond `.9`.
 - [2026-02-23 15:49:59 PST] HPO: "please copy the conclusion field from the Issue to the NFR, keep it to be inferred/composed by the agent"
 - [2026-02-23 15:49:59 PST] Peter(PD): Advanced to `v2.1`; added `NFR.conclusion` with AI-agent inference/composition rule and synchronized markdown/YAML artifacts.
+- [2026-02-23 15:55:48 PST] HPO: "please move to ActionHistory"
+- [2026-02-23 15:55:48 PST] Peter(PD): Parsed `1229978` Bug History rows and drafted `ActionHistory` field candidates with event-type mapping and confirmation checkpoints in `preview/actionhistory-1229978-field-candidates-v0.1.md`.
+- [2026-02-23 16:04:20 PST] HPO: Clarified ActionHistory should come from dedicated page section `<!-- Action History-->` (ID/Merged/Summary), not `Bug History`.
+- [2026-02-23 16:04:20 PST] Peter(PD): Re-scoped extraction and replaced candidate schema with `actionhistory-1229978-field-candidates-v0.2.md` based on Top3Build + merged-ticket rows in Action History section.
+- [2026-02-23 18:58:41 PST] HPO: Clarified ActionHistory semantics: a `Top3Build` row starts a build-group, following rows are contained fixes until next `Top3Build`; fix row `ID` is `mantisID`; `Merged` is trunk branchpoint when numeric, otherwise not-merged marker (e.g., `Mantis`).
+- [2026-02-23 19:10:15 PST] Peter(PD): Applied HPO-confirmed ActionHistory mapping in `v2.2` (`data-model-top3-workflow-v2.2.md/.yaml/.mmd`): introduced grouped build context fields (`buildNumber`, `buildQualifier`), fix-level fields (`mantisId`, `mergeTargetRaw`, `summary`), and derived merge state (`mergedToTrunk`, `trunkBranchPoint`) with explicit property/relation source checks.
+- [2026-02-23 19:27:02 PST] HPO: Proposed ActionHistory simplification: represent ActionHistory as list of Top3Build groups; each Top3Build has build number + patches; each patch has issueId, merged main branchpoint, and issue title; requested recommendation on whether `Patch` entity is needed.
+- [2026-02-23 19:33:54 PST] Peter(PD): Implemented `v2.3` simplification with explicit `Top3Build` and `Patch` entities; kept `ActionHistory` as container and modeled `Patch` as build-issue associative record to preserve per-build merge-point and title snapshot semantics.
+- [2026-02-23 21:48:01 PST] HPO: Confirmed Top3Build refinement: keep `sequenceNo`/`sourceSystem`, remove `sourceTicketId`/`sourceSection`, and set `ActionHistory hasTop3Build` cardinality to `0..*`.
+- [2026-02-23 21:48:01 PST] Peter(PD): Applied Top3Build refinements across `v2.3` markdown/YAML/Mermaid and synchronized actionhistory candidate note `v0.4`.
+- [2026-02-24 18:08:40 PST] HPO: Requested Patch-source tuning: map `mainBranchPointRaw` via `fixesIssue -> Issue.resolvedIn` with token extraction rule; set `issueTitle` source to linked `Issue.title`.
+- [2026-02-24 18:08:40 PST] Peter(PD): Implemented `v2.4` Patch-source refinement across markdown/YAML/candidate artifacts and added explicit derivation rule `patch_mainBranchPointRaw_extraction`.
+- [2026-02-24 20:18:35 PST] HPO: Proposed creating a skill to encode branch propagation rules plus link templates/tools for DB synchronization.
+- [2026-02-24 20:18:35 PST] Peter(PD): Created `skills/branch-sync-orchestrator/` with `SKILL.md` and references (`db-model.md`, `db-update-rules.md`, `link-templates.md`) covering full-automation and pickup synchronization workflows.
+- [2026-02-24 20:27:55 PST] HPO: Requested recap of branch cases (data model/full automation/pick-up), added Jenkins proactive fallback when email missing, and asked to save as use-case example plus spark reminder.
+- [2026-02-24 20:27:55 PST] Peter(PD): Created `preview/branch-sync-use-case-example-v0.1.md` and appended a sparks reminder to design additional agentic use-case examples with the same structure.
+- [2026-02-24 20:30:45 PST] HPO: Requested update on `Branch` entity.
+- [2026-02-24 20:30:45 PST] Peter(PD): Published `v2.5` with `Branch` provenance/sync enhancements and added canonical `Top3Case usesBranch -> Branch` linkage; synchronized markdown/YAML/Mermaid artifacts.
+- [2026-02-24 20:32:37 PST] HPO: Corrected canonical cardinality requirement: `Top3Case usesBranch -> Branch` should be `0..*`.
+- [2026-02-24 20:32:37 PST] Peter(PD): Applied cardinality correction to `v2.5` markdown/YAML/Mermaid (`r44 usesBranch 0..*`).
+- [2026-02-24 20:49:36 PST] HPO: Requested property-level tagging using `external_data_touch_policy` only (four options), applied to all extracted properties with assistant-decided first-round options.
+- [2026-02-24 20:49:36 PST] Peter(PD): Tagged all property lines in `data-model-top3-workflow-v2.5.md` with `external_data_touch_policy`; added legend and initial policy overrides (`agent_managed` for external write fields, `agent_suggest_only` for conclusion fields).
+- [2026-02-24 20:56:48 PST] HPO: Requested removing noisy explicit `system_sync_only` tags and keeping only the other policy tags.
+- [2026-02-24 20:56:48 PST] Peter(PD): Cleaned `v2.5` policy tags by removing explicit `system_sync_only`; preserved only explicit `agent_managed`/`agent_suggest_only` tags and documented `system_sync_only` as implicit default.
