@@ -101,3 +101,5 @@
 - [2026-02-24 20:49:36 PST] Peter(PD): Tagged all property lines in `data-model-top3-workflow-v2.5.md` with `external_data_touch_policy`; added legend and initial policy overrides (`agent_managed` for external write fields, `agent_suggest_only` for conclusion fields).
 - [2026-02-24 20:56:48 PST] HPO: Requested removing noisy explicit `system_sync_only` tags and keeping only the other policy tags.
 - [2026-02-24 20:56:48 PST] Peter(PD): Cleaned `v2.5` policy tags by removing explicit `system_sync_only`; preserved only explicit `agent_managed`/`agent_suggest_only` tags and documented `system_sync_only` as implicit default.
+- [2026-02-25 11:59:28 PST] HPO: "." (resume/continue signal)
+- [2026-02-25 11:59:28 PST] Peter(PD): Re-initialized `WFL-1 Preview` context from `progress.md`, `WFL_PREVIEW.md`, and latest `v2.9` model artifacts; prepared to continue with pending entity source-check coverage after HPO confirmation.

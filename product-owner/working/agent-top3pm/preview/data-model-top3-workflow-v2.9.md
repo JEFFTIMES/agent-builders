@@ -501,16 +501,31 @@
 
 - `submitsBranchRequest <- Person(PM)`
 
+#### Agent Actions (First Round)
+
+- agent can fill all the managed fields 
+- need to specify the sources of the fields for agent to access
+- need to specify the rules of how the agent fill the fields
+
+
+
 ### Entity: `Branch`
+
+#### Source Applications
+
+- jenkins build list page (https://jenkins-sjc.corp.fortinet.com/user/sjeff/builds)
+- approved email title (Branch Approved - FortiOS v7.00: <br_7-4_agent_top3pm> by sjeff (sjeff))
+- Top3 case `branch merge list` field. #it is available for pick up, even through it's in fact a downstream record
+
 
 #### Properties
 
 - `branchName` (string, primary key, normalized from `NEW_BRANCH_NAME`)
 - `createdByApp` (enum: `Jenkins`/`Human`/`Unknown`)
-- `createdByRef` (string, nullable; source ref such as Jenkins request id/job path or manual operation note id)
 - `createdAt` (datetime)
+- `sourceCodeURL` (https://gitlab-van.corp.fortinet.com/fos/fortios/tree/br_7-4_agent_top3pm)
 - `lastSyncedAt` (datetime, nullable; last successful cross-app sync verification time)
-- `sourceBranchRequestId` (string)
+
 
 #### Outgoing Relations
 
@@ -524,14 +539,15 @@
 - `resultsIn <- BranchRequest`
 - `usesBranch <- BuildRequest`
 
+
+
 ### Entity: `BuildRequestPage`
 
 #### Properties
 
 - `buildRequestPageId` (string, primary key)
-- `pageUrl` (string)
-- `jobPath` (string)
-- `buttonLabel` (string, default: `Build with Parameters`)
+- `pageUrl` (textURL, https://jenkins-sjc.corp.fortinet.com/job/Projects/job/FortiOS/job/br_7-4/job/br_7-4_agent_top3pm)
+- `buttonLabel` (string, default: `Build with Parameters`) #it triggers a js script that enters the buildRequest page.
 
 #### Incoming Relations
 
