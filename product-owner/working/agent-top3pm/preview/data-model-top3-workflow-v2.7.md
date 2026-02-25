@@ -1,15 +1,22 @@
-# Data Model Discovery - top3-workflow v2.6 - agent-top3pm
+# Data Model Discovery - top3-workflow v2.7 - agent-top3pm
 
 - Product: `agent-top3pm`
 - Domain / Bounded Context: `Top3 PM cross-system delivery workflow (Mantis/Teams/Jenkins/Outlook/InfoSite/Phabricator)`
 - Discovery Scope Boundary: `Managed objects, relations, link keys, and agent derivation rules for TOP3 case orchestration`
 - Entity Lifecycle Span (start -> end): `Top3Case intake -> branch/build -> QA validation -> release/closure`
-- Version: `v2.6`
+- Version: `v2.7`
 - Last Updated (time, owner): `2026-02-25`, `Peter (PD)`
 - Source Corpus Snapshot (systems/pages/files): `working/agent-top3pm/assets/top3apps/*.html`, `working/agent-top3pm/assets/top3apps/*.msg`, `working/agent-top3pm/assets/top3apps/teams-chat-core-1229978.md`
-- Source-of-Truth Model File: `working/agent-top3pm/preview/data-model-top3-workflow-v2.6.md`
-- Graph Model File (canonical YAML): `working/agent-top3pm/preview/data-model-top3-workflow-graph-v2.6.yaml`
-- Graph View File (Mermaid): `working/agent-top3pm/preview/data-model-top3-workflow-graph-v2.6.mmd`
+- Source-of-Truth Model File: `working/agent-top3pm/preview/data-model-top3-workflow-v2.7.md`
+- Graph Model File (canonical YAML): `working/agent-top3pm/preview/data-model-top3-workflow-graph-v2.7.yaml`
+- Graph View File (Mermaid): `working/agent-top3pm/preview/data-model-top3-workflow-graph-v2.7.mmd`
+
+## 0. Data Modeling Purposes
+
+1. Build a canonical cross-application entity model for PM/QA/Dev collaboration data.
+2. Preserve property-level source traceability to original systems/pages/fields for reliable sync.
+3. Define agent-operable semantics (derivation rules, writable boundaries, and relation traversal) for agentic orchestration.
+4. Prepare the storage/ontology foundation for a single agent view across duplicated and scattered enterprise applications.
 
 ## 1. Coverage Dashboard
 
@@ -140,8 +147,9 @@
 #### Properties
 
 - `nfrId` (string, primary key)
-- `product` (string, from Mantis product/category label)
-- `solution` (string, from Mantis `Solution` field; comma-separated tags) [external_data_touch_policy=agent_managed]
+- `product` (string, from Mantis `Product` field)
+- `solutionRaw` (string, from Mantis `Solution` field) [external_data_touch_policy=agent_managed]
+- `solutionTags` (list[string], derived by splitting `solutionRaw` on commas and trimming whitespace)
 - `summary` (string, from Mantis `Summary`)
 - `description` (text)
 - `severity` (string, from Mantis `Severity`)
@@ -153,29 +161,34 @@
 - `salesforceOppIds` (list[string], from Mantis `Salesforce Opp IDs (comma separated)`)
 - `salesforceAccountIds` (list[string], from Mantis `Salesforce Account IDs (comma separated)`)
 - `additionalInformation` (text, from Mantis `Additional Information`)
-- `conclusion` (text, AI-agent inferred/composed after end-to-end NFR ticket review) #removed the tag, this field is an internal field held in the agent's memory, no need external_data_touch_policy tag
 - `status` (enum)
-- `referredIssueIds` (list[string], derived from local bug notes and description parsing) #newly added
-- `duplicateNFRId` (string, nullable, from ticket's `Duplicate ID`) [external_data_touch_policy=agent_managed] #newly added
-- `referredNFRIds` (list[string], derived from issue-local bug note and description parsing) #newly added
+- `conclusion` (text, AI-agent inferred/composed after end-to-end NFR ticket review)
+- `referredIssueIds` (list[string], derived from NFR-local bug notes and description parsing)
+- `duplicateNfrId` (string, nullable, from ticket `Duplicate ID`) [external_data_touch_policy=agent_managed]
+- `referredNfrIds` (list[string], derived from NFR-local bug notes and description parsing)
+
+#### Outgoing Relations
+
+- `reportedBy -> Person` (`0..1`, from `reporterId`)
+- `hasBugNote -> BugNote` (`0..*`)
+- `references -> NFR` (`0..*`, from `referredNfrIds`)
+- `references -> Issue` (`0..*`, from `referredIssueIds`)
+- `duplicateOf -> NFR` (`0..1`, from `duplicateNfrId`)
 
 #### Incoming Relations
 
-- `hasNFR <- Top3Case` (`1..*`)
-- `references <- BugNote` (`0..*`) 
-- `references <- NFR` (`0..*`) #newly added
-- `references <- Issue` (`0..*`) #newly added
-
-#### Outoging Relations
-- `references` -> `NFR` (`0..*`). #newly added
-- `references` -> `Issue` (`0..*`) #newly added
+- `hasNFR <- Top3Case` (`0..*`)
+- `references <- BugNote` (`0..*`)
+- `references <- NFR` (`0..*`)
+- `references <- Issue` (`0..*`)
 
 
 #### Property Source Check (Double-Checked)
 
 - `nfrId` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (`bug_id` in ticket URL/context). `CONFIRMED`
 - `product` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (table label `Product`, value shown as `[NFR] FortiOS`). `CONFIRMED`
-- `solution` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (row label `Solution`, value `MSSP,NGFW,Telco`). `CONFIRMED`
+- `solutionRaw` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (row label `Solution`, value `MSSP,NGFW,Telco`). `CONFIRMED`
+- `solutionTags` <- derived from `solutionRaw` by comma-split and trim normalization. `HPO-CONFIRMED RULE`
 - `summary` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (`Summary`). `CONFIRMED`
 - `description` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (`Description`). `CONFIRMED`
 - `severity` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (`Severity`). `CONFIRMED`
@@ -187,6 +200,9 @@
 - `salesforceOppIds` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (`Salesforce Opp IDs (comma separated)`). `CONFIRMED`
 - `salesforceAccountIds` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (`Salesforce Account IDs (comma separated)`). `CONFIRMED`
 - `additionalInformation` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (`Additional Information`). `CONFIRMED`
+- `referredIssueIds` <- AI-agent extraction from `NFR.hasBugNote -> BugNote.rawText` and `NFR.description` using patterns (`#id`, `mantis#id`, `bug_id=id`) constrained to Issue ticket type. `HPO-CONFIRMED RULE`
+- `referredNfrIds` <- AI-agent extraction from `NFR.hasBugNote -> BugNote.rawText` and `NFR.description` using patterns (`#id`, `mantis#id`, `bug_id=id`) constrained to NFR ticket type. `HPO-CONFIRMED RULE`
+- `duplicateNfrId` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (`Duplicate ID`). `CONFIRMED`
 - `conclusion` <- AI Agent infers and composes NFR-level conclusion from whole NFR ticket evidence (`Summary`, `Description`, `Additional Information`, status/release context). `HPO-CONFIRMED RULE`
 - `status` <- `working/agent-top3pm/assets/top3apps/1225001 -- Mantis.html` (`Status`, current value `Concept Commit`). `CONFIRMED`
 
@@ -194,6 +210,20 @@
 
 - `hasNFR <- Top3Case` <- `Top3Case` parent ticket links/references NFR records through the Mantis `NFR` linkage field and workflow mapping artifacts. `HPO-CONFIRMED INTERPRETATION`
 - `references <- BugNote` <- inverse mapping of `BugNote references -> NFR` via parsed `mentionedTicketIds` (`#id`, `mantis#id`, `bug_id=id`) and NFR ticket-type resolution. `HPO-CONFIRMED INTERPRETATION`
+- `reportedBy -> Person` <- map `NFR.reporterId` from Mantis `Reporter` to `Person.personId` (company account id token). `CONFIRMED`
+- `hasBugNote -> BugNote` <- NFR ticket `Bug Notes` section entries keyed by parent `nfrId` (`bug_id`) and bugnote IDs. `CONFIRMED`
+- `references -> NFR` <- resolve from `NFR.referredNfrIds` after ticket-type filtering to NFR. `HPO-CONFIRMED RULE`
+- `references -> Issue` <- resolve from `NFR.referredIssueIds` after ticket-type filtering to Issue. `HPO-CONFIRMED RULE`
+- `duplicateOf -> NFR` <- map `NFR.duplicateNfrId` to target `NFR.nfrId` when value exists. `CONFIRMED`
+
+#### Agent Actions (First Round)
+
+- `ingest_from_mantis`: scrape NFR core fields (`product`, `solutionRaw`, `summary`, `description`, `status`, IDs, timestamps), normalize person/ticket IDs, and upsert into agent DB.
+- `sync_bugnote_links`: parse `NFR.hasBugNote -> BugNote.rawText` and `NFR.description` to refresh `referredIssueIds` and `referredNfrIds`.
+- `compose_conclusion`: infer concise NFR conclusion from full ticket evidence and store in internal field `NFR.conclusion`.
+- `writeback_policy`:
+  `solutionRaw`, `duplicateNfrId`: `agent_managed` (agent can write through approved Mantis tool path).
+  `conclusion`, `solutionTags`, `referredIssueIds`, `referredNfrIds`: internal synthesized fields (no direct external writeback).
 
 ### Entity: `Issue`
 
@@ -212,18 +242,18 @@
 - `earliestBuildNumber` (string, nullable, from Mantis `Earliest Build Number`)
 - `referredIssueIds` (list[string], derived from issue-local bug note parsing)
 - `duplicateIssueId` (string, nullable, from Mantis `Duplicate ID`) [external_data_touch_policy=agent_managed]
-- `referredNFRIds` (list[string], derived from issue-local bug note parsing) #newly added
+- `referredNfrIds` (list[string], derived from issue-local bug note parsing)
 - `assignedDevId` (personId, from Mantis `Assigned To`) [external_data_touch_policy=agent_managed]
 - `qaAssigneeId` (personId, nullable, from Mantis `QA Assignee`)
 - `fixSchedule` (string, nullable)
 - `resolvedIn` (string, nullable)
-- `conclusion` (text, AI-agent inferred/composed after end-to-end issue ticket review, summarize expected/observed behavior and discrepancy) #removed the tag, this field is an internal field held in the agent's memory, no need external_data_touch_policy tag
+- `conclusion` (text, AI-agent inferred/composed after end-to-end issue ticket review, summarize expected/observed behavior and discrepancy)
 - `status` (enum)
 
 #### Outgoing Relations
 
-- `references -> Issue` (`0..*`, from `referredIssueIds`) #change linksTo to references
-- `references -> NFR` (`0..*`, from `referredNFRIds`) #newly added
+- `references -> Issue` (`0..*`, from `referredIssueIds`)
+- `references -> NFR` (`0..*`, from `referredNfrIds`)
 - `duplicateOf -> Issue` (`0..1`, from `duplicateIssueId`)
 - `fixedBy -> Person(Dev)` (`0..1`)
 - `hasQaAssignee -> Person(QA)` (`0..1`)
@@ -250,6 +280,7 @@
 - `reportedVersion` <- issue `Reported Version` field in `working/agent-top3pm/assets/top3apps/1241381 -- Mantis.html` and `working/agent-top3pm/assets/top3apps/1241309 -- Mantis.html`. `CONFIRMED`
 - `earliestBuildNumber` <- issue `Earliest Build Number` field in `working/agent-top3pm/assets/top3apps/1241381 -- Mantis.html` and `working/agent-top3pm/assets/top3apps/1241309 -- Mantis.html`. `CONFIRMED`
 - `referredIssueIds` <- AI-agent extraction from linked issue bug notes (`Issue.hasBugNote -> BugNote.rawText`) using text patterns (`#id`, `mantis#id`, `bug_id=id`) in `working/agent-top3pm/assets/top3apps/1241381 -- Mantis.html` and `working/agent-top3pm/assets/top3apps/1241309 -- Mantis.html`; parsed values are deduplicated issue IDs linked back to the current issue. `HPO-CONFIRMED RULE`
+- `referredNfrIds` <- AI-agent extraction from linked issue bug notes (`Issue.hasBugNote -> BugNote.rawText`) using text patterns (`#id`, `mantis#id`, `bug_id=id`), constrained to NFR ticket type. `HPO-CONFIRMED RULE`
 - `duplicateIssueId` <- issue `Duplicate ID` field in `working/agent-top3pm/assets/top3apps/1241381 -- Mantis.html` and `working/agent-top3pm/assets/top3apps/1241309 -- Mantis.html`. `CONFIRMED`
 - `assignedDevId` <- issue `Assigned To` field in `working/agent-top3pm/assets/top3apps/1241381 -- Mantis.html` and `working/agent-top3pm/assets/top3apps/1241309 -- Mantis.html`; normalize account token to `Person.personId`. `CONFIRMED`
 - `qaAssigneeId` <- issue `QA Assignee` field in `working/agent-top3pm/assets/top3apps/1241381 -- Mantis.html` and `working/agent-top3pm/assets/top3apps/1241309 -- Mantis.html`; normalize account token to `Person.personId`. `CONFIRMED`
@@ -260,7 +291,8 @@
 
 #### Relation Source Check (Double-Checked)
 
-- `linksTo -> Issue` <- resolve outgoing issue links from `Issue.referredIssueIds` extracted from linked `Issue.hasBugNote -> BugNote.rawText` patterns (`#id`, `mantis#id`, `bug_id=id`), constrained to Mantis issue ticket type by lookup. `HPO-CONFIRMED RULE`
+- `references -> Issue` <- resolve outgoing issue links from `Issue.referredIssueIds` extracted from linked `Issue.hasBugNote -> BugNote.rawText` patterns (`#id`, `mantis#id`, `bug_id=id`), constrained to Mantis issue ticket type by lookup. `HPO-CONFIRMED RULE`
+- `references -> NFR` <- resolve outgoing NFR links from `Issue.referredNfrIds` extracted from linked `Issue.hasBugNote -> BugNote.rawText` patterns (`#id`, `mantis#id`, `bug_id=id`), constrained to Mantis NFR ticket type by lookup. `HPO-CONFIRMED RULE`
 - `duplicateOf -> Issue` <- map `Issue.duplicateIssueId` from Mantis `Duplicate ID` to target `Issue.issueId` when value exists. `CONFIRMED`
 - `fixedBy -> Person(Dev)` <- map `Issue.assignedDevId` from Mantis `Assigned To` to `Person.personId` (company account id token). `CONFIRMED`
 - `hasQaAssignee -> Person(QA)` <- map `Issue.qaAssigneeId` from Mantis `QA Assignee` to `Person.personId` (company account id token). `CONFIRMED`
@@ -689,45 +721,51 @@
 2. `Top3Case.mantisUrl` is canonical case URL.
 3. Owner IDs on `Top3Case` (`pmOwnerId`/`qaOwnerId`/`devOwnerId`/`supportOwnerIds`) are denormalized snapshots; owner relations are canonical.
 4. `NFR.nfrId` = NFR `Mantis bug_id`.
-5. `NFR.product` and `NFR.solution` mirror Mantis `Product` and `Solution` fields directly.
-6. `NFR.conclusion` is AI-agent inferred/composed from full NFR ticket evidence and stored as synthesized NFR conclusion narrative.
-7. `Issue.issueId` = bug-fix `Mantis bug_id`.
-8. `BugNote.bugNoteId` maps to Mantis bugnote ID when available.
-9. `BugNote.mentionedMantisIds` stores all `#<mantisId>` mentions.
-10. `BugNote.mentionedTicketIds` are parsed Mantis cross-record references.
-11. `BugNote.phabTaskIds` are resolved from Phabricator search using `Top3Case.caseId` + QA identity context.
-12. `BugNote.bugNoteEditUrl`/`bugNoteDeleteUrl` are agent shortcut URLs derived from ticket and bugnote ids.
-13. `Person.personId` should use unique company account id (e.g., `sjeff`) when mapping `BugNote authoredBy Person`.
-14. `PhabricatorTask.phabTaskId` is the canonical cross-system key (e.g., `T28209`).
-15. `PhabricatorTask.top3CaseId` links to `Top3Case.caseId` via Phab `Mantis IDs` mapping.
-16. `Top3Case.currentPhase` may be derived from `BugNote.headlineType` plus note content cues, with provenance in `currentPhaseSource/currentPhaseEvidenceNoteId`.
-17. Release summary content is captured in `BugNote(headlineType=release)`; no standalone Top3Case release-summary property.
-18. `Top3Case.closureReason` is AI-agent inferred/composed from final state and close/release bugnote evidence.
-19. `ActionHistory` is a case-level container of the Mantis `Action History` section and anchors grouped build records.
-20. `Top3Build.top3BuildId` is deterministic by `caseId + buildNumber`.
-21. `Patch.patchId` is deterministic by `top3BuildId + issueId`.
-22. `Patch.mainBranchPointRaw` is extracted from `fixesIssue -> Issue.resolvedIn` by tokenization rule; `Patch.mainBranchPoint` is numeric parse when available.
-23. `Top3Case.branch` is a denormalized snapshot from Mantis `Branch Merge List`; canonical case-branch linkage is `Top3Case.usesBranch -> Branch`.
-24. `BranchRequest.NEW_BRANCH_NAME` normalizes to `Branch.branchName` when request succeeds.
-25. `Branch.branchName` links Mantis/Phab/Jenkins contexts.
-26. `Branch.createdByApp` and `Branch.createdByRef` capture origin provenance (Jenkins create-branch request preferred; manual fallback allowed).
-27. `BranchRequest.DEV_LEAD` / `BranchRequest.PM_LEAD` map to `Person.personId`.
-28. `BuildRequestPage.pageUrl` is branch-page navigable endpoint.
-29. `BuildRun.buildId/buildTag` links `Jenkins -> Outlook -> InfoSite`.
-30. `Top3Build.buildNumber` is the operational retrieval key for build artifacts in InfoSite context.
-31. `ValidationRecord.evidenceLink` links checklist/log evidence in Phabricator.
-32. `Team.channelRef` and `CommunicationThread.threadId` identify Core/All channels.
-33. `Issue.hasBugNote -> BugNote` is the canonical issue-note linkage keyed by issue `bug_id` and bugnote IDs.
-34. `Issue.referredIssueIds` are agent-extracted issue IDs from linked issue bugnote text (`Issue.hasBugNote -> BugNote.rawText`) using `#id`, `mantis#id`, `bug_id=id`.
-35. `Issue.linksTo -> Issue` resolves from `Issue.referredIssueIds` after ticket-type filtering.
-36. `Issue.duplicateIssueId` maps from Mantis `Duplicate ID`; `Issue.duplicateOf -> Issue` resolves when value is present.
-37. `Issue.assignedDevId` maps from Mantis `Assigned To` and normalizes to `Person.personId` account token.
-38. `Issue.qaAssigneeId` maps from Mantis `QA Assignee` and normalizes to `Person.personId` account token.
-39. `Issue.fixSchedule` and `Issue.resolvedIn` map directly from same-name Mantis fields.
-40. `Issue.category`, `Issue.severity`, `Issue.reproducibility`, `Issue.reporterId`, `Issue.keyword`, `Issue.reproducedById`, `Issue.reportedVersion`, and `Issue.earliestBuildNumber` map directly from same-name Mantis issue fields (`Reporter`/`Reproduced By` normalize to `Person.personId`).
-41. `Issue.conclusion` is AI-agent inferred/composed from full issue-ticket evidence and stored as synthesized closure narrative.
-42. `Issue.assignedDevId`/`Issue.qaAssigneeId` are denormalized snapshots; `Issue.fixedBy`/`Issue.hasQaAssignee` relations are canonical for graph traversal.
-43. `PhabricatorTask.assignedToId` is denormalized snapshot; `PhabricatorTask.assignedTo` relation is canonical.
+5. `NFR.product` and `NFR.solutionRaw` mirror Mantis `Product` and `Solution` fields directly.
+6. `NFR.solutionTags` is a normalized, comma-split representation of `NFR.solutionRaw`.
+7. `NFR.conclusion` is AI-agent inferred/composed from full NFR ticket evidence and stored as synthesized NFR conclusion narrative.
+8. `NFR.duplicateNfrId` maps from Mantis `Duplicate ID`; `NFR.duplicateOf -> NFR` resolves when value is present.
+9. `NFR.reporterId` is a denormalized snapshot; `NFR.reportedBy -> Person` is canonical.
+10. `NFR.referredIssueIds` and `NFR.referredNfrIds` are agent-extracted from `NFR.hasBugNote -> BugNote.rawText` and `NFR.description`.
+11. `Issue.issueId` = bug-fix `Mantis bug_id`.
+12. `BugNote.bugNoteId` maps to Mantis bugnote ID when available.
+13. `BugNote.mentionedMantisIds` stores all `#<mantisId>` mentions.
+14. `BugNote.mentionedTicketIds` are parsed Mantis cross-record references.
+15. `BugNote.phabTaskIds` are resolved from Phabricator search using `Top3Case.caseId` + QA identity context.
+16. `BugNote.bugNoteEditUrl`/`bugNoteDeleteUrl` are agent shortcut URLs derived from ticket and bugnote ids.
+17. `Person.personId` should use unique company account id (e.g., `sjeff`) when mapping `BugNote authoredBy Person`.
+18. `PhabricatorTask.phabTaskId` is the canonical cross-system key (e.g., `T28209`).
+19. `PhabricatorTask.top3CaseId` links to `Top3Case.caseId` via Phab `Mantis IDs` mapping.
+20. `Top3Case.currentPhase` may be derived from `BugNote.headlineType` plus note content cues, with provenance in `currentPhaseSource/currentPhaseEvidenceNoteId`.
+21. Release summary content is captured in `BugNote(headlineType=release)`; no standalone Top3Case release-summary property.
+22. `Top3Case.closureReason` is AI-agent inferred/composed from final state and close/release bugnote evidence.
+23. `ActionHistory` is a case-level container of the Mantis `Action History` section and anchors grouped build records.
+24. `Top3Build.top3BuildId` is deterministic by `caseId + buildNumber`.
+25. `Patch.patchId` is deterministic by `top3BuildId + issueId`.
+26. `Patch.mainBranchPointRaw` is extracted from `fixesIssue -> Issue.resolvedIn` by tokenization rule; `Patch.mainBranchPoint` is numeric parse when available.
+27. `Top3Case.branch` is a denormalized snapshot from Mantis `Branch Merge List`; canonical case-branch linkage is `Top3Case.usesBranch -> Branch`.
+28. `BranchRequest.NEW_BRANCH_NAME` normalizes to `Branch.branchName` when request succeeds.
+29. `Branch.branchName` links Mantis/Phab/Jenkins contexts.
+30. `Branch.createdByApp` and `Branch.createdByRef` capture origin provenance (Jenkins create-branch request preferred; manual fallback allowed).
+31. `BranchRequest.DEV_LEAD` / `BranchRequest.PM_LEAD` map to `Person.personId`.
+32. `BuildRequestPage.pageUrl` is branch-page navigable endpoint.
+33. `BuildRun.buildId/buildTag` links `Jenkins -> Outlook -> InfoSite`.
+34. `Top3Build.buildNumber` is the operational retrieval key for build artifacts in InfoSite context.
+35. `ValidationRecord.evidenceLink` links checklist/log evidence in Phabricator.
+36. `Team.channelRef` and `CommunicationThread.threadId` identify Core/All channels.
+37. `Issue.hasBugNote -> BugNote` is the canonical issue-note linkage keyed by issue `bug_id` and bugnote IDs.
+38. `Issue.referredIssueIds` are agent-extracted issue IDs from linked issue bugnote text (`Issue.hasBugNote -> BugNote.rawText`) using `#id`, `mantis#id`, `bug_id=id`.
+39. `Issue.referredNfrIds` are agent-extracted NFR IDs from linked issue bugnote text (`Issue.hasBugNote -> BugNote.rawText`) using `#id`, `mantis#id`, `bug_id=id`.
+40. `Issue.references -> Issue` resolves from `Issue.referredIssueIds` after ticket-type filtering.
+41. `Issue.references -> NFR` resolves from `Issue.referredNfrIds` after ticket-type filtering.
+42. `Issue.duplicateIssueId` maps from Mantis `Duplicate ID`; `Issue.duplicateOf -> Issue` resolves when value is present.
+43. `Issue.assignedDevId` maps from Mantis `Assigned To` and normalizes to `Person.personId` account token.
+44. `Issue.qaAssigneeId` maps from Mantis `QA Assignee` and normalizes to `Person.personId` account token.
+45. `Issue.fixSchedule` and `Issue.resolvedIn` map directly from same-name Mantis fields.
+46. `Issue.category`, `Issue.severity`, `Issue.reproducibility`, `Issue.reporterId`, `Issue.keyword`, `Issue.reproducedById`, `Issue.reportedVersion`, and `Issue.earliestBuildNumber` map directly from same-name Mantis issue fields (`Reporter`/`Reproduced By` normalize to `Person.personId`).
+47. `Issue.conclusion` is AI-agent inferred/composed from full issue-ticket evidence and stored as synthesized closure narrative.
+48. `Issue.assignedDevId`/`Issue.qaAssigneeId` are denormalized snapshots; `Issue.fixedBy`/`Issue.hasQaAssignee` relations are canonical for graph traversal.
+49. `PhabricatorTask.assignedToId` is denormalized snapshot; `PhabricatorTask.assignedTo` relation is canonical.
 
 ## 3. Derivation / Composition Rules
 
@@ -738,8 +776,12 @@
 | `Top3Case.currentPhaseEvidenceNoteId` | evidence pointer for current phase                                     | source `bugNoteId` used in derivation                                                                | record evidence pointer                                        | `DESIGN FIELD`               |
 | `Top3Case.closedAt`                   | derive closure timestamp from close/release note                       | `BugNote.createdAt` where headline is `---Release---`/`---Close---`                                  | derive and set closure time                                    | `HPO-CONFIRMED RULE`         |
 | `Top3Case.closureReason`              | infer and compose normalized closure rationale                         | final state + release/close bugnote evidence                                                         | infer and compose closure reason                               | `HPO-CONFIRMED RULE`         |
+| `NFR.solutionTags`                    | normalize solution tags from raw Mantis solution string               | `NFR.solutionRaw`                                                                                     | split by comma, trim, dedupe, and persist normalized tags      | `HPO-CONFIRMED RULE`         |
+| `NFR.referredIssueIds`                | extract referenced Issue IDs from NFR-local text                      | `NFR.hasBugNote -> BugNote.rawText`, `NFR.description`                                               | parse, dedupe, type-filter (Issue), and persist                | `HPO-CONFIRMED RULE`         |
+| `NFR.referredNfrIds`                  | extract referenced NFR IDs from NFR-local text                        | `NFR.hasBugNote -> BugNote.rawText`, `NFR.description`                                               | parse, dedupe, type-filter (NFR), and persist                  | `HPO-CONFIRMED RULE`         |
 | `NFR.conclusion`                      | infer and compose NFR-level conclusion from full NFR ticket review     | `NFR.summary`, `NFR.description`, `NFR.additionalInformation`, `NFR.status`                           | synthesize concise NFR conclusion for PM/QA consumption        | `HPO-CONFIRMED RULE`         |
 | `Issue.referredIssueIds`              | extract referenced issue IDs from linked issue bug notes               | `Issue.hasBugNote -> BugNote.rawText` (`#id`, `mantis#id`, `bug_id=id`)                              | parse, dedupe, and persist linked issue IDs                    | `HPO-CONFIRMED RULE`         |
+| `Issue.referredNfrIds`                | extract referenced NFR IDs from linked issue bug notes                | `Issue.hasBugNote -> BugNote.rawText` (`#id`, `mantis#id`, `bug_id=id`)                              | parse, dedupe, type-filter (NFR), and persist linked IDs       | `HPO-CONFIRMED RULE`         |
 | `Issue.conclusion`                    | infer and compose issue-level conclusion from full issue ticket review | `Issue.title`, `Issue.description`, `Issue.hasBugNote -> BugNote.rawText`, `Issue.status`, `Issue.resolvedIn`, assignment/repro metadata | synthesize concise conclusion for downstream PM/QA consumption | `HPO-CONFIRMED RULE`         |
 | `Patch.mainBranchPointRaw`            | extract candidate main-branchpoint token from linked issue resolution field | `Patch.fixesIssue -> Issue.resolvedIn`                                                                    | tokenize/normalize `resolvedIn`; keep first branchpoint-like token | `HPO-CONFIRMED RULE`         |
 | `Patch.mainBranchPoint`               | derive numeric main-branchpoint from extracted raw token               | `Patch.mainBranchPointRaw`                                                                               | parse integer branchpoint or null                               | `HPO-CONFIRMED RULE`         |
@@ -752,16 +794,16 @@
 
 | Item                                                  | Why Open                                         | Proposed Resolution                             | Owner       |
 | ----------------------------------------------------- | ------------------------------------------------ | ----------------------------------------------- | ----------- |
-| `BranchRequest` property/relation source checks       | source-check sections not yet documented in v2.6 | perform property + relation source-check review | Peter + HPO |
-| `Branch` property/relation source checks              | source-check sections not yet documented in v2.6 | perform property + relation source-check review | Peter + HPO |
-| `BuildRequestPage` property/relation source checks    | source-check sections not yet documented in v2.6 | perform property + relation source-check review | Peter + HPO |
-| `BuildRequest` property/relation source checks        | source-check sections not yet documented in v2.6 | perform property + relation source-check review | Peter + HPO |
-| `BuildRun` property/relation source checks            | source-check sections not yet documented in v2.6 | perform property + relation source-check review | Peter + HPO |
-| `ValidationRecord` property/relation source checks    | source-check sections not yet documented in v2.6 | perform property + relation source-check review | Peter + HPO |
-| `ReleaseNote` property/relation source checks         | source-check sections not yet documented in v2.6 | perform property + relation source-check review | Peter + HPO |
-| `Person` property/relation source checks              | source-check sections not yet documented in v2.6 | perform property + relation source-check review | Peter + HPO |
-| `Team` property/relation source checks                | source-check sections not yet documented in v2.6 | perform property + relation source-check review | Peter + HPO |
-| `CommunicationThread` property/relation source checks | source-check sections not yet documented in v2.6 | perform property + relation source-check review | Peter + HPO |
+| `BranchRequest` property/relation source checks       | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
+| `Branch` property/relation source checks              | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
+| `BuildRequestPage` property/relation source checks    | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
+| `BuildRequest` property/relation source checks        | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
+| `BuildRun` property/relation source checks            | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
+| `ValidationRecord` property/relation source checks    | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
+| `ReleaseNote` property/relation source checks         | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
+| `Person` property/relation source checks              | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
+| `Team` property/relation source checks                | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
+| `CommunicationThread` property/relation source checks | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
 
 ## 5. Decision Log
 
@@ -782,3 +824,4 @@
 - [2026-02-23 22:02:11 PST] `Patch` source refinement in `v2.4`: set `Patch.mainBranchPointRaw` to derive from linked `Issue.resolvedIn` token extraction and `Patch.issueTitle` to source from linked `Issue.title` via `fixesIssue -> Issue`.
 - [2026-02-24 20:39:12 PST] `Branch` enhancement in `v2.5`: added origin/sync provenance fields (`createdByApp`, `createdByRef`, `lastSyncedAt`) and added canonical `Top3Case usesBranch -> Branch` relation while keeping `Top3Case.branch` as denormalized snapshot.
 - [2026-02-24 21:32:20 PST] `v2.6` entity merge: unified `Artifact` into `Top3Build`; replaced `BuildRun publishesArtifact -> Artifact` with `BuildRun publishesTop3Build -> Top3Build`, and removed standalone `Artifact` entity.
+- [2026-02-25 08:42:10 PST] `NFR` enhancement in `v2.7`: normalized NFR schema (`solutionRaw/solutionTags`, `duplicateNfrId`, `referredNfrIds`), added canonical NFR relations (`reportedBy`, `hasBugNote`, `references`, `duplicateOf`), and added explicit agent action policy for ingest/sync/inference/writeback.
