@@ -68,3 +68,7 @@
 - [2026-02-25 07:46:20 PST] [WFL-1 Preview] START: Reopened `NFR` entity review from user-marked `v2.6` edits (`#newly added/#changed`) and initiated normalization/sync plan for next version.
 - [2026-02-25 08:09:52 PST] [WFL-1 Preview] IN-PROGRESS: Advanced model to `v2.7`; normalized NFR schema and naming (`solutionRaw/solutionTags`, `duplicateNfrId`, `referredNfrIds`), added NFR canonical relations and agent action policy, synchronized Issue cross-NFR references, and aligned markdown/YAML/Mermaid artifacts.
 - [2026-02-25 08:09:52 PST] [WFL-1 Preview] BREAKPOINT: Waiting HPO confirmation on `v2.7` NFR normalization choices (new canonical relations and agent action policy) before propagating same pattern to other entities.
+- [2026-02-25 08:20:44 PST] [WFL-1 Preview] START: Moved focus to `Patch` entity refinement and prepared synchronized `v2.8` branch from `v2.7` artifacts.
+- [2026-02-25 08:31:19 PST] [WFL-1 Preview] IN-PROGRESS: Completed `v2.8` Patch refinement: added `mergeToMainState`, added Patch agent-action policy, updated Patch link keys/derivation rules, and synchronized markdown/YAML/Mermaid.
+- [2026-02-25 08:39:45 PST] [WFL-1 Preview] START: Prepared next-version promotion after HPO edits on `v2.8`.
+- [2026-02-25 08:49:36 PST] [WFL-1 Preview] IN-PROGRESS: Advanced artifacts to `v2.9` (`.md/.yaml/.mmd`) and synchronized version metadata/source pointers while preserving latest model content.

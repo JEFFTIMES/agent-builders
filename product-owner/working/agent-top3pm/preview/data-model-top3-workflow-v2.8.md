@@ -1,15 +1,15 @@
-# Data Model Discovery - top3-workflow v2.7 - agent-top3pm
+# Data Model Discovery - top3-workflow v2.8 - agent-top3pm
 
 - Product: `agent-top3pm`
 - Domain / Bounded Context: `Top3 PM cross-system delivery workflow (Mantis/Teams/Jenkins/Outlook/InfoSite/Phabricator)`
 - Discovery Scope Boundary: `Managed objects, relations, link keys, and agent derivation rules for TOP3 case orchestration`
 - Entity Lifecycle Span (start -> end): `Top3Case intake -> branch/build -> QA validation -> release/closure`
-- Version: `v2.7`
+- Version: `v2.8`
 - Last Updated (time, owner): `2026-02-25`, `Peter (PD)`
 - Source Corpus Snapshot (systems/pages/files): `working/agent-top3pm/assets/top3apps/*.html`, `working/agent-top3pm/assets/top3apps/*.msg`, `working/agent-top3pm/assets/top3apps/teams-chat-core-1229978.md`
-- Source-of-Truth Model File: `working/agent-top3pm/preview/data-model-top3-workflow-v2.7.md`
-- Graph Model File (canonical YAML): `working/agent-top3pm/preview/data-model-top3-workflow-graph-v2.7.yaml`
-- Graph View File (Mermaid): `working/agent-top3pm/preview/data-model-top3-workflow-graph-v2.7.mmd`
+- Source-of-Truth Model File: `working/agent-top3pm/preview/data-model-top3-workflow-v2.8.md`
+- Graph Model File (canonical YAML): `working/agent-top3pm/preview/data-model-top3-workflow-graph-v2.8.yaml`
+- Graph View File (Mermaid): `working/agent-top3pm/preview/data-model-top3-workflow-graph-v2.8.mmd`
 
 ## 0. Data Modeling Purposes
 
@@ -428,9 +428,10 @@
 - `patchId` (string, primary key, deterministic key by `top3BuildId + issueId`)
 - `top3BuildId` (string, FK to Top3Build)
 - `issueId` (string, mantis issue id fixed by this patch)
+- `mergeToMainState` (enum: `merged_to_main`/`not_merged_to_main`/`unknown`)
 - `mainBranchPoint` (integer, nullable; numeric merged target when present)
-- `mainBranchPointRaw` (string; extracted token from `fixesIssue -> Issue.resolvedIn`)
-- `issueTitle` (text; sourced from `fixesIssue -> Issue.title`)
+- `mainBranchPointRaw` (string, nullable; extracted token from `fixesIssue -> Issue.resolvedIn`)
+- `issueTitle` (string; sourced from `fixesIssue -> Issue.title`)
 - `sequenceNo` (integer; order within build group)
 - `sourceSystem` (enum: Mantis)
 - `sourceSection` (string, default: `Action History`)
@@ -450,6 +451,7 @@
 - `issueId` <- fix row first-column anchor text/link `bug_id`. `CONFIRMED`
 - `mainBranchPointRaw` <- extracted from linked `Issue.resolvedIn` (`fixesIssue -> Issue`) by tokenization rule; keep first branchpoint-like token. `HPO-CONFIRMED RULE`
 - `mainBranchPoint` <- derived numeric parse of `mainBranchPointRaw`; null when extracted token is non-numeric. `HPO-CONFIRMED RULE`
+- `mergeToMainState` <- derived from `mainBranchPointRaw` and `mainBranchPoint`: numeric branchpoint => `merged_to_main`; explicit non-merged token (e.g., `Mantis`) => `not_merged_to_main`; else `unknown`. `HPO-CONFIRMED RULE`
 - `issueTitle` <- linked `Issue.title` via `fixesIssue -> Issue` relation. `HPO-CONFIRMED INTERPRETATION`
 - `sequenceNo` <- order of fix rows within current Top3Build group. `CONFIRMED`
 - `sourceSystem`/`sourceSection`/`sourceTicketId` <- Mantis section context. `CONFIRMED`
@@ -458,6 +460,14 @@
 
 - `hasPatch <- Top3Build` <- all fix rows under current Top3Build marker until next marker. `HPO-CONFIRMED RULE`
 - `fixesIssue -> Issue` <- `issueId` resolved to Issue entity by Mantis bug_id. `HPO-CONFIRMED INTERPRETATION`
+
+#### Agent Actions (First Round)
+
+- `ingest_action_history_rows`: parse each Top3Build group and upsert patch records (`top3BuildId`, `issueId`, `sequenceNo`, source context).
+- `sync_issue_snapshot`: resolve `fixesIssue -> Issue` and refresh `issueTitle` snapshot for quick review views.
+- `derive_merge_state`: compute `mainBranchPointRaw`, `mainBranchPoint`, and `mergeToMainState` from linked issue resolution evidence.
+- `writeback_policy`:
+  all Patch properties are currently `system_sync_only` by default (no direct external writeback in first round).
 
 ### Entity: `BranchRequest`
 
@@ -744,29 +754,30 @@
 24. `Top3Build.top3BuildId` is deterministic by `caseId + buildNumber`.
 25. `Patch.patchId` is deterministic by `top3BuildId + issueId`.
 26. `Patch.mainBranchPointRaw` is extracted from `fixesIssue -> Issue.resolvedIn` by tokenization rule; `Patch.mainBranchPoint` is numeric parse when available.
-27. `Top3Case.branch` is a denormalized snapshot from Mantis `Branch Merge List`; canonical case-branch linkage is `Top3Case.usesBranch -> Branch`.
-28. `BranchRequest.NEW_BRANCH_NAME` normalizes to `Branch.branchName` when request succeeds.
-29. `Branch.branchName` links Mantis/Phab/Jenkins contexts.
-30. `Branch.createdByApp` and `Branch.createdByRef` capture origin provenance (Jenkins create-branch request preferred; manual fallback allowed).
-31. `BranchRequest.DEV_LEAD` / `BranchRequest.PM_LEAD` map to `Person.personId`.
-32. `BuildRequestPage.pageUrl` is branch-page navigable endpoint.
-33. `BuildRun.buildId/buildTag` links `Jenkins -> Outlook -> InfoSite`.
-34. `Top3Build.buildNumber` is the operational retrieval key for build artifacts in InfoSite context.
-35. `ValidationRecord.evidenceLink` links checklist/log evidence in Phabricator.
-36. `Team.channelRef` and `CommunicationThread.threadId` identify Core/All channels.
-37. `Issue.hasBugNote -> BugNote` is the canonical issue-note linkage keyed by issue `bug_id` and bugnote IDs.
-38. `Issue.referredIssueIds` are agent-extracted issue IDs from linked issue bugnote text (`Issue.hasBugNote -> BugNote.rawText`) using `#id`, `mantis#id`, `bug_id=id`.
-39. `Issue.referredNfrIds` are agent-extracted NFR IDs from linked issue bugnote text (`Issue.hasBugNote -> BugNote.rawText`) using `#id`, `mantis#id`, `bug_id=id`.
-40. `Issue.references -> Issue` resolves from `Issue.referredIssueIds` after ticket-type filtering.
-41. `Issue.references -> NFR` resolves from `Issue.referredNfrIds` after ticket-type filtering.
-42. `Issue.duplicateIssueId` maps from Mantis `Duplicate ID`; `Issue.duplicateOf -> Issue` resolves when value is present.
-43. `Issue.assignedDevId` maps from Mantis `Assigned To` and normalizes to `Person.personId` account token.
-44. `Issue.qaAssigneeId` maps from Mantis `QA Assignee` and normalizes to `Person.personId` account token.
-45. `Issue.fixSchedule` and `Issue.resolvedIn` map directly from same-name Mantis fields.
-46. `Issue.category`, `Issue.severity`, `Issue.reproducibility`, `Issue.reporterId`, `Issue.keyword`, `Issue.reproducedById`, `Issue.reportedVersion`, and `Issue.earliestBuildNumber` map directly from same-name Mantis issue fields (`Reporter`/`Reproduced By` normalize to `Person.personId`).
-47. `Issue.conclusion` is AI-agent inferred/composed from full issue-ticket evidence and stored as synthesized closure narrative.
-48. `Issue.assignedDevId`/`Issue.qaAssigneeId` are denormalized snapshots; `Issue.fixedBy`/`Issue.hasQaAssignee` relations are canonical for graph traversal.
-49. `PhabricatorTask.assignedToId` is denormalized snapshot; `PhabricatorTask.assignedTo` relation is canonical.
+27. `Patch.mergeToMainState` is derived state for quick agent/human filtering of main-branch merge readiness.
+28. `Top3Case.branch` is a denormalized snapshot from Mantis `Branch Merge List`; canonical case-branch linkage is `Top3Case.usesBranch -> Branch`.
+29. `BranchRequest.NEW_BRANCH_NAME` normalizes to `Branch.branchName` when request succeeds.
+30. `Branch.branchName` links Mantis/Phab/Jenkins contexts.
+31. `Branch.createdByApp` and `Branch.createdByRef` capture origin provenance (Jenkins create-branch request preferred; manual fallback allowed).
+32. `BranchRequest.DEV_LEAD` / `BranchRequest.PM_LEAD` map to `Person.personId`.
+33. `BuildRequestPage.pageUrl` is branch-page navigable endpoint.
+34. `BuildRun.buildId/buildTag` links `Jenkins -> Outlook -> InfoSite`.
+35. `Top3Build.buildNumber` is the operational retrieval key for build artifacts in InfoSite context.
+36. `ValidationRecord.evidenceLink` links checklist/log evidence in Phabricator.
+37. `Team.channelRef` and `CommunicationThread.threadId` identify Core/All channels.
+38. `Issue.hasBugNote -> BugNote` is the canonical issue-note linkage keyed by issue `bug_id` and bugnote IDs.
+39. `Issue.referredIssueIds` are agent-extracted issue IDs from linked issue bugnote text (`Issue.hasBugNote -> BugNote.rawText`) using `#id`, `mantis#id`, `bug_id=id`.
+40. `Issue.referredNfrIds` are agent-extracted NFR IDs from linked issue bugnote text (`Issue.hasBugNote -> BugNote.rawText`) using `#id`, `mantis#id`, `bug_id=id`.
+41. `Issue.references -> Issue` resolves from `Issue.referredIssueIds` after ticket-type filtering.
+42. `Issue.references -> NFR` resolves from `Issue.referredNfrIds` after ticket-type filtering.
+43. `Issue.duplicateIssueId` maps from Mantis `Duplicate ID`; `Issue.duplicateOf -> Issue` resolves when value is present.
+44. `Issue.assignedDevId` maps from Mantis `Assigned To` and normalizes to `Person.personId` account token.
+45. `Issue.qaAssigneeId` maps from Mantis `QA Assignee` and normalizes to `Person.personId` account token.
+46. `Issue.fixSchedule` and `Issue.resolvedIn` map directly from same-name Mantis fields.
+47. `Issue.category`, `Issue.severity`, `Issue.reproducibility`, `Issue.reporterId`, `Issue.keyword`, `Issue.reproducedById`, `Issue.reportedVersion`, and `Issue.earliestBuildNumber` map directly from same-name Mantis issue fields (`Reporter`/`Reproduced By` normalize to `Person.personId`).
+48. `Issue.conclusion` is AI-agent inferred/composed from full issue-ticket evidence and stored as synthesized closure narrative.
+49. `Issue.assignedDevId`/`Issue.qaAssigneeId` are denormalized snapshots; `Issue.fixedBy`/`Issue.hasQaAssignee` relations are canonical for graph traversal.
+50. `PhabricatorTask.assignedToId` is denormalized snapshot; `PhabricatorTask.assignedTo` relation is canonical.
 
 ## 3. Derivation / Composition Rules
 
@@ -786,6 +797,7 @@
 | `Issue.conclusion`                    | infer and compose issue-level conclusion from full issue ticket review | `Issue.title`, `Issue.description`, `Issue.hasBugNote -> BugNote.rawText`, `Issue.status`, `Issue.resolvedIn`, assignment/repro metadata | synthesize concise conclusion for downstream PM/QA consumption | `HPO-CONFIRMED RULE`         |
 | `Patch.mainBranchPointRaw`            | extract candidate main-branchpoint token from linked issue resolution field | `Patch.fixesIssue -> Issue.resolvedIn`                                                                    | tokenize/normalize `resolvedIn`; keep first branchpoint-like token | `HPO-CONFIRMED RULE`         |
 | `Patch.mainBranchPoint`               | derive numeric main-branchpoint from extracted raw token               | `Patch.mainBranchPointRaw`                                                                               | parse integer branchpoint or null                               | `HPO-CONFIRMED RULE`         |
+| `Patch.mergeToMainState`              | derive merge state for agent triage                                    | `Patch.mainBranchPointRaw`, `Patch.mainBranchPoint`                                                      | map to merged/not-merged/unknown state                          | `HPO-CONFIRMED RULE`         |
 | `riskScore`                           | compute risk score for case progression                                | blockers, missing links, status aging, severity                                                      | calculate and refresh score                                    | `DESIGN FIELD`               |
 | `blockerFlags`                        | identify active blockers requiring escalation                          | dependency gaps, failed builds, stalled validation                                                   | detect and emit blocker flags                                  | `DESIGN FIELD`               |
 | `missingLinks`                        | detect missing traceability links                                      | ticket/branch/build/top3build/validation mappings                                                    | compute missing link list                                      | `DESIGN FIELD`               |
@@ -795,16 +807,16 @@
 
 | Item                                                  | Why Open                                         | Proposed Resolution                             | Owner       |
 | ----------------------------------------------------- | ------------------------------------------------ | ----------------------------------------------- | ----------- |
-| `BranchRequest` property/relation source checks       | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
-| `Branch` property/relation source checks              | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
-| `BuildRequestPage` property/relation source checks    | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
-| `BuildRequest` property/relation source checks        | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
-| `BuildRun` property/relation source checks            | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
-| `ValidationRecord` property/relation source checks    | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
-| `ReleaseNote` property/relation source checks         | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
-| `Person` property/relation source checks              | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
-| `Team` property/relation source checks                | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
-| `CommunicationThread` property/relation source checks | source-check sections not yet documented in v2.7 | perform property + relation source-check review | Peter + HPO |
+| `BranchRequest` property/relation source checks       | source-check sections not yet documented in v2.8 | perform property + relation source-check review | Peter + HPO |
+| `Branch` property/relation source checks              | source-check sections not yet documented in v2.8 | perform property + relation source-check review | Peter + HPO |
+| `BuildRequestPage` property/relation source checks    | source-check sections not yet documented in v2.8 | perform property + relation source-check review | Peter + HPO |
+| `BuildRequest` property/relation source checks        | source-check sections not yet documented in v2.8 | perform property + relation source-check review | Peter + HPO |
+| `BuildRun` property/relation source checks            | source-check sections not yet documented in v2.8 | perform property + relation source-check review | Peter + HPO |
+| `ValidationRecord` property/relation source checks    | source-check sections not yet documented in v2.8 | perform property + relation source-check review | Peter + HPO |
+| `ReleaseNote` property/relation source checks         | source-check sections not yet documented in v2.8 | perform property + relation source-check review | Peter + HPO |
+| `Person` property/relation source checks              | source-check sections not yet documented in v2.8 | perform property + relation source-check review | Peter + HPO |
+| `Team` property/relation source checks                | source-check sections not yet documented in v2.8 | perform property + relation source-check review | Peter + HPO |
+| `CommunicationThread` property/relation source checks | source-check sections not yet documented in v2.8 | perform property + relation source-check review | Peter + HPO |
 
 ## 5. Decision Log
 
@@ -826,3 +838,4 @@
 - [2026-02-24 20:39:12 PST] `Branch` enhancement in `v2.5`: added origin/sync provenance fields (`createdByApp`, `createdByRef`, `lastSyncedAt`) and added canonical `Top3Case usesBranch -> Branch` relation while keeping `Top3Case.branch` as denormalized snapshot.
 - [2026-02-24 21:32:20 PST] `v2.6` entity merge: unified `Artifact` into `Top3Build`; replaced `BuildRun publishesArtifact -> Artifact` with `BuildRun publishesTop3Build -> Top3Build`, and removed standalone `Artifact` entity.
 - [2026-02-25 08:42:10 PST] `NFR` enhancement in `v2.7`: normalized NFR schema (`solutionRaw/solutionTags`, `duplicateNfrId`, `referredNfrIds`), added canonical NFR relations (`reportedBy`, `hasBugNote`, `references`, `duplicateOf`), and added explicit agent action policy for ingest/sync/inference/writeback.
+- [2026-02-25 08:25:40 PST] `Patch` enhancement in `v2.8`: added normalized merge state field (`mergeToMainState`), refined Patch source/derivation mapping, and added Patch-level agent action policy for ingest/sync/derive workflow.
