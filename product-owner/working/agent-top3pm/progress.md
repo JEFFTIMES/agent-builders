@@ -74,3 +74,8 @@
 - [2026-02-25 08:49:36 PST] [WFL-1 Preview] IN-PROGRESS: Advanced artifacts to `v2.9` (`.md/.yaml/.mmd`) and synchronized version metadata/source pointers while preserving latest model content.
 - [2026-02-25 11:59:28 PST] [WFL-1 Preview] START: Resumed session and re-initialized context by reviewing `progress.md`, `WFL_PREVIEW.md`, and current preview artifacts (`v2.9`).
 - [2026-02-25 11:59:28 PST] [WFL-1 Preview] BREAKPOINT: Awaiting HPO confirmation on next focus area; default next target is pending source-check coverage entities in `v2.9` (BranchRequest/Branch/BuildRequestPage/BuildRequest/BuildRun/ValidationRecord/ReleaseNote/Person/Team/CommunicationThread).
+- [2026-02-25 21:52:40 PST] [WFL-1 Preview] START: Reviewed HPO-amended `v2.9.1` model updates and began normalization planning for `v3.0` (including new `BranchRequestPage` and `EmailNotify` entities).
+- [2026-02-25 22:16:21 PST] [WFL-1 Preview] IN-PROGRESS: Released normalized `v3.0` artifacts across markdown/YAML/Mermaid; aligned surfacing-app sections, standardized new entity naming/cardinalities, and synchronized graph relations for branch-request/email-driven operations.
+- [2026-02-25 22:16:21 PST] [WFL-1 Preview] BREAKPOINT: Waiting HPO confirmation on `v3.0` assumptions for `BranchRequest` status lifecycle and `EmailNotify -> BranchRequest` matching rules.
+- [2026-02-25 22:17:10 PST] [WFL-1 Preview] START: Began strict-check request to save normalized result as `v3.1` from `v3.0` baseline.
+- [2026-02-25 22:23:56 PST] [WFL-1 Preview] IN-PROGRESS: Completed strict-check normalization in `v3.1`; formalized BranchRequestPage/BranchRequest overlap rules, synchronized EmailNotify flow into graph artifacts, and captured strict-check outcomes in dedicated section.
