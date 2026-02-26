@@ -1,0 +1,15 @@
+
+
+
+Branch Approved - FortiOS v7.00: <br_7-4_11_failover_fail_with_vwp> by sjeff (sjeff) #title
+
+
+Branch Request - Branch <br_7-4_11_failover_fail_with_vwp> requested by: sjeff (sjeff) has been approved
+
+Source Code URL is:
+https://gitlab-van.corp.fortinet.com/fos/fortios/tree/br_7-4_11_failover_fail_with_vwp          #branchSourceCodeURL, only capture the first URL
+https://gitlab-ott.corp.fortinet.com/fos/fortios/tree/br_7-4_11_failover_fail_with_vwp
+https://gitlab-sjc.corp.fortinet.com/fos/fortios/tree/br_7-4_11_failover_fail_with_vwp
+
+Jenkins Job URL is https://jenkins-sjc.corp.fortinet.com/job/Projects/job/FortiOS/job/br_7-4/job/br_7-4_11_failover_fail_with_vwp  #branchJobURL
+

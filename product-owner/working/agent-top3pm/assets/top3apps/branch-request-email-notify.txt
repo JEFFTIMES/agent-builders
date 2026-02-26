@@ -1,0 +1,20 @@
+
+Branch Request - Branch <br_7-4_11_failover_fail_with_vwp> requested by: sjeff (sjeff) #title
+
+Branch information
+Branch Name	br_7-4_11_failover_fail_with_vwp     #branchName
+Project	FortiOS v7.00                            #maches to productFamily FortiOS
+Version	7.4                                      #majorVersion.minorVersion
+BranchType	Top3.                                #branchType
+Branch Point	fg_7_2878                        #the last four digits represents the branchPoint
+Requestor	sjeff (sjeff)           
+Dev Lead
+(*Required*)	Frank Pan (fpan)                 #DevLead's id
+PM Lead	sjeff (sjeff)                            #PM' id
+Who Needs Access
+(*Required*)	fpan
+For Customer	true                             #forCustomer
+New Branch URL	https://gitlab-van.corp.fortinet.com/fos/fortios/tree/br_7-4_11_failover_fail_with_vwp # don't capture it for now, wait for the arrival of the branch approved notify
+https://gitlab-sjc.corp.fortinet.com/fos/fortios/tree/br_7-4_11_failover_fail_with_vwp
+Description
+(*Required*)	1260311                         #top3CaseId

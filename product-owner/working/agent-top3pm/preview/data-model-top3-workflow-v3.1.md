@@ -66,6 +66,10 @@
 
 ## 2. Entity Discovery Cards
 
+### Entity: `ProductFamily`
+
+
+
 ### Entity: `Top3Case`
 
 #### Surfacing Applications
@@ -76,7 +80,6 @@
 - PMDB: pmdb doc 
 - Phab: QA ticket
 - Teams: Chat Group Title
-
 
 #### Properties
 
@@ -554,7 +557,7 @@
 - `NEW_BRANCH_NAME` (text) [external_data_touch_policy=agent_managed]
 - `BRANCH_POINT` (enum) [external_data_touch_policy=agent_managed]
 - `BRANCH_TYPE` (enum: `R&D`/`Top3`/`NPI`) [external_data_touch_policy=agent_managed]
-- `BRANCH_DESCRIPTION` (text) [external_data_touch_policy=agent_managed] (top3 number is mandatory)
+- `BRANCH_DESCRIPTION` (text) [external_data_touch_policy=agent_managed] (filling a top3case id is mandatory for this field, it's the key but implicit expression of top3case 'hasBranch' the branch created by the request will be fired by this page)
 - `FOR_CUSTOMER` (boolean) [external_data_touch_policy=agent_managed]
 - `DEV_LEAD` (enum) [external_data_touch_policy=agent_managed]
 - `PM_LEAD` (enum) [external_data_touch_policy=agent_managed]
@@ -572,7 +575,7 @@
 
 - `fill_and_submit`: agent fills all managed fields by branch-creation rules and submits the request.
 - `validate_inputs`: agent verifies required values and option compatibility before submit.
-- `capture_submission`: agent captures submit time and normalized payload for downstream `BranchRequest`.
+- `capture_submission`: agent captures submit time (from the upcoming email notify) and normalized payload for downstream `BranchRequest`.
 
 
 
@@ -584,19 +587,25 @@
 
 #### Properties
 
-- `requestId` (string, primary key)
+- `requestId` (string, primary key, internal)
 - `requestStatus` (enum: submitted/approved/failed/cancelled) (updated by reading `EmailNotify`)
-- `requestedAt` (datetime) 
-- `branchName` (text)
-- `majorVersion` (text)
-- `minorVersion` (text)
-- `branchPoint` (text)
-- `branchType` (text)
+- `requestedAt` (datetime) (captured not from the request page, but from the 'Branch Request' email notify's receive time)
+- `branchName` (text) (update by receiving Branch Request notify)
+- `majorVersion` (text) (update by receiving Branch Request notify)
+- `minorVersion` (text) (update by receiving Branch Request notify)
+- `branchPoint` (text) (update by receiving Branch Request notify)
+- `branchType` (text) (update by receiving Branch Request notify)
+- `top3CaseId` (text) (update by receiving Branch Request notify)
+- `forCustomer` (boolean) (update by receiving Branch Request notify)
+- `productFamily` (string) (update by receiving Branch Request notify)
+- `branchSourceCodeURL` (text nullable) (update by receiving Branch Approved notify)
+- `branchJobURL` (text nullable) (update by receiving Branch Approved notify)
 
 
 #### Outgoing Relations
 
 - `generatesBranch -> Branch` (`0..1`) (key: `branchName`)
+- `raisedForTop3Case` -> `Top3Case` (`1..1`)
 
 #### Incoming Relations
 
@@ -647,7 +656,6 @@
 - jenkins.corp.fortinet.com/user/<userid>/builds (product family other existing branches created by pm <userid>)
 - Branch Approved Email Notifies
 - Top3 Mantis ticket `branch merge list` field
-
 
 #### Properties
 
