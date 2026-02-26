@@ -79,3 +79,14 @@
 - [2026-02-25 22:16:21 PST] [WFL-1 Preview] BREAKPOINT: Waiting HPO confirmation on `v3.0` assumptions for `BranchRequest` status lifecycle and `EmailNotify -> BranchRequest` matching rules.
 - [2026-02-25 22:17:10 PST] [WFL-1 Preview] START: Began strict-check request to save normalized result as `v3.1` from `v3.0` baseline.
 - [2026-02-25 22:23:56 PST] [WFL-1 Preview] IN-PROGRESS: Completed strict-check normalization in `v3.1`; formalized BranchRequestPage/BranchRequest overlap rules, synchronized EmailNotify flow into graph artifacts, and captured strict-check outcomes in dedicated section.
+- [2026-02-26 08:30:12 PST] [WFL-1 Preview] START: Proceeded from `v3.1` to next-version normalization for branch-request/email modeling (`v3.2`) per HPO direction.
+- [2026-02-26 08:38:17 PST] [WFL-1 Preview] IN-PROGRESS: Released `v3.2` artifacts with EmailNotify extraction normalization; completed source-check blocks for `BranchRequestPage`/`BranchRequest`/`EmailNotify`, added `requestorId/devLeadId/pmLeadId`, and synchronized upstream/downstream relations across `.md/.yaml/.mmd`.
+- [2026-02-26 11:24:48 PST] [WFL-1 Preview] START: Began design-guidance consolidation request for 4-layer pattern and 2-layer data-model pattern with explicit input/output artifacts.
+- [2026-02-26 11:25:32 PST] [WFL-1 Preview] IN-PROGRESS: Created `guidance/design-guidance-v1.0.md` covering 4-layer + 2-layer patterns, guardrails, artifact contracts, and quality checklist.
+- [2026-02-26 11:32:46 PST] [WFL-1 Preview] START: Reviewed `guidance/design-guidance-v1.0.md` and started alignment update for `guidance/data-model-discovery.md`.
+- [2026-02-26 11:36:18 PST] [WFL-1 Preview] IN-PROGRESS: Revised `guidance/data-model-discovery.md` to align with 4-layer design pattern, 2-layer data-model structure, explicit input/output artifacts, and updated quality gates/template sections.
+- [2026-02-26 11:52:29 PST] [WFL-1 Preview] START: Began merge-back request to consolidate data-model-discovery guidance into design guidance and proceed version to v2.
+- [2026-02-26 11:57:06 PST] [WFL-1 Preview] IN-PROGRESS: Published `guidance/design-guidance-v2.0.md` with merged architecture, 2-layer data-model pattern, artifact contracts, discovery method/template, and quality gates.
+- [2026-02-26 12:28:07 PST] [WFL-1 Preview] START: Reviewed HPO-updated `guidance/design-guidance-v2.1.md` and identified missing sections/placeholders to complete.
+- [2026-02-26 12:30:22 PST] [WFL-1 Preview] IN-PROGRESS: Updated `design-guidance-v2.1.md` by completing discovery-method approach (4-lane abstraction), adding layer-integration rules, and filling missing State/Interaction/Automation templates.
+- [2026-02-26 12:34:56 PST] [WFL-1 Preview] IN-PROGRESS: Promoted updated guidance to `guidance/design-guidance-v2.2.md` from finalized `v2.1` content.

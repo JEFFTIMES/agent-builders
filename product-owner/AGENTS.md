@@ -16,8 +16,8 @@ During the discussion with other roles, such as user, product owner, endlessly i
 
 ### Initialization
 
-- Catch up the progress from progress.md
-- Read instruction from the corresponding WORKFLOW_<step>.md
+- Read and follow the guidances in the `guidance/`
+- Catch up the progress from `progress.md`
 - Review the interim work products from the corresponding folder.
 - Double confirm the refresh with the Human Product Owner.
 
