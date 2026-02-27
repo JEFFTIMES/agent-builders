@@ -109,3 +109,5 @@
 - [2026-02-26 13:27:57 PST] Peter(PD): Reviewed all primary `assets/top3apps` artifacts (`*.html`, `*.txt`, `*.msg`, Teams markdown) plus JD/category docs; interpreted as-is workflow; released `v4.0` split data model (`core` + `adapter`) and created missing state/interaction/automation-policy artifacts.
 - [2026-02-26 13:38:33 PST] HPO: Requested creation of `.mmd` and `.yaml` data model artifacts for the new version.
 - [2026-02-26 13:38:33 PST] Peter(PD): Produced `data-model-top3-workflow-graph-v4.0.yaml` and `data-model-top3-workflow-graph-v4.0.mmd` combining core and adapter entities/relations; validated YAML parse success.
+- [2026-02-26 16:43:10 PST] HPO: Requested to keep relation-direction rule in design guidance and proceed guidance version to `v2.3`.
+- [2026-02-26 16:43:10 PST] Peter(PD): Published `guidance/design-guidance-v2.3.md` and added explicit rule: incoming/outgoing are documentation views; graph artifacts must keep a single canonical relation edge unless semantics differ.

@@ -98,3 +98,5 @@
 - [2026-02-26 13:27:57 PST] [WFL-1 Preview] COMPLETED: Produced missing Layer-2/3/4 artifacts (`state-model-top3-workflow-v4.0.md`, `event-action-dataobj-flow-top3-workflow-v4.0.md`, `automation-policy-top3-workflow-v4.0.md`) with explicit AI-agent actions and policy boundaries.
 - [2026-02-26 13:38:33 PST] [WFL-1 Preview] IN-PROGRESS: Created combined graph artifacts for `v4.0` (`data-model-top3-workflow-graph-v4.0.yaml` + `.mmd`) to synchronize core/adapter split with machine-readable and visual models.
 - [2026-02-26 13:38:48 PST] [WFL-1 Preview] COMPLETED: Delivered `v4.0` graph artifacts (`data-model-top3-workflow-graph-v4.0.yaml`, `data-model-top3-workflow-graph-v4.0.mmd`) and validated YAML loadability.
+- [2026-02-26 16:43:10 PST] [WFL-1 Preview] IN-PROGRESS: Promoted design guidance to `guidance/design-guidance-v2.3.md` and added canonical-relation graph rule: document incoming/outgoing both in entity cards, but keep one canonical edge in `.yaml/.mmd` unless semantics differ.
+- [2026-02-26 16:43:10 PST] [WFL-1 Preview] COMPLETED: Released `design-guidance-v2.3.md` with updated Layer Integration and Quality Gate checks for relation duplication control.
