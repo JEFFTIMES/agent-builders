@@ -103,3 +103,9 @@
 - [2026-02-24 20:56:48 PST] Peter(PD): Cleaned `v2.5` policy tags by removing explicit `system_sync_only`; preserved only explicit `agent_managed`/`agent_suggest_only` tags and documented `system_sync_only` as implicit default.
 - [2026-02-25 11:59:28 PST] HPO: "." (resume/continue signal)
 - [2026-02-25 11:59:28 PST] Peter(PD): Re-initialized `WFL-1 Preview` context from `progress.md`, `WFL_PREVIEW.md`, and latest `v2.9` model artifacts; prepared to continue with pending entity source-check coverage after HPO confirmation.
+- [2026-02-26 12:58:10 PST] HPO: "." (resume/continue signal)
+- [2026-02-26 12:58:10 PST] Peter(PD): Re-initialized `WFL-1 Preview` from guidance + progress + `v3.2` artifacts; confirmed open confirmations are source-check coverage for `Branch`, `BuildRequestPage`, `BuildRequest`, `BuildRun`, `ValidationRecord`, `ReleaseNote`, `Person`, `Team`, and `CommunicationThread`, awaiting HPO focus choice.
+- [2026-02-26 13:27:57 PST] HPO: Reported guidance mismatch in `v3.2` (missing adapter-layer entities, unsplit data model, missing state/interaction/automation artifacts) and requested full source-backed remodel.
+- [2026-02-26 13:27:57 PST] Peter(PD): Reviewed all primary `assets/top3apps` artifacts (`*.html`, `*.txt`, `*.msg`, Teams markdown) plus JD/category docs; interpreted as-is workflow; released `v4.0` split data model (`core` + `adapter`) and created missing state/interaction/automation-policy artifacts.
+- [2026-02-26 13:38:33 PST] HPO: Requested creation of `.mmd` and `.yaml` data model artifacts for the new version.
+- [2026-02-26 13:38:33 PST] Peter(PD): Produced `data-model-top3-workflow-graph-v4.0.yaml` and `data-model-top3-workflow-graph-v4.0.mmd` combining core and adapter entities/relations; validated YAML parse success.

@@ -27,3 +27,11 @@
   (branchNotExist) [triggers] <user.pm> [fillForm] on <Jenkins.BranchRequestPage> AND [clickSubmitButton] on <Jenkins.BranchRequestPage> [emits] (branchApproved)
   (regularlyCheckEmail) [triggers] <user.pm> [checkEmail] <Outlook.EmailNotify> which [carries] (branchApproved) [emits] (branchNameReady)
   (branchNameReady) [triggers] <user.pm> [updateTop3BranchName] in <Mantis.Top3CasePage> [emits] (branchNameUpdated)
+
+
+› regarding domain data model, I want to split them into two layers(using layers might not precisely), the core layer abstract the stable entities as you mentioned, add a presentation
+  layer. an entity in this layer (1) maps the corresponding business entity's properitis to the fields of the current human-application-interface,such as Manits.Top3CasePage and
+  Jenkins.BranchRequestPage, (2) guides the upcoming agent interacting with the applications in a humam-mimic way.
+  Is this consideration towards a correct direction and practical?
+  any other guys doing so?
+  

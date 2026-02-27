@@ -1,0 +1,109 @@
+flowchart LR
+  subgraph CoreLayer[Core Canonical Entities]
+    ProductFamily[ProductFamily]
+    Top3Case[Top3Case]
+    NFR[NFR]
+    Issue[Issue]
+    BugNote[BugNote]
+    ActionHistory[ActionHistory]
+    Top3Build[Top3Build]
+    Patch[Patch]
+    BranchRequest[BranchRequest]
+    Branch[Branch]
+    BuildRequest[BuildRequest]
+    BuildRun[BuildRun]
+    BuildArtifact[BuildArtifact]
+    ValidationRecord[ValidationRecord]
+    ReleaseNote[ReleaseNote]
+    PhabricatorTask[PhabricatorTask]
+    EmailNotify[EmailNotify]
+    Person[Person]
+    Team[Team]
+    CommunicationThread[CommunicationThread]
+  end
+
+  subgraph AdapterLayer[Adapter Interface Objects]
+    MantisTop3CasePage[Mantis.Top3CasePage]
+    MantisNFRPage[Mantis.NFRPage]
+    MantisIssuePage[Mantis.IssuePage]
+    MantisBugNoteSection[Mantis.BugNoteSection]
+    MantisActionHistorySection[Mantis.ActionHistorySection]
+    JenkinsBranchRequestFormPage[Jenkins.BranchRequestFormPage]
+    JenkinsBranchProjectPage[Jenkins.BranchProjectPage]
+    JenkinsBuildWithParametersPage[Jenkins.BuildWithParametersPage]
+    OutlookBranchRequestEmail[Outlook.BranchRequestEmail]
+    OutlookBranchApprovedEmail[Outlook.BranchApprovedEmail]
+    OutlookBuildNotifyEmail[Outlook.BuildNotifyEmail]
+    InfoSiteBuildFolderPage[InfoSite.BuildFolderPage]
+    PhabricatorTaskPage[Phabricator.TaskPage]
+    TeamsCoreThreadView[Teams.CoreThreadView]
+  end
+
+  Top3Case -->|r01 hasNFR 0_to_N| NFR
+  Top3Case -->|r02 hasIssue 0_to_N| Issue
+  Top3Case -->|r03 hasBugNote 0_to_N| BugNote
+  Top3Case -->|r04 hasActionHistory 0_to_N| ActionHistory
+  ActionHistory -->|r05 hasTop3Build 0_to_N| Top3Build
+  Top3Build -->|r06 hasPatch 0_to_N| Patch
+  Patch -->|r07 fixesIssue 1_to_1| Issue
+  Top3Case -->|r08 usesBranch 0_to_N| Branch
+  BranchRequest -->|r09 raisedForTop3Case 1_to_1| Top3Case
+  BranchRequest -->|r10 generatesBranch 0_to_1| Branch
+  BuildRequest -->|r11 usesBranch 1_to_1| Branch
+  BuildRequest -->|r12 spawns 0_to_N| BuildRun
+  BuildRun -->|r13 publishesTop3Build 0_to_N| Top3Build
+  BuildRun -->|r14 publishesArtifact 0_to_N| BuildArtifact
+  Top3Build -->|r15 publishesArtifact 0_to_N| BuildArtifact
+  ValidationRecord -->|r16 validates 1_to_1| BuildRun
+  ValidationRecord -->|r17 validatesIssue 0_to_N| Issue
+  ValidationRecord -->|r18 trackedIn 0_to_1| PhabricatorTask
+  ReleaseNote -->|r19 summarizes 0_to_N| ValidationRecord
+  Top3Case -->|r20 publishesDeliverable 0_to_N| ReleaseNote
+  PhabricatorTask -->|r21 linkedTo 1_to_1| Top3Case
+  EmailNotify -->|r22 updatesStatus 0_to_N| BranchRequest
+  EmailNotify -->|r23 notifiesBuildRun 0_to_N| BuildRun
+  Top3Case -->|r24 hasTeam 0_to_N| Team
+  Team -->|r25 usesThread 1_to_1| CommunicationThread
+
+  Top3Case -->|r26 ownedBy role_PM| Person
+  Top3Case -->|r27 hasQaOwner role_QA| Person
+  Top3Case -->|r28 hasDevOwner role_Dev| Person
+  BranchRequest -->|r29 requestedBy| Person
+  BranchRequest -->|r30 hasDevLead role_Dev| Person
+  BranchRequest -->|r31 hasPmLead role_PM| Person
+  Branch -->|r32 hasDevLead role_Dev| Person
+  Branch -->|r33 hasPmLead role_PM| Person
+  PhabricatorTask -->|r34 assignedTo| Person
+  NFR -->|r35 hasBugNote| BugNote
+  Issue -->|r36 hasBugNote| BugNote
+  BugNote -->|r37 references| NFR
+  BugNote -->|r38 references| Issue
+  BugNote -->|r39 references| PhabricatorTask
+
+  MantisTop3CasePage -->|a01 mapsTo| Top3Case
+  MantisNFRPage -->|a02 mapsTo| NFR
+  MantisIssuePage -->|a03 mapsTo| Issue
+  MantisBugNoteSection -->|a04 mapsTo| BugNote
+  MantisActionHistorySection -->|a05 mapsTo| ActionHistory
+  MantisActionHistorySection -->|a06 mapsTo| Top3Build
+  MantisActionHistorySection -->|a07 mapsTo| Patch
+  JenkinsBranchRequestFormPage -->|a08 submitsTo| BranchRequest
+  JenkinsBranchProjectPage -->|a09 mapsTo| Branch
+  JenkinsBranchProjectPage -->|a10 mapsTo| BuildRun
+  JenkinsBuildWithParametersPage -->|a11 submitsTo| BuildRequest
+  OutlookBranchRequestEmail -->|a12 mapsTo| BranchRequest
+  OutlookBranchApprovedEmail -->|a13 mapsTo| BranchRequest
+  OutlookBranchApprovedEmail -->|a14 mapsTo| Branch
+  OutlookBuildNotifyEmail -->|a15 mapsTo| BuildRun
+  OutlookBuildNotifyEmail -->|a16 mapsTo| EmailNotify
+  InfoSiteBuildFolderPage -->|a17 mapsTo| BuildArtifact
+  PhabricatorTaskPage -->|a18 mapsTo| PhabricatorTask
+  PhabricatorTaskPage -->|a19 mapsTo| ValidationRecord
+  TeamsCoreThreadView -->|a20 mapsTo| CommunicationThread
+  TeamsCoreThreadView -->|a21 mapsTo| Team
+
+  classDef core fill:#e8f2ff,stroke:#2f6fb0,stroke-width:1px;
+  classDef adapter fill:#fff4e6,stroke:#b06c2f,stroke-width:1px;
+
+  class ProductFamily,Top3Case,NFR,Issue,BugNote,ActionHistory,Top3Build,Patch,BranchRequest,Branch,BuildRequest,BuildRun,BuildArtifact,ValidationRecord,ReleaseNote,PhabricatorTask,EmailNotify,Person,Team,CommunicationThread core;
+  class MantisTop3CasePage,MantisNFRPage,MantisIssuePage,MantisBugNoteSection,MantisActionHistorySection,JenkinsBranchRequestFormPage,JenkinsBranchProjectPage,JenkinsBuildWithParametersPage,OutlookBranchRequestEmail,OutlookBranchApprovedEmail,OutlookBuildNotifyEmail,InfoSiteBuildFolderPage,PhabricatorTaskPage,TeamsCoreThreadView adapter;

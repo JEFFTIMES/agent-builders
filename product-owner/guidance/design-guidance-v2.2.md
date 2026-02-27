@@ -100,9 +100,11 @@ Provide a practical modeling and documentation standard for agentic workflow des
 ## 7. Output Artifacts (Required)
 
 1. Canonical data model
-- `working/<product>/preview/data-model-<scope>-vX.Y.md`
+- `working/<product>/preview/data-model-core-<scope>-vX.Y.md`
+- `working/<product>/preview/data-model-adapter-<scope>-vX.Y.md`
 - `working/<product>/preview/data-model-<scope>-graph-vX.Y.yaml`
 - `working/<product>/preview/data-model-<scope>-graph-vX.Y.mmd`
+- keep core/adapter models separated in .md format but combine them together in .mmd and .yaml format
 
 2. State model
 - `working/<product>/preview/state-model-<scope>-vX.Y.md`
@@ -171,7 +173,7 @@ Each modeling version must include:
 ### 10.1 Data Model Template
 
 ```md
-## Data Model - <scope> v<version>
+## Data Model Layer - <scope> - <Core/Adapter> v<version>
 
 ## 0. Metadata
 - Product:
@@ -195,7 +197,7 @@ Each modeling version must include:
 #### Property Source Check
 #### Relation Source Check
 
-## 2.1 Interface/Presentation Adapter Mapping
+## 2.1 Core/Adapter Mapping
 | Adapter Object | App Field | Canonical Property | Read/Write Policy | Confirmation |
 
 ## 3. Derivation / Composition Rules

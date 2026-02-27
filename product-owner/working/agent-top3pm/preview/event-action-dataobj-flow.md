@@ -177,3 +177,19 @@ Do not define state for every changeable property. Define state only when all/mo
 3. Do not leak temporary app-specific fields into canonical entities unless they are real business facts.
 4. Define explicit mapping rules and ownership for each mapped field.
 5. Tie interface-layer write actions to `external_data_touch_policy`.
+
+---
+
+## 9. v3.3 Canonical Interaction Slice (AI-Agent First)
+
+- Canonical artifact: `working/agent-top3pm/preview/workflow-interaction-events-v3.3.md`
+- Actor default for operational execution: `AI-Agent`
+- Human role: PM confirms exception paths (`agent_suggest_only` or low-confidence match cases)
+
+### 9.1 Canonical Sequence
+
+1. `(caseStart)` -> `<AI-Agent>` checks `Mantis.Top3CasePage.branch` and emits `(branchNotExist)` if empty.
+2. `(branchNotExist)` -> `<AI-Agent>` fills/submits `Jenkins.BranchRequestPage` and emits `(branchRequestSubmitted)`.
+3. `(regularlyCheckEmail)` -> `<AI-Agent>` parses `Outlook.EmailNotify` and emits `(emailParsed)`.
+4. `(emailParsed)` -> `<AI-Agent>` matches email to `BranchRequest` and emits `(branchApproved|branchRejected)`.
+5. `(branchApproved)` -> `<AI-Agent>` updates `Mantis.Top3CasePage.branch` and emits `(branchNameUpdated)`.

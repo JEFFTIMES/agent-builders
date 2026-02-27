@@ -90,3 +90,11 @@
 - [2026-02-26 12:28:07 PST] [WFL-1 Preview] START: Reviewed HPO-updated `guidance/design-guidance-v2.1.md` and identified missing sections/placeholders to complete.
 - [2026-02-26 12:30:22 PST] [WFL-1 Preview] IN-PROGRESS: Updated `design-guidance-v2.1.md` by completing discovery-method approach (4-lane abstraction), adding layer-integration rules, and filling missing State/Interaction/Automation templates.
 - [2026-02-26 12:34:56 PST] [WFL-1 Preview] IN-PROGRESS: Promoted updated guidance to `guidance/design-guidance-v2.2.md` from finalized `v2.1` content.
+
+- [2026-02-26 12:58:10 PST] [WFL-1 Preview] START: Re-initialized context per AGENTS.md by reviewing guidance (`design-guidance-v2.2.md`, `interview.md`, `interrogation.md`), progress, and latest `v3.2` preview artifacts.
+- [2026-02-26 12:58:10 PST] [WFL-1 Preview] BREAKPOINT: Waiting HPO refresh confirmation on next entity focus; pending source-check coverage remains for `Branch`, `BuildRequestPage`, `BuildRequest`, `BuildRun`, `ValidationRecord`, `ReleaseNote`, `Person`, `Team`, and `CommunicationThread`.
+- [2026-02-26 13:27:57 PST] [WFL-1 Preview] START: Began v4.0 model restructure per HPO gap report; reviewed all primary `assets/top3apps` artifacts (Mantis/Jenkins/Outlook/Teams/Phabricator/InfoSite) and aligned workflow interpretation.
+- [2026-02-26 13:27:57 PST] [WFL-1 Preview] IN-PROGRESS: Split Layer-1 into `data-model-core-top3-workflow-v4.0.md` + `data-model-adapter-top3-workflow-v4.0.md`; completed pending entity source-check coverage and added `BuildArtifact` canonical entity from InfoSite evidence.
+- [2026-02-26 13:27:57 PST] [WFL-1 Preview] COMPLETED: Produced missing Layer-2/3/4 artifacts (`state-model-top3-workflow-v4.0.md`, `event-action-dataobj-flow-top3-workflow-v4.0.md`, `automation-policy-top3-workflow-v4.0.md`) with explicit AI-agent actions and policy boundaries.
+- [2026-02-26 13:38:33 PST] [WFL-1 Preview] IN-PROGRESS: Created combined graph artifacts for `v4.0` (`data-model-top3-workflow-graph-v4.0.yaml` + `.mmd`) to synchronize core/adapter split with machine-readable and visual models.
+- [2026-02-26 13:38:48 PST] [WFL-1 Preview] COMPLETED: Delivered `v4.0` graph artifacts (`data-model-top3-workflow-graph-v4.0.yaml`, `data-model-top3-workflow-graph-v4.0.mmd`) and validated YAML loadability.

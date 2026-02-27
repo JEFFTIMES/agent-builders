@@ -1,0 +1,700 @@
+model:
+  name: top3_workflow
+  version: v4.0
+  format: graph_friendly_layered
+  source_of_truth:
+    - working/agent-top3pm/preview/data-model-core-top3-workflow-v4.0.md
+    - working/agent-top3pm/preview/data-model-adapter-top3-workflow-v4.0.md
+
+entities:
+  - name: ProductFamily
+    layer: core
+    key: productFamilyId
+    properties: [productFamilyId, name]
+  - name: Top3Case
+    layer: core
+    key: caseId
+    properties:
+      - caseId
+      - title
+      - caseCategory
+      - status
+      - severity
+      - eta
+      - createdAt
+      - updatedAt
+      - description
+      - customerName
+      - pmOwnerId
+      - qaOwnerId
+      - devOwnerId
+      - supportOwnerIds
+      - branch
+      - hardwareModels
+      - caseSummary
+      - currentPhase
+      - closedAt
+      - closureReason
+  - name: NFR
+    layer: core
+    key: nfrId
+    properties:
+      - nfrId
+      - product
+      - solutionRaw
+      - solutionTags
+      - summary
+      - description
+      - status
+      - severity
+      - reporterId
+      - dateSubmitted
+      - lastUpdate
+      - eta
+      - affectedCustomer
+      - salesforceOppIds
+      - salesforceAccountIds
+      - additionalInformation
+      - duplicateNfrId
+      - referredNfrIds
+      - referredIssueIds
+      - conclusion
+  - name: Issue
+    layer: core
+    key: issueId
+    properties:
+      - issueId
+      - title
+      - description
+      - status
+      - severity
+      - category
+      - reproducibility
+      - reporterId
+      - assignedDevId
+      - qaAssigneeId
+      - reproducedById
+      - reportedVersion
+      - earliestBuildNumber
+      - resolvedIn
+      - fixSchedule
+      - duplicateIssueId
+      - referredIssueIds
+      - referredNfrIds
+      - conclusion
+  - name: BugNote
+    layer: core
+    key: bugNoteId
+    properties:
+      - bugNoteId
+      - parentTicketId
+      - authorId
+      - createdAt
+      - headlineRaw
+      - headlineType
+      - rawText
+      - mentionedTicketIds
+      - phabTaskIds
+      - extractAt
+  - name: ActionHistory
+    layer: core
+    key: actionHistoryId
+    properties: [actionHistoryId, parentCaseId, sourceSystem, sourceSection]
+  - name: Top3Build
+    layer: core
+    key: top3BuildId
+    properties: [top3BuildId, buildNumber, buildQualifier, sequenceNo, sourceSystem]
+  - name: Patch
+    layer: core
+    key: patchId
+    properties:
+      - patchId
+      - top3BuildId
+      - issueId
+      - issueTitle
+      - mainBranchPointRaw
+      - mainBranchPoint
+      - mergeToMainState
+      - sequenceNo
+  - name: BranchRequest
+    layer: core
+    key: requestId
+    properties:
+      - requestId
+      - requestStatus
+      - requestedAt
+      - branchName
+      - majorVersion
+      - minorVersion
+      - branchPoint
+      - branchType
+      - forCustomer
+      - top3CaseId
+      - productFamily
+      - requestorId
+      - devLeadId
+      - pmLeadId
+      - branchSourceCodeUrl
+      - branchJobUrl
+  - name: Branch
+    layer: core
+    key: branchName
+    properties:
+      - branchName
+      - productFamily
+      - majorVersion
+      - minorVersion
+      - branchPoint
+      - branchType
+      - createdAt
+      - createdByApp
+      - createdByRef
+      - lastSyncedAt
+      - sourceBranchRequestId
+  - name: BuildRequest
+    layer: core
+    key: buildRequestId
+    properties:
+      - buildRequestId
+      - requestedAt
+      - requestStatus
+      - gitProject
+      - gitRef
+      - gitlabUrl
+      - branchType
+      - patchVersion
+      - buildLabel
+      - buildLabelOther
+      - emailRecipients
+      - buildDescription
+      - selectedCombinations
+      - runDbUpdate
+      - appendModelName
+      - trial
+      - maturity
+      - sa
+      - saPatchVersion
+  - name: BuildRun
+    layer: core
+    key: buildRunId
+    properties:
+      - buildRunId
+      - buildTag
+      - result
+      - triggeredAt
+      - finishedAt
+      - notifiedAt
+      - consoleOutputUrl
+      - imagesStoreAt
+      - notificationRef
+  - name: BuildArtifact
+    layer: core
+    key: artifactId
+    properties:
+      - artifactId
+      - buildRunId
+      - top3BuildId
+      - name
+      - artifactType
+      - size
+      - lastModifiedAt
+      - downloadUrl
+      - viewUrl
+      - checksumRef
+  - name: ValidationRecord
+    layer: core
+    key: validationId
+    properties: [validationId, environment, reproSteps, observedResult, expectedResult, validationStatus, evidenceLink]
+  - name: ReleaseNote
+    layer: core
+    key: releaseNoteId
+    properties: [releaseNoteId, content, authorId, createdAt, publishStatus]
+  - name: PhabricatorTask
+    layer: core
+    key: phabTaskId
+    properties:
+      - phabTaskId
+      - phabUrl
+      - top3CaseId
+      - title
+      - status
+      - assignedToId
+      - updatedAt
+      - latestCommentAt
+      - latestCommentSummary
+      - latestChecklistUrls
+      - checklistSyncState
+  - name: EmailNotify
+    layer: core
+    key: emailNotifyId
+    properties:
+      - emailNotifyId
+      - receivedAt
+      - sender
+      - titleRaw
+      - eventType
+      - branchName
+      - branchSourceCodeUrl
+      - branchJobUrl
+      - buildNumber
+      - imagesStoreAt
+      - consoleOutputUrl
+      - ticketUrl
+  - name: Person
+    layer: core
+    key: personId
+    properties: [personId, name, roleType, email]
+  - name: Team
+    layer: core
+    key: teamId
+    properties: [teamId, teamType, channelRef, topic]
+  - name: CommunicationThread
+    layer: core
+    key: threadId
+    properties: [threadId, platform, topic, createdAt, lastMessageAt]
+
+  - name: MantisTop3CasePage
+    layer: adapter
+    key: pageRef
+    properties: [pageRef, summary, status, severity, eta, assignedPm, assignedTo, qaAssignee, branchMergeList, nfrField]
+  - name: MantisNFRPage
+    layer: adapter
+    key: pageRef
+    properties: [pageRef, product, solution, summary, description, status, reporter, salesforceOppIds]
+  - name: MantisIssuePage
+    layer: adapter
+    key: pageRef
+    properties: [pageRef, category, severity, reproducibility, summary, description, status, resolution, assignedTo]
+  - name: MantisBugNoteSection
+    layer: adapter
+    key: sectionRef
+    properties: [sectionRef, noteAuthor, noteCreatedAt, noteBody]
+  - name: MantisActionHistorySection
+    layer: adapter
+    key: sectionRef
+    properties: [sectionRef, rowId, mergedCol, summaryCol, top3BuildMarker]
+  - name: JenkinsBranchRequestFormPage
+    layer: adapter
+    key: pageRef
+    properties: [pageRef, GITLAB_TOP_LEVEL_GROUP, GITLAB_PROJECT, MAJOR_VERSION, MINOR_VERSION, NEW_BRANCH_NAME, BRANCH_POINT, BRANCH_TYPE, BRANCH_DESCRIPTION, FOR_CUSTOMER, DEV_LEAD, PM_LEAD]
+  - name: JenkinsBranchProjectPage
+    layer: adapter
+    key: pageRef
+    properties: [pageRef, devLead, pmLead, branchType, description, createdAt, initialBranchPoint, repositoryUrls, buildHistory]
+  - name: JenkinsBuildWithParametersPage
+    layer: adapter
+    key: pageRef
+    properties: [pageRef, GIT_PROJECT, GIT_REF, GITLAB_URL, PATCH_VERSION, BUILD_LABEL, EMAIL_RECIPIENTS, BUILD_DESCRIPTION, MATRIX, RUN_DB_UPDATE, TRIAL, SA]
+  - name: OutlookBranchRequestEmail
+    layer: adapter
+    key: messageRef
+    properties: [messageRef, title, branchName, version, branchType, branchPoint, requestor, devLead, pmLead, forCustomer, top3CaseId]
+  - name: OutlookBranchApprovedEmail
+    layer: adapter
+    key: messageRef
+    properties: [messageRef, title, branchName, sourceCodeUrl, jenkinsJobUrl]
+  - name: OutlookBuildNotifyEmail
+    layer: adapter
+    key: messageRef
+    properties: [messageRef, title, result, buildNumber, consoleUrl, infositeUrl, sender, receivedAt]
+  - name: InfoSiteBuildFolderPage
+    layer: adapter
+    key: pageRef
+    properties: [pageRef, folderPath, fileName, lastModified, size, actions]
+  - name: PhabricatorTaskPage
+    layer: adapter
+    key: pageRef
+    properties: [pageRef, taskId, title, status, assignee, mantisIds, checklistLinks, timeline]
+  - name: TeamsCoreThreadView
+    layer: adapter
+    key: threadRef
+    properties: [threadRef, topic, participants, messages, messageTime]
+
+relations:
+  - id: r01
+    type: hasNFR
+    from: Top3Case
+    to: NFR
+    cardinality: 0..*
+  - id: r02
+    type: hasIssue
+    from: Top3Case
+    to: Issue
+    cardinality: 0..*
+  - id: r03
+    type: hasBugNote
+    from: Top3Case
+    to: BugNote
+    cardinality: 0..*
+  - id: r04
+    type: hasActionHistory
+    from: Top3Case
+    to: ActionHistory
+    cardinality: 0..*
+  - id: r05
+    type: hasTop3Build
+    from: ActionHistory
+    to: Top3Build
+    cardinality: 0..*
+  - id: r06
+    type: hasPatch
+    from: Top3Build
+    to: Patch
+    cardinality: 0..*
+  - id: r07
+    type: fixesIssue
+    from: Patch
+    to: Issue
+    cardinality: 1..1
+  - id: r08
+    type: usesBranch
+    from: Top3Case
+    to: Branch
+    cardinality: 0..*
+  - id: r09
+    type: raisedForTop3Case
+    from: BranchRequest
+    to: Top3Case
+    cardinality: 1..1
+  - id: r10
+    type: generatesBranch
+    from: BranchRequest
+    to: Branch
+    cardinality: 0..1
+  - id: r11
+    type: usesBranch
+    from: BuildRequest
+    to: Branch
+    cardinality: 1..1
+  - id: r12
+    type: spawns
+    from: BuildRequest
+    to: BuildRun
+    cardinality: 0..*
+  - id: r13
+    type: publishesTop3Build
+    from: BuildRun
+    to: Top3Build
+    cardinality: 0..*
+  - id: r14
+    type: publishesArtifact
+    from: BuildRun
+    to: BuildArtifact
+    cardinality: 0..*
+  - id: r15
+    type: publishesArtifact
+    from: Top3Build
+    to: BuildArtifact
+    cardinality: 0..*
+  - id: r16
+    type: validates
+    from: ValidationRecord
+    to: BuildRun
+    cardinality: 1..1
+  - id: r17
+    type: validatesIssue
+    from: ValidationRecord
+    to: Issue
+    cardinality: 0..*
+  - id: r18
+    type: trackedIn
+    from: ValidationRecord
+    to: PhabricatorTask
+    cardinality: 0..1
+  - id: r19
+    type: summarizes
+    from: ReleaseNote
+    to: ValidationRecord
+    cardinality: 0..*
+  - id: r20
+    type: publishesDeliverable
+    from: Top3Case
+    to: ReleaseNote
+    cardinality: 0..*
+  - id: r21
+    type: linkedTo
+    from: PhabricatorTask
+    to: Top3Case
+    cardinality: 1..1
+  - id: r22
+    type: updatesStatus
+    from: EmailNotify
+    to: BranchRequest
+    cardinality: 0..*
+  - id: r23
+    type: notifiesBuildRun
+    from: EmailNotify
+    to: BuildRun
+    cardinality: 0..*
+  - id: r24
+    type: hasTeam
+    from: Top3Case
+    to: Team
+    cardinality: 0..*
+  - id: r25
+    type: usesThread
+    from: Team
+    to: CommunicationThread
+    cardinality: 1..1
+  - id: r26
+    type: ownedBy
+    from: Top3Case
+    to: Person
+    role: PM
+    cardinality: 1..1
+  - id: r27
+    type: hasQaOwner
+    from: Top3Case
+    to: Person
+    role: QA
+    cardinality: 0..1
+  - id: r28
+    type: hasDevOwner
+    from: Top3Case
+    to: Person
+    role: Dev
+    cardinality: 0..1
+  - id: r29
+    type: requestedBy
+    from: BranchRequest
+    to: Person
+    cardinality: 0..1
+  - id: r30
+    type: hasDevLead
+    from: BranchRequest
+    to: Person
+    role: Dev
+    cardinality: 0..1
+  - id: r31
+    type: hasPmLead
+    from: BranchRequest
+    to: Person
+    role: PM
+    cardinality: 0..1
+  - id: r32
+    type: hasDevLead
+    from: Branch
+    to: Person
+    role: Dev
+    cardinality: 1..1
+  - id: r33
+    type: hasPmLead
+    from: Branch
+    to: Person
+    role: PM
+    cardinality: 1..1
+  - id: r34
+    type: assignedTo
+    from: PhabricatorTask
+    to: Person
+    cardinality: 0..1
+  - id: r35
+    type: hasBugNote
+    from: NFR
+    to: BugNote
+    cardinality: 0..*
+  - id: r36
+    type: hasBugNote
+    from: Issue
+    to: BugNote
+    cardinality: 0..*
+  - id: r37
+    type: references
+    from: BugNote
+    to: NFR
+    cardinality: 0..*
+  - id: r38
+    type: references
+    from: BugNote
+    to: Issue
+    cardinality: 0..*
+  - id: r39
+    type: references
+    from: BugNote
+    to: PhabricatorTask
+    cardinality: 0..*
+
+  - id: a01
+    type: mapsTo
+    from: MantisTop3CasePage
+    to: Top3Case
+    cardinality: 1..1
+  - id: a02
+    type: mapsTo
+    from: MantisNFRPage
+    to: NFR
+    cardinality: 1..1
+  - id: a03
+    type: mapsTo
+    from: MantisIssuePage
+    to: Issue
+    cardinality: 1..1
+  - id: a04
+    type: mapsTo
+    from: MantisBugNoteSection
+    to: BugNote
+    cardinality: 1..*
+  - id: a05
+    type: mapsTo
+    from: MantisActionHistorySection
+    to: ActionHistory
+    cardinality: 1..1
+  - id: a06
+    type: mapsTo
+    from: MantisActionHistorySection
+    to: Top3Build
+    cardinality: 0..*
+  - id: a07
+    type: mapsTo
+    from: MantisActionHistorySection
+    to: Patch
+    cardinality: 0..*
+  - id: a08
+    type: submitsTo
+    from: JenkinsBranchRequestFormPage
+    to: BranchRequest
+    cardinality: 1..*
+  - id: a09
+    type: mapsTo
+    from: JenkinsBranchProjectPage
+    to: Branch
+    cardinality: 1..1
+  - id: a10
+    type: mapsTo
+    from: JenkinsBranchProjectPage
+    to: BuildRun
+    cardinality: 0..*
+  - id: a11
+    type: submitsTo
+    from: JenkinsBuildWithParametersPage
+    to: BuildRequest
+    cardinality: 1..*
+  - id: a12
+    type: mapsTo
+    from: OutlookBranchRequestEmail
+    to: BranchRequest
+    cardinality: 1..1
+  - id: a13
+    type: mapsTo
+    from: OutlookBranchApprovedEmail
+    to: BranchRequest
+    cardinality: 1..1
+  - id: a14
+    type: mapsTo
+    from: OutlookBranchApprovedEmail
+    to: Branch
+    cardinality: 1..1
+  - id: a15
+    type: mapsTo
+    from: OutlookBuildNotifyEmail
+    to: BuildRun
+    cardinality: 1..1
+  - id: a16
+    type: mapsTo
+    from: OutlookBuildNotifyEmail
+    to: EmailNotify
+    cardinality: 1..1
+  - id: a17
+    type: mapsTo
+    from: InfoSiteBuildFolderPage
+    to: BuildArtifact
+    cardinality: 1..*
+  - id: a18
+    type: mapsTo
+    from: PhabricatorTaskPage
+    to: PhabricatorTask
+    cardinality: 1..1
+  - id: a19
+    type: mapsTo
+    from: PhabricatorTaskPage
+    to: ValidationRecord
+    cardinality: 0..*
+  - id: a20
+    type: mapsTo
+    from: TeamsCoreThreadView
+    to: CommunicationThread
+    cardinality: 1..1
+  - id: a21
+    type: mapsTo
+    from: TeamsCoreThreadView
+    to: Team
+    cardinality: 0..*
+
+link_keys:
+  - Top3Case.caseId = Mantis bug_id
+  - NFR.nfrId = Mantis bug_id of NFR ticket
+  - Issue.issueId = Mantis bug_id of issue ticket
+  - BranchRequest.branchName + requestedAt = deterministic request identity fallback
+  - Branch.branchName = canonical branch key across Jenkins/Email/Mantis
+  - BuildRun.buildRunId = Jenkins job path + build number
+  - BuildArtifact.artifactId = BuildRun.buildRunId + artifact file name
+  - PhabricatorTask.phabTaskId = task id T<id>
+  - Person.personId = normalized corporate account id token
+  - EmailNotify.emailNotifyId = message-id fallback to normalized subject + receivedAt
+
+adapter_field_mappings:
+  - adapter: MantisTop3CasePage
+    field: Status
+    canonical: Top3Case.status
+    policy: agent_managed
+  - adapter: MantisTop3CasePage
+    field: Branch Merge List
+    canonical: Top3Case.branch
+    policy: agent_managed
+  - adapter: MantisNFRPage
+    field: Solution
+    canonical: NFR.solutionRaw
+    policy: agent_managed
+  - adapter: MantisIssuePage
+    field: Assigned To
+    canonical: Issue.assignedDevId
+    policy: agent_managed
+  - adapter: JenkinsBranchRequestFormPage
+    field: NEW_BRANCH_NAME
+    canonical: BranchRequest.branchName
+    policy: agent_managed
+  - adapter: JenkinsBuildWithParametersPage
+    field: MATRIX
+    canonical: BuildRequest.selectedCombinations
+    policy: agent_managed
+  - adapter: OutlookBranchApprovedEmail
+    field: Jenkins Job URL
+    canonical: BranchRequest.branchJobUrl
+    policy: system_sync_only
+  - adapter: OutlookBuildNotifyEmail
+    field: Console Output URL
+    canonical: BuildRun.consoleOutputUrl
+    policy: system_sync_only
+  - adapter: InfoSiteBuildFolderPage
+    field: file rows
+    canonical: BuildArtifact.*
+    policy: system_sync_only
+
+derivation_rules:
+  - name: top3case_closure_reason_derivation
+    target: Top3Case.closureReason
+    rule: infer closure rationale from final status + release/close notes + validation evidence
+  - name: top3case_phase_derivation
+    target: Top3Case.currentPhase
+    rule: classify phase from status, action history, build and validation signals
+  - name: nfr_solution_tags_derivation
+    target: NFR.solutionTags
+    rule: split solutionRaw by comma and normalize
+  - name: nfr_references_derivation
+    target: NFR.referredIssueIds, NFR.referredNfrIds
+    rule: parse bugnotes and description for ticket reference patterns
+  - name: issue_references_derivation
+    target: Issue.referredIssueIds, Issue.referredNfrIds
+    rule: parse issue bugnotes for ticket reference patterns
+  - name: patch_main_branch_derivation
+    target: Patch.mainBranchPointRaw, Patch.mainBranchPoint, Patch.mergeToMainState
+    rule: derive branchpoint and merge state from linked Issue.resolvedIn
+  - name: email_event_type_derivation
+    target: EmailNotify.eventType
+    rule: classify event from sender + subject + body patterns
+  - name: build_artifact_type_derivation
+    target: BuildArtifact.artifactType
+    rule: infer artifact type from file naming patterns and extension
+
+open_confirmations:
+  - Build failure `.msg` extraction remains parser-dependent; current graph uses stable headers/URLs only.
